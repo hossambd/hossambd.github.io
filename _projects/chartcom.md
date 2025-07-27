@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Crystal Hansen Artographic Project
-description: An exploration in React Frameworks v2 to learn practically with an html site and includes.
+title: Crystal Hansen Artographic Platform
+description: A full stack development of a photography driven personal website to embody a full feature studio profession, workshops, products, studio features.
 img: assets/img/9.jpg
 permalink: /projects/chartcom/
 importance: 3
@@ -9,9 +9,24 @@ category: work
 related_publications: false
 ---
 
-# Crystal Hansen Artographic V2 Platform
 
-This project is a hybrid full-stack web application combining a **React frontend**, a **Node.js backend for development**, and a **PHP-based API** for live production. It serves as a creative portfolio and studio booking platform with dynamic image rendering, product showcasing, and scheduling.
+### General Websites Collection
+
+- [Site A – vanilla](/projects/vanilla)
+- [Site B – crystalhansenartographic](/projects/chartcom/)
+
+##### Wordpress site
+- [Site C – crystalhansenartographic.ca](/projects/wp-artographic/)
+
+#### React SPA
+- [Site D - zackly-rite-spa](/projects/zackly-rite-spa/)
+- [Site E – crystalhansenartographic](/projects/crystalhansenartographic/)
+
+
+## Introduction 
+
+This project is a hybrid full-stack web application combining a **React frontend**, a **Node.js backend for development**, and a **PHP-based API** for live production. It serves as a creative portfolio and studio booking platform with dynamic image rendering, product showcasing, and scheduling. The system uses json files to deliver 'real data' to facilitate displays. 
+
 
 ---
 

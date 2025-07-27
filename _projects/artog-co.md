@@ -48,13 +48,13 @@ They represent some areas that are exclusive the the Artog.co ecosystem. The lis
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/photography-qa-trend.png" title="Photography Trending Ideas prompt" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/photography-qa-trend-dark.png" title="Photography Trending Ideas prompt using rule based QA" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/image-gallery-2.png" title="Conference Agenda module" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/image-gallery-2-dark.png" title="User Image Gallery Dashboard" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/artog.png" title="Email Subscription" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/artog-key-features-dark.png.png" title="Artog Key Features Block" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -68,35 +68,38 @@ The sales dashboard is a fun little addition to the user_profile_account. This r
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/artog/artog-dashboard.png" title="Sales Dashboard" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/artog/artog-sales-dashboard-dark.png" title="Sales Dashboard charts.js integration and fake data display" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/artog/photography-qa-ex.png" title="Question Answer Example exercise for photography boredom" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/artog/photography-qa-ex-dark.png" title="Question Answer Example exercise for photography boredom" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    The most interesting section and favorite of artog is its interactive user profile functions. The fake data cron job makes this page always have data. 
+    The most interesting section and favorite of artog is its interactive user profile functions. The fake data cron job makes this page always have display sales from a fake generator used in the backend. The dashboard uses charts.js features and options. 
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/artog_get_more_overview.png" title="Photography Trending Ideas prompt" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/artog-get-more-overview-dark.png" title="User Overview dashboard" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/artog_get_more_security.png" title="Conference Agenda module" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/artog-get-more-security-dark.png" title="User Security Features dashboard" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/artog.png" title="Email Subscription" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/artog-dark.png" title="Front Page Welcome to Artog" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/tickets.png" title="Ticketing Section" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/add-on-tickets-dark.png" title="User Ticketing dashboard. Section For users to communicate with the Artog system issues" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/orders_invoices.png" title="Orders and Invoices" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/orders-invoices-dark.png" title="User Orders and Invoices Dashboard" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/artog/activated_license.png" title="Activated Licenses" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/artog/activated-license-dark.png" title="User Activated Licenses Dashboard" class="img-fluid rounded z-depth-1" %}
     </div>
+</div>
+<div class="caption">
+    The user dashboard features and configurations to engage in the artog ecosystem platform to get the most out of your experience, with hands on account information, orders and invoices layout.  
 </div>
 

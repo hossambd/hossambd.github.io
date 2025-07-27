@@ -36,13 +36,13 @@ They represent some areas that are more exclusive the the Pinmento ecosystem. Th
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/pinmento/orbie-layout.png" title="Fortune-ai drupal integration chat bot" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/pinmento/orbie-layout-dark.png" title="Fortune-ai drupal integration chat bot" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/pinmento/orbie-chatgpt-response-button-key.png" title="Fortune-ai drupal integration chat bot" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/pinmento/orbie-button-response-fortune-dark.png" title="Fortune-ai drupal integration chat bot" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/pinmento/random-based-response-enter-key.png" title="Fortune-ai drupal integration chat botn" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/pinmento/orbie-random-enter-key-dark.png" title="Fortune-ai drupal integration chat botn" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -50,13 +50,13 @@ They represent some areas that are more exclusive the the Pinmento ecosystem. Th
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/pinmento/pin-location-form.png" title="Pin Locations Form Data and image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/pinmento/auto-pin-drop-dark.png" title="Pin Locations Form Data and image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/pinmento/recent-pins.png" title="Recent Posted Pins Public view" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/pinmento/recent-pins-dark.png" title="Recent Posted Pins Public view" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/576x400_ltgrey.png" title="576x400 Placeholder" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/pinmento/pinmento-dark.png" title="576x400 Placeholder" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">

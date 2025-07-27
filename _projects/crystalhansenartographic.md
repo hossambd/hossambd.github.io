@@ -9,6 +9,26 @@ category: work
 related_publications: false
 ---
 
+### General Websites Collection
+##### Vanilla Site
+- [Site A – vanilla](/projects/vanilla)
+
+##### Angular Sites
+- [Site B – studio-booker](/projects/studio-booker/)
+- [Site C – flashcards](/projects/flashcards/)
+
+##### Wordpress site
+- [Site D – crystalhansenartographic.ca](/projects/wp-artographic/)
+
+#### React SPA
+- [Site E - zackly-rite-spa](/projects/zackly-rite-spa/)
+- [Site F – chartcom](/projects/chartcom/)
+- [Site G – crystalhansenartographicv1 ] (/projects/crystalhansenartographic/)
+
+
+---
+
+
 ### Introduction
 
 This project is a preliminary React, HTML and  Bootstrap and PHP-based api platform designed for streamlined photography sessions scheduling and administration. The front end utilizes clean Bootstrap styling coupled with React cdn resources while the back end is powered by a structured custom PHP API.
@@ -17,13 +37,23 @@ This website is intended to navigate a site for artistic endeavours like worksho
 
 Additional tools include PHPMailer for transactional email handling. Please visit https://crystalhansenartographic.com/react-app/
 
-### General Websites Collection
 
-- [Site A – zackly-rite ](/projects/zackly-rite)
-- [Site B – crystalhansenartographic] crystalhansenartographic.com/react-app/
+### General Websites Collection
+##### Vanilla Site
+- [Site A – vanilla](/projects/vanilla)
+
+##### Angular Sites
+- [Site B – studio-booker](/projects/studio-booker/)
+- [Site C – flashcards](/projects/flashcards/)
 
 ##### Wordpress site
-- [Site C – crystalhansenartographic.ca](/projects/wp-artographic)
+- [Site D – crystalhansenartographic.ca](/projects/wp-artographic/)
+
+#### React SPA
+- [Site E - zackly-rite-spa](/projects/zackly-rite-spa/)
+- [Site F – chartcom](/projects/chartcom/)
+- [Site G – crystalhansenartographicv1 ](/projects/crystalhansenartographic/)
+
 
 ---
 

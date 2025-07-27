@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Artographic Wordpress Project
-description: Wordpress driven website of crystalhansenartographic.ca incorporating polling and brevo connections. 
+title: Artographic Wordpress Agency Project
+description: Wordpress driven website of crystalhansenartographic.ca as an agency for web development incorporating polling and brevo connections. 
 img: assets/img/9.jpg
 permalink: /projects/wp-artographic/
 importance: 2
@@ -10,15 +10,26 @@ related_publications: false
 ---
 
 
-### General Websites Collection
 
-- [Site A – zackly-rite ](/projects/zackly-rite)
-- [Site B – crystalhansenartographic](https://crystalhansenartographic.com)
+### General Websites Collection
+##### Vanilla Site
+- [Site A – vanilla](/projects/vanilla)
+
+##### Angular Sites
+- [Site B – studio-booker](/projects/studio-booker/)
+- [Site C – flashcards](/projects/flashcards/)
 
 ##### Wordpress site
-- [Site C – crystalhansenartographic.ca] artographic wordpress
+- [Site D – crystalhansenartographic.ca] (/projects/wp-artographic/)
+
+#### React SPA
+- [Site E - zackly-rite-spa](/projects/zackly-rite-spa/)
+- [Site F – chartcom](/projects/chartcom/)
+- [Site G – crystalhansenartographicv1 ](/projects/crystalhansenartographic/)
+
 
 ---
+
 
 I developed a WordPress-based test site to explore the capabilities of the Inspiro theme and its integration with Brevo (formerly Sendinblue) for email marketing automation. The project focuses on evaluating user experience design, theme customization, and plugin compatibility. Key plugins used include GoSMTP for secure email delivery, WPZOOM Forms for form creation and submissions, and Poll Maker alongside Poll for interactive user feedback. This setup provides a lightweight and modular environment to test workflows, design patterns, and marketing integrations in a real-world context. Visit: https://crystalhansenartographic.ca and brows around take a poll. https://crystalhansenartographic.ca/creative-strategy/#ays-poll-container-2
 

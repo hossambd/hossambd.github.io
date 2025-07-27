@@ -118,13 +118,13 @@ They represent some areas that are more exclusive the EMTP & web ecosystem. The 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/emtp/DevicesPDFFileMigrationDisplay.png" title="EMTP Devices correletes with custom download Module" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/emtp/emtp-devices-dark.png" title="EMTP Devices correletes with custom download Module" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/emtp/EMTPConferenceAgendaModule.png" title="Conference Agenda module" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/emtp/emtp-conference-agenda-dark.png" title="Conference Agenda module" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/emtp/EMTPEmailModuleBlockModal.png" title="Email Subscription" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/emtp/emtp-newsletter-modal-dark.png" title="Email Subscription" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -132,7 +132,7 @@ They represent some areas that are more exclusive the EMTP & web ecosystem. The 
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/emtp/EMTPRBAConfigViews.png" title="Download Module connected to user RBA functionality" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/emtp/download-emtp-dark.png" title="Download Module connected to user RBA functionality" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -145,12 +145,20 @@ The below images are related to two form modules. One specific to emtp called `e
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/emtp/QuoteWebFormIntegration.png" title="Web Form Module Integration with Hubspot" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/emtp/emtp-webform-request-trial-dark.png" title="Web Form Module Integration with Hubspot" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/emtp/OneHourCallBlockPlacement.png" title="One Hour Call Form Block" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/emtp/emtp-product-1hc-dark.png" title="One Hour Call Form Block" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
    These images relate to the WebForm Module, webform_handler for Hubspot, Custom EMTP Forms with Block plugins for sales engagements.
+</div>
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/emtp/emtp-product-1hc-dark.png" title="Product page layout features and 1 hr call inclusion" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    The above image is associated with the one hour call block inclusion as well as the design of the features on the page. Basic Page feature of drupal and module to display blocks in page using module `Insert Block` via drupal.org/project/insert_block and appending [block:block_id] (Drupal 8/9) in page placement. It requires theme code to implement the functional display.
 </div>
