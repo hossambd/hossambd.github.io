@@ -25,20 +25,19 @@
   "work": [
     {
       "name": "Crystal Hansen Artographic",
-      "position": "Freelance Web developer, Personal Projects and Start-up developments",
-      "url": "https://crystalhansenartographic.com",
-      "startDate": "2025-04-04",
-      "endDate": "present",
-      "summary": "Full-stack web and SaaS application development through self-initiated projects focused on modern frameworks, cloud platforms, and AI. Projects include booking systems, NLP chatbots, mock data tools, and SEO-optimized portfolio sites. Deployed on AWS, Google Cloud, and integrated with OpenAI APIs for real-time AI experiences.",      
+      "summary": "Full-stack portfolio and booking platform for a professional photographer. Built with a custom React frontend and dual backend architecture for both development and production environments.",
       "highlights": [
-        "Java", "Spring", "Spring Boot", "Spring MVC",
-        "Angular", "React", "TypeScript", "RxJS",
-        "Node.js", "Express", "PHP API",
-        "Python", "Flask",
-        "AWS EC2", "Google Cloud", "ChatGPT API", "SEO Optimization"
-      ]
+        "React (Vite + TypeScript) frontend",
+        "Node.js + Express server with cron jobs",
+        "PHP API integration for live production",
+        "Dynamic galleries, bookings, and product listings",
+        "SEO optimization with React Helmet and .htaccess routing"
+      ],
+      "startDate": "2025-03-01",
+      "endDate": "present",
+      "url": "https://crystalhansenartographic.com"
     },
-      {
+    {
       "name": "PGSTECH",
       "position": "Web Developer (Full-Stack)",
       "url": "",
@@ -201,13 +200,22 @@
       "icon": "fa-solid fa-hashtag",
       "keywords": [
         "Java","AWS","Google",
-        "Spring - MVC,Boot,Hibernate",
+        "Spring - MVC, Boot, Hibernate",
         "Python",
         "Flask",
         "WebAPIs",
         "ETL Migrations",
-        "HTML", "CSS","Javascript"
-
+        "HTML", "CSS","Javascript",
+        "Angular",
+        "React",
+        "TypeScript",
+        "RxJS",
+        "Node.js",
+        "Express",
+        "PHP API",
+        "EC2",
+        "ChatGPT API",
+        "SEO Optimization"
       ]
     }
   ],
@@ -235,7 +243,10 @@
       "icon": "fa-solid fa-tag",
       "keywords": [
         "Composition",
-        "ISO"
+        "ISO",
+        "Photoshop",
+        "Lighting",
+        "digital enhancing"
       ]
     },
     {
@@ -243,7 +254,10 @@
       "icon": "fa-solid fa-tag",
       "keywords": [
         "Lightboxes",
-        "archetecture"
+        "architecture",
+        "logo creation",
+        "icon creation",
+        "digital drawing and painting"
       ]
     }
   ],
@@ -263,12 +277,104 @@
   "projects": [
     {
       "name": "Artog.co",
-      "summary": "Social Media and operations of Photographer/Model/Sales exchange and workflows",
-      "highlights": ["RBA", "Photography", "social networking","workflows"],
+      "summary": "Social media and operations platform for photographers, models, and creatives to collaborate, schedule, and manage portfolios and workflows.",
+      "highlights": ["Role-Based Access (RBA)", "Photography CMS", "Drupal", "Social networking features", "Booking workflows"],
       "startDate": "2024-01-01",
       "endDate": "present",
       "url": "https://artog.co"
+    },
+    {
+      "name": "Pinmento",
+      "summary": "Geolocation-based journaling web app built with a Drupal front end. Enables users to drop pins on a Google Map and attach journal entries, fostering memory mapping and reflective exploration.",
+      "highlights": [
+        "Drupal theming",
+        "Google Maps JavaScript API",
+        "Pin-drop journaling",
+        "Geospatial content management"
+      ],
+      "startDate": "2023-10-01",
+      "endDate": "present",
+      "url": "https://pinmento.com"
+    },
+    {
+      "name": "Studio Booker",
+      "summary": "Angular-based booking system to simulate real-world appointment scheduling and checkout using session state.",
+      "highlights": ["Angular 17", "Session state cart", "Time slot management", "PDF confirmation & checkout"],
+      "startDate": "2024-07-01",
+      "endDate": "present",
+      "url": "https://cryshansen.github.io/studio-booker"
+    },
+    {
+      "name": "Happy2Be",
+      "summary": "Java Spring Boot application focused on mood analysis and positive reinforcement through conversational prompts. Expands emotional intelligence in AI by analyzing sentiment polarity and providing feedback.",
+      "highlights": [
+        "Java Spring Boot",
+        "Sentiment Analysis",
+        "Conversational Prompts",
+        "Positive Reinforcement AI"
+      ],
+      "startDate": "2025-07-01",
+      "endDate": "present",
+      "url": ""
+    },
+    {
+      "name": "Fortune-ai",
+      "summary": "Microservice chatbot designed for playful, fortune-style prompts using natural language responses. Focused on GPT integration and simple Java Spring Boot API deployment. Deployed to AWS for accessible querying.",
+      "highlights": [
+        "Java Spring Boot",
+        "Prompt-to-Fortune Generator",
+        "AWS Deployment",
+        "REST API"
+      ],
+      "startDate": "2025-06-01",
+      "endDate": "present",
+      "url": "https://cryshansen.github.io/fortune-ai"
+    },
+    {
+      "name": "Oribie AI front end of (Fortune-AI)",
+      "summary": "Frontend integration of a Java-based AI microservice that delivers fortune-telling and emotionally intelligent prompts, embedded into the Pinmento website via JavaScript and PHP.",
+      "highlights": [
+        "Drupal frontend integration",
+        "JavaScript Fetch API",
+        "Spring Boot backend (Java)",
+        "Emotion-aware prompt rendering",
+        "PHP-based API handling",
+        "Embedded chatbot UI",
+        "OpenAI GPT integration"
+      ],
+      "startDate": "2024-10-01",
+      "endDate": "present",
+      "url": "https://pinmento.com"
+    },
+    {
+      "name": "Sales Data Trend Generator",
+      "summary": "Python-based tool for generating simulated photography sales data. Designed to support Drupal dashboard testing and realistic UI rendering during prototyping stages.",
+      "highlights": [
+        "Python Flask microservice for trend simulation",
+        "Mock sales data generation for time-series",
+        "Supports Drupal dashboard prototypes",
+        "Github integrated for CLI use and CI/CD"
+      ],
+      "startDate": "2024-12-01",
+      "endDate": "present",
+      "url": "https://github.com/cryshansen/flask-generate-sales"
+    },
+    {
+      "name": "Bookit App Platform",
+      "summary": "Modernized version of a 2019 booking system with full rebuild into a Spring Boot and Maven-based Java platform. Supports calendar slotting, cart, and checkout processes. Deployed to AWS for accessible querying.",
+      "highlights": [
+        "Java, Spring Boot, Spring MVC backend",
+        "Refactored from Angular.js legacy code",
+        "Calendar bookings + cart system",
+        "Centralized booking API for external websites",
+        "AWS EC2 and RDS deployment + Google Cloud integration"
+      ],
+      "startDate": "2024-11-01",
+      "endDate": "present",
+      "url": ""
     }
+
+    
   ]
 }
 
