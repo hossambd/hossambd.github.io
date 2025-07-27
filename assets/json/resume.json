@@ -25,6 +25,10 @@
   "work": [
     {
       "name": "Crystal Hansen Artographic",
+      "position":"Freelance Developer",
+      "url": "https://crystalhansenartographic.com",
+      "startDate": "2025-03-01",
+      "endDate": "present",
       "summary": "Full-stack portfolio and booking platform for a professional photographer. Built with a custom React frontend and dual backend architecture for both development and production environments.",
       "highlights": [
         "React (Vite + TypeScript) frontend",
@@ -32,15 +36,12 @@
         "PHP API integration for live production",
         "Dynamic galleries, bookings, and product listings",
         "SEO optimization with React Helmet and .htaccess routing"
-      ],
-      "startDate": "2025-03-01",
-      "endDate": "present",
-      "url": "https://crystalhansenartographic.com"
+      ]
     },
     {
       "name": "PGSTECH",
       "position": "Web Developer (Full-Stack)",
-      "url": "",
+      "url": "https://emtp.com",
       "startDate": "2021-03-03",
       "endDate": "2025-04-04",
       "summary": "Full-stack development of internal and public-facing platforms for a technology consultancy using PHP, Drupal, and modern cloud tools. Led key integrations, migrations, and performance improvements.",
@@ -86,7 +87,7 @@
     {
       "name": "Canadian Western Bank",
       "position": "IT Risk Analyst",
-        "url": "https://cwbank.com",
+      "url": "https://cwbank.com",
       "startDate": "2016-09-01",
       "endDate": "2018-05-31",
       "summary": "Designed web applications to calculate and manage obligor risk using responsive and intuitive interfaces. Focused on front-to-back integration, usability, and application logic for credit risk modeling.",
@@ -101,7 +102,7 @@
     {
       "name": "Canadian Western Bank",
       "position": "Application Developer II",
-        "url": "https://cwbank.com",
+      "url": "https://cwbank.com",
       "startDate": "2013-11-01",
       "endDate": "2016-08-31",
       "summary": "Developed internal tools and led data transformation initiatives for banking systems migration, including integrations with third-party systems and regulatory data compliance.",
@@ -199,15 +200,15 @@
       "level": "Mastery",
       "icon": "fa-solid fa-hashtag",
       "keywords": [
-          "Programming Languages: Java, Node.js, Python, PHP, .NET (C#, VB), Flask, Express",  
-          "Web Development: Angular / React / TypeScript / JSX / HTML5, CSS3, JS, BS5, RxJS",   
-          "Backend & APIs: Drupal/PHP,  WebAPI, Spring - MVC, Boot, Hibernate, JDBC, RESTful APIs, WebAPIs,ChatGPT API,PHP API, SOAP", 
-          "Database Management: MySQL, PostgreSQL, SQL Server, MariaDB, SAS EG, RDS, ETL Migrations", 
-          "Content Management & Migrations: Drupal, WordPress, custom modules, SEO Optimization, Google Search Console, GTM, LinkedIn/Google Ads",  
-          "Server & Deployment: Tomcat, Catalina, Apache, Nginx, Docker, Ubuntu, Unix, Linux, EC2",  
-          "DevOps & CI/CD: Git, GitHub, GitLab, Jenkins, GitHub Actions, TFS, Drush, Composer, CI/CD pipelines, Agile methodologies",  
-          "Cloud Platforms: AWS, Azure, GCP", 
-          "Security & Optimization: DKIM, SPF, OAuth, Basic Authentication, Role-Based Access Control (RBAC)"     
+        "Programming Languages: Java, Node.js, Python, PHP, .NET (C#, VB), Flask, Express",  
+        "Web Development: Angular / React / TypeScript / JSX / HTML5, CSS3, JS, BS5, RxJS",   
+        "Backend & APIs: Drupal/PHP,  WebAPI, Spring - MVC, Boot, Hibernate, JDBC, RESTful APIs, WebAPIs,ChatGPT API,PHP API, SOAP", 
+        "Database Management: MySQL, PostgreSQL, SQL Server, MariaDB, SAS EG, RDS, ETL Migrations", 
+        "Content Management & Migrations: Drupal, WordPress, custom modules, SEO Optimization, Google Search Console, GTM, LinkedIn/Google Ads",  
+        "Server & Deployment: Tomcat, Catalina, Apache, Nginx, Docker, Ubuntu, Unix, Linux, EC2",  
+        "DevOps & CI/CD: Git, GitHub, GitLab, Jenkins, GitHub Actions, TFS, Drush, Composer, CI/CD pipelines, Agile methodologies",  
+        "Cloud Platforms: AWS, Azure, GCP", 
+        "Security & Optimization: DKIM, SPF, OAuth, Basic Authentication, Role-Based Access Control (RBAC)"     
       ]
     }
   ],
