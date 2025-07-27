@@ -4,6 +4,11 @@ github_users:
 repo_description_lines_max: 2
 
 github_repos:
+  - cryshansen/studio-booker
+  - cryshansen/booking-cart-app
+  - cryshansen/chartcom
+  - cryshansen/flashcards-app
+  - cryshansen/zackly-rite-spa
   - cryshansen/drupal_ratings
   - cryshansen/custom_download
   - cryshansen/custom_vector
@@ -13,7 +18,11 @@ github_repos:
   - cryshansen/pin_drop_location
   - cryshansen/user_profile_account
   - cryshansen/artographic_web
+  - cryshansen/flask-generate-sales
+  - cryshansen/happyfaces
+  - cryshansen/fortune-ai
   - cryshansen/python
+  - cryshansen/PHP-API
   - cryshansen/calendar
   - cryshansen/netAPIs
   - cryshansen/javaRepo

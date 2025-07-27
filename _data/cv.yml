@@ -4,7 +4,7 @@
     - name: Full Name
       value: Crystal Hansen
     - name: Date of Birth
-      value: 1968
+      value: na
     - name: Languages
       value: English
 
@@ -19,28 +19,28 @@
         - Databases - Oracle, MS SQL, Architecture, Crystal Reporting
         - title: Team Project
           contents:
-            - Historical Building
-            - Sub-description 2.
+            - Historical Building Website
     - title: BA Art & Art History
       institution: University of Saskatchewan, Saskatoon, Saskatchewan
       year: 2005
       description:
         - Fine Art Study.
-        - Computer Science
+        - Computer Science courses
     - title: Multimedia Certificate
       institution: University of Alberta Extension, Edmonton, Alberta
       year: 2002
       description:
-        - Front End Technologies
-        - Architecture and Databases
+        - Front End Technologies, HTML, CSS, Javascript
+        - System Architecture and Databases, mysql, flex
 
 - title: Experience
   type: time_table
   contents:
     - title: Freelance Developer and Founder
       institution: crystalhansenartographic
-      year: 2013 - current
+      year: 2009 - 
       description:
+        - Development of start-up concepts, a full-stack web portfolio and booking platform using React (Vite, TypeScript), Node.js (Express + Cron) Server backend included, and a PHP API backend for production server. Integrated dynamic image galleries, product listings, and studio scheduling with automated daily data generation and SEO optimization using React Helmet and .htaccess routing
         - Personal Developer concepts
         - Freelance web developments
         - title: zackly-rite.ca
