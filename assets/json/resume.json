@@ -207,7 +207,7 @@
           "Server & Deployment: Tomcat, Catalina, Apache, Nginx, Docker, Ubuntu, Unix, Linux, EC2",  
           "DevOps & CI/CD: Git, GitHub, GitLab, Jenkins, GitHub Actions, TFS, Drush, Composer, CI/CD pipelines, Agile methodologies",  
           "Cloud Platforms: AWS, Azure, GCP", 
-          "Security & Optimization: DKIM, SPF, OAuth, Basic Authentication, Role-Based Access Control (RBAC)",     
+          "Security & Optimization: DKIM, SPF, OAuth, Basic Authentication, Role-Based Access Control (RBAC)"     
       ]
     }
   ],
