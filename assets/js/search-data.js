@@ -72,9 +72,9 @@ ninja.data = [{
           description: "Exploring Java and Angular.js creating a full calendar with angular methods and delegations",
           section: "Projects",handler: () => {
               window.location.href = "/projects/java-projects/calendar/";
-            },},{id: "projects-crystal-hansen-artographic-project",
-          title: 'Crystal Hansen Artographic Project',
-          description: "An exploration in React Frameworks v2 to learn practically with an html site and includes.",
+            },},{id: "projects-crystal-hansen-artographic-platform",
+          title: 'Crystal Hansen Artographic Platform',
+          description: "A full stack development of a photography driven personal website to embody a full feature studio profession, workshops, products, studio features.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/chartcom/";
             },},{id: "projects-crystal-hansen-artographic-project",
@@ -102,6 +102,11 @@ ninja.data = [{
           description: "Drupal compontents for Drupal websites and custom modules that span the versions from 8.7 through to 11 modules / theme components and integrations.Below are the projects and notable contributions.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/drupal-projects/emtp/";
+            },},{id: "projects-flashcard-study-app-platform",
+          title: 'Flashcard Study App Platform',
+          description: "An angular front end study guide and interview questions app to facilitate recall learned concepts and responses to inteviews.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/flashcards/";
             },},{id: "projects-fortune-ai",
           title: 'Fortune ai',
           description: "Fortune ai is a Java spring boot api connected to chatgpt with a &#39;category&#39; prompt. It returns a possitive message based on the topic",
@@ -152,26 +157,31 @@ ninja.data = [{
           description: "with background image",
           section: "Projects",handler: () => {
               window.location.href = "/projects/spring-projects/";
+            },},{id: "projects-studio-booker-platform",
+          title: 'Studio Booker Platform',
+          description: "A full stack development of a photography studio booking application using Angular and PHP-API",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/studio-booker/";
+            },},{id: "projects-vanilla-js-php-project",
+          title: 'Vanilla JS PHP Project',
+          description: "Vanilla website build with Bootstrap and PHP api for booking appointments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/vanilla/";
             },},{id: "projects-what-39-s-next",
           title: 'What&amp;#39;s next',
           description: "My next project - what creative inspiration driving curiousities",
           section: "Projects",handler: () => {
               window.location.href = "/projects/whats-next/";
-            },},{id: "projects-artographic-wordpress-project",
-          title: 'Artographic Wordpress Project',
-          description: "Wordpress driven website of crystalhansenartographic.ca incorporating polling and brevo connections.",
+            },},{id: "projects-artographic-wordpress-agency-project",
+          title: 'Artographic Wordpress Agency Project',
+          description: "Wordpress driven website of crystalhansenartographic.ca as an agency for web development incorporating polling and brevo connections.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/wp-artographic/";
-            },},{id: "projects-zackly-rite-booking-app-project",
-          title: 'Zackly-Rite Booking App Project',
-          description: "An exploration in React Frameworks to learn practically with refactoring a vanilla site into a modern frameworks.",
+            },},{id: "projects-zackly-rite-appointment-booking-app-project",
+          title: 'Zackly-Rite Appointment Booking App Project',
+          description: "A React Based Single Page massage therapist booking application for small business exposure and engagement with clients.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/zackly-rite-spa/";
-            },},{id: "projects-zackly-rite-project",
-          title: 'Zackly-rite Project',
-          description: "Vanilla website build with Bootstrap and PHP api for booking appointments",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/zackly-rite/";
             },},{
         id: 'social-email',
         title: 'email',
