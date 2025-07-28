@@ -29,6 +29,7 @@
       "url": "https://crystalhansenartographic.com",
       "startDate": "2025-03-01",
       "endDate": "present",
+      "location": "Montreal, QC",
       "summary": "Built and maintained client websites, applications, and internal tools independently. Specialized in full-stack development (Angular, React, Node.js, Spring Boot, PHP) with DevOps and deployment experience. Integrated complex systems including calendar booking, real-time availability, PDF generation, SEO, and e-commerce tools.",
       "highlights": [
         "Developed a modular React single-page booking app integrating RESTful APIs, calendar availability, PDF/email confirmations, reCAPTCHA, and SEO using React Helmet. CI/CD pipeline for deployment on AWS & shared hosting. Tech stack: - React SPA + PHP API, PHPMailer, Google Calendar API",
@@ -45,6 +46,7 @@
       "url": "https://emtp.com",
       "startDate": "2021-03-03",
       "endDate": "2025-04-04",
+      "location": "Montreal, QC",
       "summary": "Full-stack development of internal and public-facing platforms for a technology consultancy using PHP, Drupal, and modern cloud tools. Led key integrations, migrations, and performance improvements.",
       "highlights": [
         "Developed and maintained emtp.com using PHP with performance/security best practices",
@@ -61,6 +63,7 @@
       "url": "https://crystalhansenartographic.com",
       "startDate": "2019-09-01",
       "endDate": "2021-02-28",
+      "location": "Montreal, QC",
       "summary": "Freelance SaaS and booking platforms with Angular, Java, Spring Boot, and cloud technologies. Delivered complete apps from UI to backend and integrations.",
       "highlights": [
         "Studio Booking & Rentals SaaS using Angular, Java, Spring Boot, Hibernate",
@@ -76,6 +79,7 @@
       "url": "https://cwbank.com",
       "startDate": "2018-06-01",
       "endDate": "2019-12-31",
+      "location": "Edmonton, Alberta",
       "summary": "Led full-stack development of in-house scorecard applications for credit risk modeling and business process management. Oversaw sprint planning, systems analysis, and agile development for internal tools.",
       "highlights": [
         "Built web-based applications for credit risk scoring with Java, Angular, SAS, and SQL",
@@ -91,6 +95,7 @@
       "url": "https://cwbank.com",
       "startDate": "2016-09-01",
       "endDate": "2018-05-31",
+      "location": "Edmonton, Alberta",
       "summary": "Designed web applications to calculate and manage obligor risk using responsive and intuitive interfaces. Focused on front-to-back integration, usability, and application logic for credit risk modeling.",
       "highlights": [
         "Developed risk scorecard applications (IPRE, SME, SBE, LargeCorp) using Angular and JavaScript",
@@ -121,6 +126,7 @@
       "url": "https://cwbank.com",
       "startDate": "2011-12-01",
       "endDate": "2013-10-31",
+      "location": "Edmonton, Alberta",
       "summary": "Supported internal client systems with .NET and Java solutions, including legacy modernization and data transformation across multiple DBMS platforms.",
       "highlights": [
         "Modified and maintained .NET applications for internal workflows",
