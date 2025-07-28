@@ -1,6 +1,6 @@
-<div class="list-groups">
+<div class="card-text font-weight-light list-group list-group-flush"">
   {% for content in data[1] %}
-    <div class="list-group col-md-6" title="{{ content.level }}">
+    <div class="list-group col-lx-12 col-md-6" title="{{ content.level }}">
       <table class="table-cv list-group-table">
         <tbody>
           <tr>
@@ -20,8 +20,7 @@
           </tr>
           {% for item in content.keywords %}
             <tr>
-              <td></td>
-              <td class="list-group-name">
+              <td colspan="2" class="list-group-item list-group-name">
                 <b>{{ item }}</b>
               </td>
             </tr>
