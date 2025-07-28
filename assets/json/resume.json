@@ -111,6 +111,7 @@
       "url": "https://cwbank.com",
       "startDate": "2013-11-01",
       "endDate": "2016-08-31",
+      "location": "Edmonton, Alberta",      
       "summary": "Developed internal tools and led data transformation initiatives for banking systems migration, including integrations with third-party systems and regulatory data compliance.",
       "highlights": [
         "Built tools for message logging, interface error handling, and transformation logic",
