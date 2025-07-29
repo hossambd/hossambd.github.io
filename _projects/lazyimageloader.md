@@ -20,7 +20,7 @@ tags: ["backend", "fullstack" ]
 
 #### 📸 Java Studio Gallery Project
 
-This project was an exploratory build designed to create a photo studio gallery system using ***Java EE*** technologies, ***Spring***, ***Hibernate***, and ***JSP***. It demonstrates a hybrid web architecture combining server-side rendering (via JSP) and an angular.js integration exploratively. The project reflects experimentation with both traditional MVC and modern single-page app patterns. It is different than the gallery-loader repo as this version includes JSP pages and the gallery-loader excludes the JSP from the code base. This app was the origninal created to set up a java app that evolved into expoloring the angular framework aspect of the design. [Gallery Loader](/projects/java-projects/gallery-loader) is the second rendition of this app that excludes the jsp functionality.
+This project was an exploratory build designed to create a photo studio gallery system using ***Java EE*** technologies, ***Spring***, ***Hibernate***, and ***JSP***. It demonstrates a hybrid web architecture combining server-side rendering (via JSP) and an angular.js integration exploratively. The project reflects experimentation with both traditional MVC and modern single-page app patterns. It is different than the gallery-loader repo as this version includes JSP pages and the gallery-loader excludes the JSP from the code base. This app was the origninal created to set up a java app that evolved into expoloring the angular framework aspect of the design. 
 
 ##### 🎯 Project Purpose
 To manage and display a list of photography studios and their associated images in a responsive gallery interface, supporting CRUD operations (Create, Read, Update, Delete) through a Java-based backend.
