@@ -79,7 +79,7 @@ ninja.data = [{
               window.location.href = "/projects/chartcom/";
             },},{id: "projects-crystal-hansen-artographic-project",
           title: 'Crystal Hansen Artographic Project',
-          description: "An exploration in React Frameworks v1 to learn practically with an html site and includes.",
+          description: "An exploration in React.js Framewors v1 to learn practically with an html site and includes.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/crystalhansenartographic/";
             },},{id: "projects-curiosity",
