@@ -6,7 +6,7 @@ img: assets/img/python/david-clode-oJlt2XBWuWs-unsplash.jpg
 permalink: /projects/python-projects/happyfaces/
 importance: 3
 category: python
-giscus_comments: true
+giscus_comments: false
 tags: ["Python","Flask"]
 ---
 
