@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Studio Booker Platform
-description: A full stack development of a photography studio booking application using Angular and PHP-API
+description: A full stack development of a photography studio booking application using Angular and PHP-API, with the `bookit` SpringBoot API.
 img: assets/img/9.jpg
 permalink: /projects/studio-booker/
 importance: 3

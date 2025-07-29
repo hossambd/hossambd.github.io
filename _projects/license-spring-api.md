@@ -4,7 +4,7 @@ title: Python License Spring API
 description: A compilation of data information endpoint connections to gather and parsing data related to EMTP.com Licenses.
 img: assets/img/python/david-clode-oJlt2XBWuWs-unsplash.jpg
 permalink: /projects/python-projects/license-spring-api/
-importance: 3
+importance: 2
 category: python
 giscus_comments: true
 tags: ["backend","tools"]

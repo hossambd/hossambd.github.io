@@ -15,7 +15,6 @@ tags: ["frontend","angular","backend", "java", "springboot", "microservice","mav
 - [fortune-ai](/projects/java-projects/fortune-ai)
 - [happy2be](/projects/java-projects/happy2be)
 - [calendar] calendar
-- [gallery-loader](/projects/java-projects/gallery-loader)
 - [lazy-image-loader](/projects/java-projects/lazy-image-loader/)
 
 This application is an older version of the bookit application however the ***bookit*** is a ***rest microservice*** whereas this application is a ***full stack*** java implementation.

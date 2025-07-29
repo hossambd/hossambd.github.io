@@ -13,15 +13,16 @@ tags: ["frontend","react","PHP", "API","fullstack", "Mysql"]
 
 ### General Websites Collection
 
-- [Site A – vanilla](/projects/vanilla)
-- [Site B – crystalhansenartographic](/projects/chartcom/)
+##### Angular Sites
+- [Site A – studio-booker](/projects/studio-booker/)
+- [Site B – flashcards](/projects/flashcards/)
 
 ##### Wordpress site
 - [Site C – crystalhansenartographic.ca](/projects/wp-artographic/)
 
 #### React SPA
 - [Site D - zackly-rite-spa](/projects/zackly-rite-spa/)
-- [Site E – crystalhansenartographic](/projects/crystalhansenartographic/)
+- [Site E – chartcom] (/projects/chartcom/)
 
 
 ## Introduction 

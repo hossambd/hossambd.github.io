@@ -16,7 +16,6 @@ tags: ["backend", "java", "springboot","microservice"]
 - [fortune-ai] fortune-ai
 - [happy2be](/projects/java-projects/happy2be)
 - [calendar](/projects/java-projects/calendar/)
-- [gallery-loader](/projects/java-projects/gallery-loader)
 - [lazy-image-loader](/projects/java-projects/lazy-image-loader/)
 
 

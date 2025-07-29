@@ -17,7 +17,6 @@ tags: ["backend", "java", "microservice"]
 - [fortune-ai](/projects/java-projects/fortune-ai)
 - [happy2be] happy2be
 - [calendar](/projects/java-projects/calendar/)
-- [gallery-loader](/projects/java-projects/gallery-loader)
 - [lazy-image-loader](/projects/java-projects/lazy-image-loader/)
 
 Furthering my exploration in Java Spring Boot APIs and cloud technologies, and using the foundation of fortune-ai, the desire to understand language models with human interface has be exploring the value ChatGPT can bring. Use to kickstart an app or tutorial.

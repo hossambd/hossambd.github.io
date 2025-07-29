@@ -4,7 +4,7 @@ title: Python HappyFaces
 description: A local run/flask integration of the distilbert pretrained positive negative classification.
 img: assets/img/python/david-clode-oJlt2XBWuWs-unsplash.jpg
 permalink: /projects/python-projects/happyfaces/
-importance: 4
+importance: 3
 category: python
 giscus_comments: true
 tags: ["Python","Flask"]

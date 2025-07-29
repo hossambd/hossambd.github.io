@@ -12,21 +12,17 @@ tags: ["frontend","react","backend", "PHP", "API"]
 
 
 ### General Websites Collection
-##### Vanilla Site
-- [Site A – vanilla](/projects/vanilla)
 
 ##### Angular Sites
-- [Site B – studio-booker](/projects/studio-booker/)
-- [Site C – flashcards](/projects/flashcards/)
+- [Site A – studio-booker](/projects/studio-booker/)
+- [Site B – flashcards](/projects/flashcards/)
 
 ##### Wordpress site
-- [Site D – crystalhansenartographic.ca](/projects/wp-artographic/)
+- [Site C – crystalhansenartographic.ca](/projects/wp-artographic/)
 
 #### React SPA
-- [Site E - zackly-rite-spa] (/projects/zackly-rite-spa/)
-- [Site F – chartcom](/projects/chartcom/)
-- [Site G – crystalhansenartographicv1 ](/projects/crystalhansenartographic/)
-
+- [Site D - zackly-rite-spa] (/projects/zackly-rite-spa/)
+- [Site E – chartcom](/projects/chartcom/)
 
 ---
 
@@ -41,7 +37,7 @@ The booking system uses GET methods for simplicity, alongside front-end and back
 
 Additional tools include PHPMailer for transactional email handling and google-api-php-client for managing calendar synchronization. The system emphasizes clarity, reliability, and modularity—ideal for solo practitioners or small teams seeking a lightweight, custom booking solution. Please visit https://zackly-rite.ca
 
-
+Alternatively the system can be hooked up to the bookit java spring boot depending on the preference of deployment stack. AWS facilitates an spring backend/front end but requires DevOps experience. 
 
 ---
 

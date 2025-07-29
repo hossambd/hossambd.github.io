@@ -5,7 +5,7 @@ permalink: /projects/
 description: 
 nav: true
 nav_order: 3
-display_categories: [drupal,java, python, work, fun]
+display_categories: [drupal,java, python, work]
 horizontal: false
 toc:
   sidebar: left

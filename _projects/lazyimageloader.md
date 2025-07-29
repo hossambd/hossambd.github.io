@@ -4,7 +4,7 @@ title: Lazy Image Loader
 description: Exploring Java Spring Factory and Angular 2+ sends a json response with file image structure parsing for masonry layout front end using angular methods and delegates
 img: assets/img/12.jpg
 permalink: /projects/java-projects/lazy-image-loader/
-importance: 6
+importance: 5
 category: java
 tags: ["backend", "fullstack" ]
 ---
@@ -15,7 +15,6 @@ tags: ["backend", "fullstack" ]
 - [fortune-ai](/projects/java-projects/fortune-ai)
 - [happy2be](/projects/java-projects/happy2be)
 - [calendar](/projects/java-projects/calendar/)
-- [gallery-loader](/projects/java-projects/gallery-loader)
 - [lazy-image-loader]lazy-image-loader
 
 

@@ -4,7 +4,7 @@ title: Python Web Page Scraper
 description: A compilation of page scrapers and parsing data for databse injection
 img: assets/img/python/david-clode-oJlt2XBWuWs-unsplash.jpg
 permalink: /projects/python-projects/scraper-master/
-importance: 2
+importance: 1
 category: python
 giscus_comments: true
 tags: ["backend","tools"]

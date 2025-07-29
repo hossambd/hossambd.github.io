@@ -12,20 +12,17 @@ tags: ["frontend","angular","JSON"]
 
 
 ### General Websites Collection
-##### Vanilla Site
-- [Site A – vanilla](/projects/vanilla)
 
 ##### Angular Sites
-- [Site B – studio-booker](/projects/studio-booker/)
-- [Site C – flashcards] (/projects/flashcards/)
+- [Site A – studio-booker](/projects/studio-booker/)
+- [Site B – flashcards] (/projects/flashcards/)
 
 ##### Wordpress site
-- [Site D – crystalhansenartographic.ca](/projects/wp-artographic/)
+- [Site C – crystalhansenartographic.ca](/projects/wp-artographic/)
 
 #### React SPA
-- [Site E - zackly-rite-spa](/projects/zackly-rite-spa/)
-- [Site F – chartcom](/projects/chartcom/)
-- [Site G – crystalhansenartographic](/projects/crystalhansenartographic/)
+- [Site D - zackly-rite-spa](/projects/zackly-rite-spa/)
+- [Site E – chartcom](/projects/chartcom/)
 
 
 
