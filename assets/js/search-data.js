@@ -77,26 +77,6 @@ ninja.data = [{
           description: "A full stack development of a photography driven personal website to embody a full feature studio profession, workshops, products, studio features.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/chartcom/";
-            },},{id: "projects-crystal-hansen-artographic-project",
-          title: 'Crystal Hansen Artographic Project',
-          description: "An exploration in React.js Framewors v1 to learn practically with an html site and includes.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/crystalhansenartographic/";
-            },},{id: "projects-curiosity",
-          title: 'Curiosity',
-          description: "Some fun creative insiprations to evolve coming soon",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/curiosity/";
-            },},{id: "projects-dream-big",
-          title: 'Dream Big',
-          description: "Dream big fly high 🎉",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/dream-big/";
-            },},{id: "projects-drupal-development-projects",
-          title: 'Drupal Development Projects',
-          description: "Drupal compontents for Drupal websites and custom modules that span the versions from 8.7 through to 11 modules / theme components and integrations.Below are the projects and notable contributions.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/drupal-projects/";
             },},{id: "projects-emtp-com-drupal-project",
           title: 'EMTP.com Drupal Project',
           description: "Drupal compontents for Drupal websites and custom modules that span the versions from 8.7 through to 11 modules / theme components and integrations.Below are the projects and notable contributions.",
@@ -112,11 +92,6 @@ ninja.data = [{
           description: "Fortune ai is a Java spring boot api connected to chatgpt with a &#39;category&#39; prompt. It returns a possitive message based on the topic",
           section: "Projects",handler: () => {
               window.location.href = "/projects/java-projects/fortune-ai/";
-            },},{id: "projects-gallery-loader",
-          title: 'Gallery Loader',
-          description: "Exploring Java Spring Factory and Angular.js sends a json response with file image structure parsing for masonry layout front end using angular methods and delegates",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/java-projects/gallery-loader";
             },},{id: "projects-happy2be",
           title: 'Happy2be',
           description: "Furthering my exploration in Java Spring Boot APIs and cloud technologies",
@@ -142,36 +117,16 @@ ninja.data = [{
           description: "Drupal custom website modules that span the versions from 8.7 through to 11 modules / theme components and integrations.Below are the projects and notable contributions.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/drupal-projects/pinmento/";
-            },},{id: "projects-python-projects-a-collection-of-applications-and-integrations",
-          title: 'Python Projects - a collection of applications and integrations',
-          description: "A variety of python explorations and implementations ranging from screen scrapers to full flask app.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/python-projects/";
             },},{id: "projects-python-web-page-scraper",
           title: 'Python Web Page Scraper',
           description: "A compilation of page scrapers and parsing data for databse injection",
           section: "Projects",handler: () => {
               window.location.href = "/projects/python-projects/scraper-master/";
-            },},{id: "projects-spring-boot-java-projects-a-collection-of-applications-and-integrations",
-          title: 'Spring Boot Java Projects - a collection of applications and integrations',
-          description: "with background image",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/spring-projects/";
             },},{id: "projects-studio-booker-platform",
           title: 'Studio Booker Platform',
-          description: "A full stack development of a photography studio booking application using Angular and PHP-API",
+          description: "A full stack development of a photography studio booking application using Angular and PHP-API, with the `bookit` SpringBoot API.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/studio-booker/";
-            },},{id: "projects-vanilla-js-php-project",
-          title: 'Vanilla JS PHP Project',
-          description: "Vanilla website build with Bootstrap and PHP api for booking appointments",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/vanilla/";
-            },},{id: "projects-what-39-s-next",
-          title: 'What&amp;#39;s next',
-          description: "My next project - what creative inspiration driving curiousities",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/whats-next/";
             },},{id: "projects-artographic-wordpress-agency-project",
           title: 'Artographic Wordpress Agency Project',
           description: "Wordpress driven website of crystalhansenartographic.ca as an agency for web development incorporating polling and brevo connections.",
