@@ -22,26 +22,50 @@
 
     <!-- Content -->
     <div class="container mt-5" role="main">
-      {% if page.toc and page.toc.sidebar %}
-        {% if page.toc.sidebar == 'right' %}
+        {% if page.url == "/projects/" %}
           <div class="row">
-            <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
-            <!-- sidebar, which will move to the top on a small screen -->
+            <!-- sidebar -->
             <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
+              <nav id="category-sidebar" class="sticky-top" >
+                <ul class="nav flex-column">
+                  {% assign seen = '' %}
+                  {% for project in site.projects %}
+                    {% assign cat = project.category %}
+                    {% unless seen contains cat %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="#{{ cat | slugify }}">{{ cat | capitalize }}</a>
+                      </li>
+                      {% assign seen = seen | append: cat | append: ',' %}
+                    {% endunless %}
+                  {% endfor %}
+                </ul>
+              </nav>
+            </div>
+            <!-- main content -->
+            <div class="col-sm-9">
+              {{ content }}
             </div>
           </div>
-        {% else %}
-          <div class="row">
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
+        {% elsif page.toc and page.toc.sidebar and page.url !="/projects" %}
+          {% if page.toc.sidebar == 'right' %}
+            <div class="row">
+              <!-- main content area -->
+              <div class="col-sm-9">{{ content }}</div>
+              <!-- sidebar, which will move to the top on a small screen -->
+              <div class="col-sm-3">
+                <nav id="toc-sidebar" class="sticky-top"></nav>
+              </div>
             </div>
-            <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
-          </div>
-        {% endif %}
+          {% else %}
+            <div class="row">
+              <!-- sidebar, which will move to the top on a small screen -->
+              <div class="col-sm-3">
+                <nav id="toc-sidebar" class="sticky-top"></nav>
+              </div>
+              <!-- main content area -->
+              <div class="col-sm-9">{{ content }}</div>
+            </div>
+          {% endif %}
       {% else %}
         {{ content }}
       {% endif %}

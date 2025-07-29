@@ -7,6 +7,7 @@ permalink: /projects/vanilla/
 importance: 1
 category: work
 related_publications: false
+tags: ["fullstack","backend"]
 ---
 
 ### General Websites Collection

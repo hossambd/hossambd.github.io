@@ -7,6 +7,7 @@ permalink: /projects/chartcom/
 importance: 3
 category: work
 related_publications: false
+tags: ["frontend","react","PHP", "API","fullstack", "Mysql"]
 ---
 
 

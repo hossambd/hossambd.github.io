@@ -7,6 +7,7 @@ permalink: /projects/python-projects/happyfaces/
 importance: 4
 category: python
 giscus_comments: true
+tags: ["Python","Flask"]
 ---
 
 ### Python Collection

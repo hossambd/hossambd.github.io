@@ -7,6 +7,7 @@ permalink: /projects/java-projects/fortune-ai/
 importance: 2
 category: java
 related_publications: false
+tags: ["backend", "java", "springboot","microservice"]
 ---
 
 ### Java Spring Boot Collection
@@ -26,63 +27,83 @@ A test model is associated with pintmento.com as the front end display and integ
 Visit the repo and kick start your project! 
 
 - [Fortune-AI Repository](https://github.com/cryshansen/fortune-ai)
-Proper Image layouts to come soon! Check back to find its packaged nicely visually. 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/fortune-ai/user-journey.png" title="User Journey" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
+   User Journey of the fortune-ai model, spring boot api.
 </div>
 
-You can also put regular text between your rows of images, even citations {% cite einstein1950meaning %}.
-Say you wanted to write a bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/fortune-ai/journey-backend.png" title="Backend Journey" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+   Backend journey of the system. 
+</div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/fortune-ai/ERD.png" title="ERD of database" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/fortune-ai/class-model.png" title="Class Model" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="SOme imeag" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    On the left, an Entity Relationship Diagram (ERD). Middle, class model for the system methods. Right, tbd.
+</div>
+
+To illustrate the concepts and theory behind this Spring Boot Rest api mind mapping diagrams to illustrate the concepts and features.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/fortune-ai/mindmap.png" title="Mind Map" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/fortune-ai/class-model.png" title="Class Model" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+On the left, Mind map and on the right class model.
 </div>
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+Here's the code for the rest controller endpoints:
 
 {% raw %}
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+```java
+
+@RestController
+@RequestMapping("/api")
+class FortuneController {
+
+    private final OpenAIService openAIService;
+    
+    @GetMapping("/lucky-number")
+    public int getLuckyNumber() {
+        return random.nextInt(100) + 1;
+    }
+
+    @GetMapping("/daily-advice")
+    public String getDailyAdvice() {
+        return ADVICE[random.nextInt(ADVICE.length)];
+    }
+
+
+    @GetMapping("/fortune-ai")
+    public Mono<String> getAIFortune(@RequestParam(value = "category", defaultValue = "general") String category) {
+        return openAIService.getAiFortune(category);
+    }
+}
 ```
 
 {% endraw %}

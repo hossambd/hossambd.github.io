@@ -7,6 +7,7 @@ permalink: /projects/wp-artographic/
 importance: 2
 category: work
 related_publications: false
+tags: ["frontend","backend","fullstack"]
 ---
 
 

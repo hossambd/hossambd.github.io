@@ -1,12 +1,13 @@
 ---
 layout: page
 title: Crystal Hansen Artographic Project
-description: An exploration in React Frameworks v1 to learn practically with an html site and includes.
+description: An exploration in React.js Framewors v1 to learn practically with an html site and includes.
 img: assets/img/9.jpg
 permalink: /projects/crystalhansenartographic/
 importance: 3
 category: work
 related_publications: false
+tags: ["react","Typescript","frontend"]
 ---
 
 ### General Websites Collection

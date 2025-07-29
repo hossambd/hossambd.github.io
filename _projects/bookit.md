@@ -6,6 +6,8 @@ img: assets/img/12.jpg
 permalink: /projects/java-projects/bookit/
 importance: 3
 category: java
+tags: ["fullstack", "backend", "java", "microservice", "springboot","maven","RDS","AWS"]
+
 ---
 
 
@@ -25,33 +27,32 @@ Visit the repo and kick start your project!
 
 - [Bookit Repository](https://github.com/cryshansen/bookit)
 
-
-Images are for layout purposes and soon to come!
-
-
-
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/java/michael-c-A3K6lKG4yKY-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/java/mockup-free-37cb_vU9cg4-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/java/mockup-free-LHqGt6byYng-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/bookit/journey2.png" title="Journey2 " class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
+   User Journey through the bookit systems  back end through a users journey to interact and engage. The booking section illustrates the endpoints of this backend.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/java/mockup-free-M8Pptu0rVqk-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/bookit/journey.png" title="Journey" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    This image can also have a caption. It's like magic.
+   Administrators, owners and logged in users can follow the Administrator journey with the logged in dashboard. This particular 'dashboard' facilitates a view of the calendar only. The 'booking' section illustrates the method endpoints of the system.
 </div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+         {% include figure.liquid loading="eager" path="assets/img/bookit/appointment-day.png" title="Appointment Day Sequence Diagram" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+     Appointment day sequence diagram. Identifies the flow of the appointment calender display and its flow through the architecture of the application.
+</div>
+
 
 You can also put regular text between your rows of images.
 Say you wanted to write a little bit about your project before you posted the rest of the images.
@@ -59,32 +60,58 @@ You describe how you toiled, sweated, _bled_ for your project, and then... you r
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/java/mockup-free-xUoGSlh0LhU-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+         {% include figure.liquid loading="eager" path="assets/img/bookit/studio-dashboard.png" title="Dashboard Sequence Diagram" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/java/mockup-free-zQGl_3j6QOM-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+            {% include figure.liquid loading="eager" path="assets/img/bookit/FullCalendar.png" title="Full Calendar Example" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+     Appointment Administration sequence diagram. Identifies the flow of the administration of appointments adjustments of bookings and user appointment changes by staff. Right photo illustrates the fullcalendar.js layout inclusion to the system admin. 
+</div>
+<div class="row justify-content-sm-center">
+    <div class="col-sm-4 mt-3 mt-md-0">
+         {% include  figure.liquid path="assets/img/bookit/ERD-database.png" title="ERD Database of Bookit" class="img-fluid rounded z-depth-1" %}    
+    </div>
+     <div class="col-sm-8 mt-3 mt-md-0">
+        {% include  figure.liquid path="assets/img/bookit/mind-map.png" title="Bookit Mind Map" class="img-fluid rounded z-depth-1" %}
+    </div>
 </div>
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+
+
 
 {% raw %}
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+```java
+
+@RestController
+@RequestMapping("/booking")
+public class BookitController {
+
+    @Autowired
+    private BookitService bookitService;
+
+    @GetMapping("/day/{date}")
+    public List<Appointment> getBookingsByDay(@PathVariable String date) {
+        return bookitService.getBookingsByDay(date);
+    }
+
+    @GetMapping("/month/{month}")
+    public Set<String> getBookingsByMonth(@PathVariable String month) {
+        return bookitService.getBookingsByMonth(month);
+    }
+
+    @PostMapping("/add")
+    public Appointment addBooking(@RequestBody Appointment appointment) {
+        return bookitService.setBooking(appointment);
+    }
+
+    @GetMapping("/all")
+    public List<Appointment> getAllAppointments() {
+        return bookitService.getAllAppointments();
+    }
+}
 ```
 
 {% endraw %}

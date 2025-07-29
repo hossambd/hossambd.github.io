@@ -7,6 +7,7 @@ permalink: /projects/drupal-projects/artog-co/
 importance: 3
 category: drupal
 related_publications: false
+tags: ["fullstack", "Drupal","tools"]
 ---
 
 ### Drupal Websites Collection

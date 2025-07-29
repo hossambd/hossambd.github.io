@@ -7,6 +7,7 @@ permalink: /projects/zackly-rite-spa/
 importance: 3
 category: work
 related_publications: false
+tags: ["frontend","react","backend", "PHP", "API"]
 ---
 
 

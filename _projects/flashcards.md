@@ -7,6 +7,7 @@ permalink: /projects/flashcards/
 importance: 4
 category: work
 related_publications: false
+tags: ["frontend","angular","JSON"]
 ---
 
 

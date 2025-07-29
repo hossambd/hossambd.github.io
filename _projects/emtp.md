@@ -7,6 +7,7 @@ permalink: /projects/drupal-projects/emtp/
 importance: 2
 category: drupal
 related_publications: false
+tags: ["frontend","backend","fullstack","Drupal","PHP", "Mysql"]
 ---
 
 ### Drupal Websites Collection

@@ -7,6 +7,7 @@ permalink: /projects/java-projects/gallery-loader
 importance: 5
 category: java
 giscus_comments: false
+tags: ["frontend","angular","fullstack","Java", "Springboot","MariaDB", "Mysql"]
 ---
 
 
@@ -21,17 +22,50 @@ giscus_comments: false
 
 
 
-Image Lazy Load App 
+Image Lazy Load Angular.js 1.5 of Studio Images folder IO App 
 
-Exploring Java and Angular.js sends a json response with file image structure parsing for masonry layout front end using angular methods and delegates
+Exploring Java and ***Angular.js 1.5*** sends a json response using ***IntersectionObserver*** with file image structure parsing for masonry layout front end using angular methods and delegates
 An image Gallery with masonry design, reads a folder from the directory category structures: 
 - example: studio-1/{size}/images/
 - example2: studio-2/{size}/images/
 
+It is a simple exploration of reading images to display their imagery based on the size of the images. It is simple to serve only reasonable size images to fit screens in general however can be expanded upon to deliver different size based on the device screens read from the user to utilize performance of image rendering.
+The difference between this app and the lazy-image-loader is that this unit of code base does not include jsp pages of rendering the content. It is a pure angular.js integration. 
 
-When called, the service sends back json image list package to render the page with appropriate image size based on user devices,
+{% raw %}
+```java
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String action = request.getParameter("action");
+		
+		if(action == null) {
+			action = "LIST";
+		}
+		
+		switch(action) {
+            //the nugget we're working on.
+			case "GALLERY":
+				listStudioImages(request,response);
+				break;
+            ....    
+        }
+}        
+```
+{% endraw %}
 
-Java framework coupled with Angular.js  and masonry framework integrations implementation. 
+When called, the service sends back json image list package to render the page with appropriate image size based on user devices, Java framework coupled with Angular.js  and masonry framework integrations implementation. 
+
+{% raw %}
+```html
+<body ng-app="lazy" ng-controller="AppController">
+	<div class="flex-container">	
+		<div class="block" ngClass="block" ng-repeat="s in studioImages" lazy-load>							    	
+	    		<img class="w-100" ng-src="{{s.imgUrl}}" alt="{{studioName}}" > 						    	
+	    </div>	
+	</div>
+</body>
+```
+{% endraw %}
 
 Visit the repo and kick start your project! 
 

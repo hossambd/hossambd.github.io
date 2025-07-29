@@ -7,6 +7,7 @@ permalink: /projects/studio-booker/
 importance: 3
 category: work
 related_publications: false
+tags: ["frontend", "fullstack","backend"]
 ---
 
 

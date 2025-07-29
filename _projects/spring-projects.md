@@ -6,6 +6,7 @@ img: assets/img/12.jpg
 importance: 1
 category: java
 related_publications: true
+tags: ["backend", "frontend","fullstack","AI"]
 ---
 
 ### Java Spring Boot Collection

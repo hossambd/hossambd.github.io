@@ -7,6 +7,7 @@ permalink: /projects/drupal-projects/pinmento/
 importance: 4
 category: drupal
 related_publications: false
+tags: ["frontend", "drupal", "maps", "backend"]
 ---
 
 ### Drupal Websites Collection

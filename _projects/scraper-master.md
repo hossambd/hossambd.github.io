@@ -7,6 +7,7 @@ permalink: /projects/python-projects/scraper-master/
 importance: 2
 category: python
 giscus_comments: true
+tags: ["backend","tools"]
 ---
 ### Python Collection
 

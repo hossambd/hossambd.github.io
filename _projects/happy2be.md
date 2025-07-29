@@ -7,6 +7,7 @@ permalink: /projects/java-projects/happy2be/
 importance: 3
 category: java
 giscus_comments: false
+tags: ["backend", "java", "microservice"]
 ---
 
 
@@ -26,64 +27,80 @@ Visit the repo and kick start your project!
 - [Happy2be Repository](https://github.com/cryshansen/happy2be)
 
 
-Clean and interesting images of the project will be coming soon. 
-
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/java/Happy2Be-postman.png" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/daniel-norris-bZzHEs2eSkg-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/jon-moore-CDbB4EJ4i_A-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/happy2be/user-journey.png" title="user journey" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
+    User Journey to happiness is through Happy2Be
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/jon-tyson-9_XEfsHsHJ0-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/happy2be/sequence-diagram.png" title="Sequence Diagram" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    This image can also have a caption. It's like magic.
+    Sequence Diagram of java spring boot api of user engagement with the service. 
 </div>
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/happy2be/erd.png" title="Database ERD" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/happy2be/logic-flow.png" title="Logic Flow" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/happy2be/happy2be-postman.png" title="happy 2 be postman" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+   Image on the left:Postman response, middle:Logic Flow and right: Database Entity Relationship Diagram A simple MariadDB/MySql database to record the message / response and emotion.
+</div>
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/happy2be/sequence-diagram1.png" title="Sequence Diagram of Flask" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Sequence Diagram of flask integration of Happy2Be for the emotion positive / negative BERT via happyfaces. 
+</div>
+
+Below we explore a mind map of the process to aid in visualizations of the api system and its components.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/java/kedibone-isaac-makhumisane-4vNhJX7f-DM-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/happy2be/mind-map.png" title="Mind Map of Happy To Be" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/java/kelly-sikkema-HHXodvj4ipk-unsplash.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/happy2be/user-engagement.png"  title="User Engagement" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+    Happy 2 Be Mind map of the backend of a to be chatbot developed to accept a propt and respond based on the emotional aspects of the message. User Engagement flow is the focus of this model.
 </div>
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
 
 {% raw %}
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+```java
+
+@RestController
+@RequestMapping("/api/emotion")
+public class EmotionController {
+   // private final TokenizerService tokenizerService;
+    private final EmotionService emotionService;
+    public EmotionController(EmotionService tokenizerService) {
+        this.emotionService = tokenizerService;
+    }
+
+    @PostMapping
+    public String classifyEmotion(@RequestBody String text) throws Exception {
+        return emotionService.classifyEmotion(text);
+    }
+}
 ```
 
 {% endraw %}

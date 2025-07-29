@@ -7,6 +7,7 @@ permalink: /projects/python-projects/license-spring-api/
 importance: 3
 category: python
 giscus_comments: true
+tags: ["backend","tools"]
 ---
 
 
