@@ -87,6 +87,11 @@ ninja.data = [{
           description: "An angular front end study guide and interview questions app to facilitate recall learned concepts and responses to inteviews.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/flashcards/";
+            },},{id: "projects-python-license-spring-api",
+          title: 'Python License Spring API',
+          description: "A compilation of data information endpoint connections to gather and parsing data related to EMTP.com Licenses.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/python-projects/flask-generate-sales/";
             },},{id: "projects-fortune-ai",
           title: 'Fortune ai',
           description: "Fortune ai is a Java spring boot api connected to chatgpt with a &#39;category&#39; prompt. It returns a possitive message based on the topic",
