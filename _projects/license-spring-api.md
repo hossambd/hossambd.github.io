@@ -14,6 +14,7 @@ tags: ["backend","tools"]
 ### Python Collection
 
 - [Site A – Happy Faces ](/projects/python-projects/happyfaces/)
+- [Site B - Flask Sales Generator ](https://github.com/cryshansen/flask-generate-sales) 
 - [Site B – Scraper](/projects/python-projects/scraper-master/)
 - [Site C – License Spring API] License Spring API
 
@@ -23,18 +24,18 @@ tags: ["backend","tools"]
 ### Python Repository
 - [License Spring API](https://github.com/cryshansen/python/license_spring)
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+This project generates realistic fake sales data for a photography business using Python and the Faker library. Originally designed as a lightweight API and CSV generator using Flask, it was later ported to a Drupal module for integration into a dynamic sales dashboard.
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+🎯 Purpose
+To create believable and varied weekly photography sales data, supporting analytics dashboards, portfolio projects, and visualizations without relying on sensitive or real client data.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+🔧 Technologies Used
+Python 3
+Faker – for generating names, emails, locations, etc.
+Pandas – for CSV output
+Flask (optional) – to serve generated data via API endpoint (for early demos)
+
+Below Images and figure captions illustrate the visual representations of the concepts, division of folders based on usage types and display the highlevel important information regarding this set of python toolkit components. These are mostly snippets of functionality needed to build an ETL system.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -82,15 +83,9 @@ Here's the code for the last row of images above:
 
 {% raw %}
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+```bash
+uvicorn app:app --reload --host 127.0.0.1 --port 8000
+
 ```
 
 {% endraw %}
