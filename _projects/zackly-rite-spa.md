@@ -29,6 +29,7 @@ tags: ["frontend","react","backend", "PHP", "API"]
 
 ### Introduction
 
+Github Repo: (https://github.com/cryshansen/zackly-rite-spa/)
 This is a React-based single-page application (SPA) designed to allow users to book massage therapy appointments with Zackly-Rite. The app provides a calendar interface to select dates, displays real-time available time slots from the PHP-API repo as a backend, and includes a secure booking form with validation. As this site is rather simplistic, SPA is the best approach. 
 
 The front end utilizes clean Bootstrap styling while the back end is powered by a structured custom PHP API, which integrates with a Java-based Bookit system for seamless cross-platform coordination.

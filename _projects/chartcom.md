@@ -27,6 +27,8 @@ tags: ["frontend","react","PHP", "API","fullstack", "Mysql"]
 
 ## Introduction 
 
+Github Repo:(https://github.com/cryshansen/chartcom)
+
 This project is a hybrid full-stack web application combining a **React frontend**, a **Node.js backend for development**, and a **PHP-based API** for live production. It serves as a creative portfolio and studio booking platform with dynamic image rendering, product showcasing, and scheduling. The system uses json files to deliver 'real data' to facilitate displays. 
 
 

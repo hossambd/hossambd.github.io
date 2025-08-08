@@ -28,6 +28,8 @@ tags: ["frontend","angular","JSON"]
 
 ## Introduction FlashcardsApp
 
+Github Repo: (https://github.com/cryshansen/flashcards-app)
+
 ## ✅ Why These Questions Are Great for Interviews
 ## 🔹 Angular / React Questions
 Cover essential framework concepts (components, lifecycle, routing, forms, RxJS/hooks)

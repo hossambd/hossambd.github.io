@@ -31,6 +31,8 @@ tags: ["frontend", "fullstack","backend"]
 
 ## Introduction -  📸 Studio Booker App
 
+Github Repo: (https://github.com/cryshansen/studio-booker)
+
 A streamlined Angular application for photographers to browse, book, and confirm studio rentals. Built with performance, usability, and modularity in mind, this app allows users to view studios, select time slots, add bookings to a cart, and complete checkout with confirmation and PDF generation.
 
 ## 🚀 Features
