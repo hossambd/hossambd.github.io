@@ -1,7 +1,30 @@
+---
+layout: post
+title: Building a Studio Booking App
+date: 2025-07-10 14:24:00
+description: Ever want to build a booking app and see it under the hood?
+tags: formatting charts
+categories: angular-posts
+giscus_comments: true
+related_posts: false
+related_publications: true
+featured: true
+mermaid:
+  enabled: true
+  zoomable: true
+code_diff: true
+map: true
+chart:
+  chartjs: true
+  echarts: true
+  vega_lite: true
+tikzjax: true
+typograms: true
+---
+
+
 # 🎥 Building a Studio Booking App with Angular: A Complete Tutorial
 
-**Date**: 2025-07-10
-**Author**: Crystal Hansen
 
 ## Introduction
 
@@ -39,11 +62,13 @@ Have you ever wanted to build a front end of a fully functional booking applicat
 ### 1. Studio Listing
 
 The user browses available studios with name, description, accessories, and pricing. Clicking “Book Now” sends studio data to the calendar component.
-
+````markdown
 ```ts
-this.router.navigate(['/calendar', id], {{
-  queryParams: {{ price, name }}
-}});
+```this.router.navigate(['/calendar', id], {{
+
+```}});
+```
+
 2. Calendar View
 Uses FullCalendar.js
 
