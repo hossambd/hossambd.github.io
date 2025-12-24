@@ -9,7 +9,14 @@ ninja.data = [{
     handler: () => {
       window.location.href = "/";
     },
-  },{id: "nav-projects",
+  },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-projects",
           title: "projects",
           description: "",
           section: "Navigation",
@@ -30,26 +37,48 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-google-gemini-updates-flash-1-5-gemma-2-and-project-astra",
+        },{id: "post-fixing-port-8080-already-in-use-in-docker-a-devops-walkthrough",
         
-          title: 'Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+          title: "Fixing Port 8080 Already In Use in Docker - A DevOps Walkthrough",
         
-        description: "We’re sharing updates across our Gemini family of models and a glimpse of Project Astra, our vision for the future of AI assistants.",
+        description: "this is what included image galleries could look like",
         section: "Posts",
         handler: () => {
           
-            window.open("https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/", "_blank");
+            window.location.href = "/blog/2025/fixing-port-use-in-docker/";
           
         },
-      },{id: "post-displaying-external-posts-on-your-al-folio-blog",
+      },{id: "post-building-out-a-docker-container-for-spring-boot-mailhog-and-database",
         
-          title: 'Displaying External Posts on Your al-folio Blog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+          title: "Building out a Docker Container for Spring Boot MailHog and Database",
         
-        description: "",
+        description: "Every developer needs a container that runs without conflict to isolate bugs in processes.",
         section: "Posts",
         handler: () => {
           
-            window.open("https://medium.com/@al-folio/displaying-external-posts-on-your-al-folio-blog-b60a1d241a0a?source=rss-17feae71c3c4------2", "_blank");
+            window.location.href = "/blog/2025/building-docker-github-actions-container/";
+          
+        },
+      },{id: "post-building-a-studio-booking-app",
+        
+          title: "Building a Studio Booking App",
+        
+        description: "Ever want to build a booking app and see it under the hood?",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/studio-booking-tutorial/";
+          
+        },
+      },{id: "post-using-ngrx-store-with-localstorage-in-a-standalone-angular-app",
+        
+          title: "Using NgRx Store with LocalStorage in a Standalone Angular App",
+        
+        description: "Looking for a local storage tutorial that gives you a workable business case other than shopping carts?",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/ngrx-localstorage-tutorial/";
           
         },
       },{id: "books-the-godfather",
