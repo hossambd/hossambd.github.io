@@ -3,7 +3,7 @@ layout: post
 title: Fixing Port 8080 Already In Use in Docker - A DevOps Walkthrough
 date: 2025-10-23 01:59:00
 description: this is what included image galleries could look like
-tags: devops spring boot docker ports
+tags: devops spring-boot docker ports
 categories: devops-posts
 ---
 
