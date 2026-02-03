@@ -37,7 +37,260 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-fixing-port-8080-already-in-use-in-docker-a-devops-walkthrough",
+        },{id: "post-react-login-series-reusing-the-feature-in-another-app-part-7",
+        
+          title: "React Login Series - Reusing the Feature in Another App | Part 7...",
+        
+        description: "Part 7 Login Series focuses on installation of this feature into any v19 react app.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-07-include-login-feature-in-another-app/";
+          
+        },
+      },{id: "post-react-login-series-login-feature-complete-test-suite-part-6b",
+        
+          title: "React Login Series - Login Feature Complete Test Suite | Part 6b",
+        
+        description: "Part 6b in our Login Series covers the discussion of testing all layers of the application in its final Test Suite for Production.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/post-6-testing-suite/";
+          
+        },
+      },{id: "post-what-git-never-explains-stacked-branches-amp-merge-order",
+        
+          title: "What Git Never Explains -- Stacked Branches &amp; Merge Order",
+        
+        description: "Github how to on merging branches commits with multiple branch history",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/what-github-doesnt-teach/";
+          
+        },
+      },{id: "post-why-branch-discipline-in-git-isn-t-optional-and-how-it-saved-this-auth-refactor",
+        
+          title: "Why Branch Discipline in Git Isn’t Optional (And How It Saved This Auth...",
+        
+        description: "This Post describes the use of git to manage two branches of ongoing work and how  to do it.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/why-github-branch-discipline-in-git-isnt-optional/";
+          
+        },
+      },{id: "post-react-login-series-testing-the-login-feature-rtl-jest-part-6",
+        
+          title: "React Login Series - Testing the Login Feature (RTL + Jest) | Part...",
+        
+        description: "Part 6 in our Login Series covers the tesing aspect of our login features using RTL + Jset to ensure security and code functions as expected.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-06-testing-login-feature/";
+          
+        },
+      },{id: "post-react-login-series-auth-context-cookie-auth-part-5b",
+        
+          title: "React Login Series - Auth Context Cookie Auth | Part 5b",
+        
+        description: "Part 5 of this series walks through the authentication context using cookies vs session persistence.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-05-auth-context-cookie-persistence/";
+          
+        },
+      },{id: "post-react-login-series-auth-context-session-persistence-amp-logout-part-5",
+        
+          title: "React Login Series - Auth Context Session, Persistence &amp; Logout | Part 5...",
+        
+        description: "Part 5 of this series walks through the authentication context, session state, persistence and login/logout functionality.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-05-auth-context-session-persistence/";
+          
+        },
+      },{id: "post-react-login-series-auth-api-layer-amp-environment-decoupling-part-4a",
+        
+          title: "React Login Series - Auth API Layer &amp; Environment Decoupling | Part 4a...",
+        
+        description: "A production-style authentication system built with React, Tailwind, localStorage, API ready, and full testing coverage.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-04-auth-api-implementation-express/";
+          
+        },
+      },{id: "post-react-login-series-auth-api-designing-amp-managing-endpoints-part-4b",
+        
+          title: "React Login Series - Auth API Designing &amp; Managing Endpoints | Part 4b...",
+        
+        description: "A production-style authentication system built with React, Tailwind, localStorage, API ready, and full testing coverage.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-04-auth-api-endpoints/";
+          
+        },
+      },{id: "post-react-login-series-auth-api-layer-amp-environment-decoupling-part-4a",
+        
+          title: "React Login Series - Auth API Layer &amp; Environment Decoupling | Part 4a...",
+        
+        description: "A production-style authentication system built with React, Tailwind, localStorage, API ready, and full testing coverage.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-04-auth-api-decoupling/";
+          
+        },
+      },{id: "post-react-login-series-auth-api-integrating-an-authentication-api-part-4c",
+        
+          title: "React Login Series - Auth API Integrating an Authentication API | Part 4c...",
+        
+        description: "A production-style authentication system built with React, Tailwind, localStorage, API ready, and full testing coverage.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-04-auth-api-code/";
+          
+        },
+      },{id: "post-react-login-series-route-guards-auth-flow-part-3b",
+        
+          title: "React Login Series -  Route Guards Auth Flow | Part 3b",
+        
+        description: "In this Part of the series we look at guarding routes in a feature-based react auth flow",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-03-guarding-routes/";
+          
+        },
+      },{id: "post-setting-up-nvm-on-macos-node-version-manager",
+        
+          title: "Setting Up NVM on macOS (Node Version Manager)",
+        
+        description: "A practical guide to installing and using NVM on macOS for managing multiple Node.js versions.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/setting-up-nvm-on-macos/";
+          
+        },
+      },{id: "post-extracting-password-inputs-in-react-login-signup-reset-part-2b",
+        
+          title: "Extracting Password Inputs in React (Login, Signup, Reset) | Part 2b",
+        
+        description: "Designing reusable password components for different authentication flows",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-login-extracting-password-inputs-components/";
+          
+        },
+      },{id: "post-using-github-like-a-professional-branches-tags-and-reintegrating-work-into-main",
+        
+          title: "Using GitHub Like a Professional Branches, Tags, and Reintegrating Work into Main",
+        
+        description: "How to structure a GitHub repo for a blog series while following real-world, business-grade workflows.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/using-github-profesionally/";
+          
+        },
+      },{id: "post-login-series-adding-a-password-strength-meter-in-react-part-2c",
+        
+          title: "Login Series Adding a Password Strength Meter in React  | Part 2c",
+        
+        description: "Layering password strength validation into reusable auth components",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/react-authentication-adding-password-strength-meter/";
+          
+        },
+      },{id: "post-jsx-vs-tsx-when-to-use-each-and-why-we-often-mix-them",
+        
+          title: "JSX vs TSX — When to Use Each (and Why We Often Mix...",
+        
+        description: "Understanding why modern React apps mix JS, JSX, and TSX — and when TypeScript actually pays off.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/jsx-vs-tsx-mixed-react-apps/";
+          
+        },
+      },{id: "post-getting-started-with-react-a-modern-step-by-step-guide",
+        
+          title: "Getting Started with React: A Modern Step-by-Step Guide",
+        
+        description: "A practical tutorial for creating a React app using modern tooling like Vite, hooks, and functional components.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/getting-started-react-app/";
+          
+        },
+      },{id: "post-react-login-series-managing-state-amp-side-effects-part-3",
+        
+          title: "React Login Series - Managing State &amp; Side Effects | Part 3",
+        
+        description: "In this Part of the series we look at the useAuth React Hook to manage state and effects",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/react-login-03-state-hooks/";
+          
+        },
+      },{id: "post-react-login-series-design-and-integrate-tailwind-ui-part-2d",
+        
+          title: "React Login Series - Design and Integrate Tailwind UI  | Part 2d",
+        
+        description: "This step continues on the Login Feature convertion of Tailwind UI page components required for the login/registration feature.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/react-login-02-UI-tailwind/";
+          
+        },
+      },{id: "post-react-login-series-design-and-integrate-tailwind-ui-part-2a",
+        
+          title: "React Login Series - Design and Integrate Tailwind UI  | Part 2a",
+        
+        description: "Part 2, React Login Feature walks through creating and implementing the UI using tailwind components available online to source.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/react-login-01-layout/";
+          
+        },
+      },{id: "post-react-login-series-building-a-reusable-login-feature-routing-setup-part-1a",
+        
+          title: "React Login Series - Building a Reusable Login Feature | Routing Setup |...",
+        
+        description: "Part 1 of the React Login Feature walk through covering app setup, dependencies, routing, layouts, and feature-first structure including UI pages &amp; forms for the feature.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/react-login-feature-routing-setup/";
+          
+        },
+      },{id: "post-react-login-series-building-a-login-feature-7-part-series",
+        
+          title: "React Login Series - Building a Login Feature | 7 Part Series",
+        
+        description: "A production-style authentication system built with React, Tailwind, using localStorage, API abstraction, and full testing coverage.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/react-login-feature/";
+          
+        },
+      },{id: "post-fixing-port-8080-already-in-use-in-docker-a-devops-walkthrough",
         
           title: "Fixing Port 8080 Already In Use in Docker - A DevOps Walkthrough",
         
@@ -63,7 +316,7 @@ ninja.data = [{
         
           title: "Building a Studio Booking App",
         
-        description: "Ever want to build a booking app and see it under the hood?",
+        description: "Ever want to build a booking app and see what is under the hood of such a system?",
         section: "Posts",
         handler: () => {
           

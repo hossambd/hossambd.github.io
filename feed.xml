@@ -1,122 +1,895 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://cryhansen.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://cryhansen.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2025-12-24T00:35:19+00:00</updated><id>https://cryhansen.github.io/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Building out a Docker Container for Spring Boot MailHog and Database</title><link href="https://cryhansen.github.io/blog/2025/building-docker-github-actions-container/" rel="alternate" type="text/html" title="Building out a Docker Container for Spring Boot MailHog and Database"/><published>2025-10-23T01:59:00+00:00</published><updated>2025-10-23T01:59:00+00:00</updated><id>https://cryhansen.github.io/blog/2025/building-docker-github-actions-container</id><content type="html" xml:base="https://cryhansen.github.io/blog/2025/building-docker-github-actions-container/"><![CDATA[<p>🐳 Building out a Docker Container for Spring Boot MailHog and Database</p> <h2 id="introduction">Introduction</h2> <p>New to DevOps? Need a simple walk through on how to set upa containerized app to run automated testing and deployment. This will get you started quickly.</p> <hr/>]]></content><author><name></name></author><category term="devops-posts"/><category term="devops"/><category term="spring"/><category term="boot"/><category term="docker"/><category term="ports"/><summary type="html"><![CDATA[Every developer needs a container that runs without conflict to isolate bugs in processes.]]></summary></entry><entry><title type="html">Fixing Port 8080 Already In Use in Docker - A DevOps Walkthrough</title><link href="https://cryhansen.github.io/blog/2025/fixing-port-use-in-docker/" rel="alternate" type="text/html" title="Fixing Port 8080 Already In Use in Docker - A DevOps Walkthrough"/><published>2025-10-23T01:59:00+00:00</published><updated>2025-10-23T01:59:00+00:00</updated><id>https://cryhansen.github.io/blog/2025/fixing-port-use-in-docker</id><content type="html" xml:base="https://cryhansen.github.io/blog/2025/fixing-port-use-in-docker/"><![CDATA[<p>🐳 Fixing “Port 8080 Already in Use” in Docker — A DevOps Walkthrough</p> <h2 id="introduction">Introduction</h2> <p>If you’ve ever spun up a new Docker container for a Spring Boot app and hit the dreaded error: Error response from daemon: ports are not available: exposing port TCP 0.0.0.0:8080 -&gt; 127.0.0.1:0: listen tcp 0.0.0.0:8080: bind: address already in use</p> <p>You’re not alone. This happens when another process—often a previously running Spring Boot or Mailhog container—is already using <strong>port 8080</strong>.</p> <p>In this quick DevOps walkthrough, we’ll cover how to diagnose, fix, and prevent this conflict — both for local development and when deploying multiple services via Docker Compose.</p> <hr/> <h2 id="️-problem-overview">⚙️ Problem Overview</h2> <p>Docker containers expose internal application ports (like <code class="language-plaintext highlighter-rouge">8080</code> for Spring Boot) to your host system.<br/> When that port is already taken, Docker can’t bind it, and the build fails with a port conflict.</p> <p>We’ll fix this using three main strategies:</p> <ol> <li>Kill the process that’s using the port.</li> <li>Remap the container port in <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>.</li> <li>Reassign your Spring Boot app to a different port in <code class="language-plaintext highlighter-rouge">application.properties</code>.</li> </ol> <hr/> <h2 id="-step-1-identify-whats-using-port-8080">🔍 Step 1: Identify What’s Using Port 8080</h2> <p>Run this command to see which process is holding the port:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>lsof <span class="nt">-i</span> :8080
-</code></pre></div></div> <p>Example output:</p> <div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">java</span>     <span class="mi">54123</span> <span class="s">crystalhansen</span>   <span class="s">45u</span>  <span class="s">IPv6</span> <span class="s">0x...</span>  <span class="s">TCP</span> <span class="s">*:8080</span> <span class="s">(LISTEN)</span>
-</code></pre></div></div> <p>Take note of the PID (process ID).</p> <h2 id="-step-2-kill-the-conflicting-process">🔪 Step 2: Kill the Conflicting Process</h2> <p>Stop it manually using:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> 54123
-</code></pre></div></div> <p>Replace 54123 with the PID you saw above. Once done, retry your Docker build:</p> <p>docker compose up –build</p> <p>✅ If everything starts cleanly, your container should now bind correctly to port 8080.</p> <p>🔁 Step 3: Change the Port Mapping (Optional)</p> <p>If you want to keep the other app running, just map your new container to a different external port in your docker-compose.yml.</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
-  <span class="na">app</span><span class="pi">:</span>
-    <span class="na">build</span><span class="pi">:</span> <span class="s">.</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s2">"</span><span class="s">9090:8080"</span>
-</code></pre></div></div> <p>This means:</p> <p>Inside the container → app still listens on 8080</p> <p>On your host → access it at http://localhost:9090</p> <h2 id="-step-4-change-the-app-port-in-spring-boot">🧱 Step 4: Change the App Port in Spring Boot</h2> <p>You can also change the port directly in your application.properties:</p> <div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">server.port=9090</span>
-</code></pre></div></div> <p>This permanently moves your app off 8080, preventing future conflicts both locally and in CI/CD pipelines.</p> <h2 id="-step-5-pro-tip--multi-service-docker-compose-setup">💡 Step 5: Pro Tip — Multi-Service Docker Compose Setup</h2> <p>If you’re running multiple microservices, give each one a dedicated external port in your Docker Compose file.</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
-  <span class="na">user-service</span><span class="pi">:</span>
-    <span class="na">build</span><span class="pi">:</span> <span class="s">./user</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s2">"</span><span class="s">8081:8080"</span>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://cryhansen.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://cryhansen.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-02-03T15:20:35+00:00</updated><id>https://cryhansen.github.io/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">React Login Series - Reusing the Feature in Another App | Part 7</title><link href="https://cryhansen.github.io/blog/2026/react-login-07-include-login-feature-in-another-app/" rel="alternate" type="text/html" title="React Login Series - Reusing the Feature in Another App | Part 7"/><published>2026-01-29T00:00:00+00:00</published><updated>2026-01-29T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/react-login-07-include-login-feature-in-another-app</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/react-login-07-include-login-feature-in-another-app/"><![CDATA[<h2 id="post-7-reusing-the-feature-in-another-app">Post 7: Reusing the Feature in Another App</h2> <p>Lets walk through droping this feature into any new or existing React apps running on v19. This will help us recap function and app adjustments as well as test the implementation in a new app install.</p> <p>There is a github shell of React prebuild we prepared and can be used to test our deployment step by step. Grab the shell app code found in post <a href="/blog/2026/getting-started-react-app/">React Shell</a> This will ensure we cover all changes and or inclusions required from implementing this. This will help test our instructions for implementation so we can catch any failures and rectify them in test driven deployments. Further we can improve on the feature. In this post We finalize the feature with a review of the Application structure:</p> <h2 id="application-structure-setup">Application Structure Setup</h2> <p>In this post, we download the <a href="https://github.com/cryshansen/login-feature-react">main branch</a> of the Github repo. The branches were merged to main branch in succession of each post and are tagged in alignment. Therefore the main branch is the full feature for testing the deployment process. This section of the series proves its feature behavior is what we have successfully built and is easy to drop in place. Navigate to your code base and open the feature in your favorite editor, vs code, eclipse.</p> <p>We will need to adjust the App.jsx and / or Router.jsx by migrating or copying some basic files so the App knows about the feature app and can pass down the neccessary environment variables so that the login routes with your new /base app. Because we have Tailwind installed, we can modify the color scheme to match the App UI via some simple color changes. Our example download is dark mode only set as <code class="language-plaintext highlighter-rouge">true</code> in most pages which must also be managed. The ‘headerTop’ file has a darkMode toggle switch for this part. Feel free to either remove or design the light mode via Tailwind UI copies and integrate. This may become a future enhancement. However as is for now, we have dark mode colors schemed and one lightmode for the login for now. Working Toggle will come in v2.</p> <p>Copy the routes from App.jsx and / or Router.jsx into the new App.jsx and / or Router.jsx files and wrap the AuthProvider around the app in the index.jsx.</p> <p>This is our finalized layout for a feature auth to drop into any other projects you need a login function for.</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
+├─ app/
+│  ├─ App.jsx
+│  └─ Router.jsx
+│
+├─ context/
+│  └─ AuthContext.jsx
+│
+├─ features/
+│  └─ auth/
+│     ├─ api/
+│     │  ├─ schemas/
+│     |  │  └─ auth.types.ts
+│     |  │  └─ authtelemetry.types.ts
+│     │  ├─ services/
+│     |  │  └─ auth.service.ts
+│     |  │  └─ authTelemetry.service.ts
+│     ├─ components/
+│     │  ├─ elements/
+|     │  │  ├─ AccountDropdown.jsx
+|     │  │  └─ DarkMode.jsx
+│     │  ├─ forms/
+|     │  │  ├─ ConfirmPasswordField.jsx
+|     │  │  ├─ ConfirmResetForm.jsx
+│     |  │  ├─ EmailField.jsx
+|     |  │  ├─ FirstLastNameFields.jsx
+|     │  │  ├─ LoginForm.jsx
+│     |  │  ├─ OAuthButtons.jsx
+│     |  │  ├─ PasswordField.jsx
+│     |  │  ├─ PasswordRules.jsx
+│     |  │  ├─ PasswordStrengthMeter.jsx
+|     │  │  ├─ RequestResetForm.jsx
+|     │  │  └─ SignupForm.jsx
+│     │  ├─ layout/
+|     │  │  ├─ AuthFacingFooter.jsx
+|     │  │  ├─ AuthFacingHeader.jsx
+|     │  │  ├─ AuthLayout.jsx
+|     │  │  ├─ HeaderTopLevel.jsx
+|     │  │  ├─ UnAuthFacingHeader.jsx
+|     │  │  ├─ UnAuthLayout.jsx
+|     |  ├─ utils/
+|     |  │  ├─ passwordRules.js
+|     |  │  └─ passwordStrength.js
+│     ├─ config/
+│     |  └─ auth.config.ts
+│     ├─ context/
+│     |  └─ AuthContext.tsx
+│     ├─ pages/
+│     │  ├─ AdminPage.test.jsx
+│     │  ├─ AuthNotFoundPage.jsx
+│     │  ├─ ConfirmEmailPage.jsx
+│     │  ├─ ConfirmResetPage.jsx
+│     │  ├─ LoginPage.jsx
+│     │  ├─ ProfilePage.jsx
+│     │  ├─ RequestResetPage.jsx
+│     │  └─ SignupPage.jsx
+│     ├─ routes/
+│     │  ├─ AccountStatusRoute.jsx
+│     │  ├─ auth.routes.jsx
+│     │  ├─ GuardLoader.jsx
+│     │  ├─ ProtectedRoute.jsx
+│     │  ├─ PublicOnlyRoute.jsx
+│     │  ├─ RoleRoute.jsx
+|     |  └─ VerifiedRoute.jsx
+│     ├─ tests/
+│     │  ├─ auth.service.test.ts
+│     │  ├─ AuthContext.contract.test.tsx
+│     │  ├─ AuthContext.test.tsx
+│     │  ├─ AuthContextEvents.test.tsx
+│     │  ├─ ConfirmEmailPage.test.tsx
+│     │  ├─ ConfirmResetPage.test.tsx
+│     │  ├─ LoginPage.test.jsx
+│     │  ├─ RedirectIfAuth.test.tsx
+│     │  ├─ RequestPasswordPage.test.jsx
+│     │  ├─ RequreAuth.test.jsx
+│     │  └─ setup.js
+│     │  └─ SignupPage.test.jsx
+│     │  ├─ test-utils.jsx
+│     │  └─ TestProviders.Tsx
+│     ├─ contract.ts
+│     └─ index.ts
+├─ ui/
+│  |─ AppLoader.tsx
+│  |─ global-spinner.css
+|  └─ GlobalSpinner.tsx
+└─ main.jsx
 
-  <span class="na">email-service</span><span class="pi">:</span>
-    <span class="na">build</span><span class="pi">:</span> <span class="s">./email</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s2">"</span><span class="s">8082:8080"</span>
+</code></pre></div></div> <h2 id="application-setup-configuration">Application Setup Configuration</h2> <p>Open your App.jsx or App.tsx and wrap your App with the features authentication context wrapper</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">AuthProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../features/auth/context/AuthContext.jsx</span><span class="dl">"</span><span class="p">;</span>
 
-  <span class="na">gateway</span><span class="pi">:</span>
-    <span class="na">build</span><span class="pi">:</span> <span class="s">./gateway</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
-</code></pre></div></div> <p>Now each container maps safely to a unique external port, even though they all use the same internal port (8080).</p> <h2 id="-summary-table">🧠 Summary Table</h2> <p>Scenario Solution Another app using port 8080 Kill the process with lsof and kill You want to run multiple apps Change the Docker port mapping You want to change default app port Set server.port in application.properties</p> <h2 id="-bonus-add-to-your-devops-toolkit">🧩 Bonus: Add to Your DevOps Toolkit</h2> <p>When working with Docker-based microservices:</p> <p>Standardize port mapping conventions (e.g., backend apps → 8080–8099, mail services → 8025)</p> <p>Use .env variables for ports to avoid hardcoding values</p> <p>Automate cleanups with docker compose down -v to free ports and remove volumes</p> <h2 id="-conclusion">✨ Conclusion</h2> <p>Port conflicts are one of the most common issues developers face when running multiple Docker containers locally. By learning how to identify, kill, or remap conflicting processes, you can streamline your workflow and run multiple microservices side by side with zero friction.</p> <p>🚀 Try applying this to your own Spring Boot or Mailhog setup to build a stable, reusable local DevOps environment.</p> <p>Tags: Docker • DevOps • Spring Boot • Microservices • Troubleshooting</p> <p>”””</p>]]></content><author><name></name></author><category term="devops-posts"/><category term="devops"/><category term="spring"/><category term="boot"/><category term="docker"/><category term="ports"/><summary type="html"><![CDATA[this is what included image galleries could look like]]></summary></entry><entry><title type="html">Building a Studio Booking App</title><link href="https://cryhansen.github.io/blog/2025/studio-booking-tutorial/" rel="alternate" type="text/html" title="Building a Studio Booking App"/><published>2025-07-10T14:24:00+00:00</published><updated>2025-07-10T14:24:00+00:00</updated><id>https://cryhansen.github.io/blog/2025/studio-booking-tutorial</id><content type="html" xml:base="https://cryhansen.github.io/blog/2025/studio-booking-tutorial/"><![CDATA[<h1 id="-building-a-studio-booking-app-with-angular-a-complete-tutorial">🎥 Building a Studio Booking App with Angular: A Complete Tutorial</h1> <h2 id="introduction">Introduction</h2> <p>Have you ever wanted to build a front end of a fully functional booking application? In this tutorial, we’ll walk through how we built <strong>Studio Booker</strong>, an Angular-powered stand alone single-page app for managing photography studio bookings — from browsing studios to booking a time slot, managing a cart, and completing checkout with a polished confirmation and PDF receipt. It also includes basic front end user login/signup forms and button for a subsection of this tutuorial.</p> <hr/> <h2 id="-features-overview">🔧 Features Overview</h2> <ul> <li>Studio listing with details and prices</li> <li>Calendar view with FullCalendar.js</li> <li>Reactive booking form</li> <li>Cart system with persistent storage</li> <li>Checkout with billing info and promo code</li> <li>Confirmation page with printable PDF</li> <li>Sign in - user management</li> <li>Sign up – user management</li> <li>Hosted as a subdomain (e.g., <code class="language-plaintext highlighter-rouge">booker.crystalhansenartographic.com</code>)</li> </ul> <hr/> <h2 id="-tech-stack">🧱 Tech Stack</h2> <ul> <li>Angular 17+</li> <li>Bootstrap 5</li> <li>FullCalendar.js</li> <li>Reactive Forms</li> <li>LocalStorage for persistence</li> <li>html2pdf.js for client-side PDF generation</li> </ul> <hr/> <h2 id="-app-flow">🔄 App Flow</h2> <h3 id="1-studio-listing">1. Studio Listing</h3> <p>The user browses available studios with name, description, accessories, and pricing. Clicking “Book Now” sends studio data to the calendar component.</p> <pre><code class="language-`markdown">```ts
-```this.router.navigate(['/calendar', id], );
-</code></pre> <ol> <li>Calendar View Uses FullCalendar.js</li> </ol> <p>Clicking a day opens a booking form with that date pre-filled</p> <p>Clicking an event populates the form with existing booking info</p> <ol> <li>Booking Form Reactive form with:</li> </ol> <p>Title</p> <p>Date (readonly if selected from calendar)</p> <p>Time slot (button selector)</p> <p>Price (from studio)</p> <p>Emits the completed booking object to be added to the cart.</p> <ol> <li>Cart System Displays list of bookings</li> </ol> <p>Allows item removal</p> <p>Calculates total</p> <p>Uses LocalStorage for persistence</p> <p>Cart is cleared on successful booking confirmation</p> <ol> <li>Checkout Includes:</li> </ol> <p>First/Last Name, Email, Address</p> <p>Promo code validation (EXAMPLECODE)</p> <p>Card info and payment method</p> <p>Validates form on submission</p> <p>Sends booking + user info to the confirmation page.</p> <ol> <li>Confirmation Displays cart summary and confirmation ID</li> </ol> <p>Downloadable/printable PDF using html2pdf.js</p> <p>Clears cart on load</p> <p>🧠 Key Concepts Angular routing (with route/query parameters)</p> <p>Component communication via @Input() and @Output()</p> <p>FullCalendar integration</p> <p>Reactive Forms &amp; validation</p> <p>LocalStorage-based cart service</p> <p>Hosting Angular on a subdomain with .htaccess</p> <p>PDF generation with html2pdf.js</p> <p>Deployment Notes Subdomain configured via shared hosting (e.g., HostPapa)</p> <p>Built using: ng build –configuration production</p> <p>Deployed to /public_html/studio-booker/</p> <p>.htaccess routes all paths to index.html `` apache Always show details</p> <IfModule mod_rewrite.c=""> RewriteEngine On RewriteBase / RewriteCond % !-f RewriteCond % !-d RewriteRule . /index.html [L] </IfModule> <p>```</p> <h1 id="potential-improvements">Potential Improvements</h1> <p>Backend database (e.g., Firebase, Node.js, Laravel)</p> <p>Authentication &amp; user accounts</p> <p>Admin panel for booking management</p> <p>Online payments with Stripe or PayPal</p> <p>Email confirmations</p> <p>Conclusion This project demonstrates how to build a modern Angular application with real-world booking workflows. It’s scalable, stylish, and packed with useful patterns for building your own booking system.</p> <p>Want to build it yourself or extend it? Fork it, deploy it, and make it your own!</p> <p>Happy Booking! 🚀 “””</p>]]></content><author><name></name></author><category term="angular-posts"/><category term="formatting"/><category term="charts"/><summary type="html"><![CDATA[Ever want to build a booking app and see it under the hood?]]></summary></entry><entry><title type="html">Using NgRx Store with LocalStorage in a Standalone Angular App</title><link href="https://cryhansen.github.io/blog/2025/ngrx-localstorage-tutorial/" rel="alternate" type="text/html" title="Using NgRx Store with LocalStorage in a Standalone Angular App"/><published>2025-03-26T14:24:00+00:00</published><updated>2025-03-26T14:24:00+00:00</updated><id>https://cryhansen.github.io/blog/2025/ngrx-localstorage-tutorial</id><content type="html" xml:base="https://cryhansen.github.io/blog/2025/ngrx-localstorage-tutorial/"><![CDATA[<h1 id="using-ngrx-store-with-localstorage-in-a-standalone-angular-app">Using NgRx Store with LocalStorage in a Standalone Angular App</h1> <p>In this tutorial, we’ll build a simple Angular application using the <strong>Standalone Component API</strong> and manage state using <strong>NgRx Store</strong>. We’ll also persist that state using <strong>localStorage</strong> via the <code class="language-plaintext highlighter-rouge">ngrx-store-localstorage</code> package.</p> <blockquote> <p>This guide is suitable for Angular 16+ and NgRx 16+.</p> </blockquote> <hr/> <h2 id="-overview">🧱 Overview</h2> <ul> <li><strong>State slice</strong>: <code class="language-plaintext highlighter-rouge">bookings</code></li> <li><strong>NgRx Store</strong>: to manage state.</li> <li><strong>localStorage</strong>: to persist state across sessions.</li> <li><strong>Standalone Angular app</strong>: no <code class="language-plaintext highlighter-rouge">AppModule</code>, using <code class="language-plaintext highlighter-rouge">bootstrapApplication()</code> in <code class="language-plaintext highlighter-rouge">main.ts</code>.</li> </ul> <hr/> <h2 id="-prerequisites">🧰 Prerequisites</h2> <ul> <li>Angular CLI installed</li> <li>NgRx Store: <code class="language-plaintext highlighter-rouge">@ngrx/store</code></li> <li>Local storage sync: <code class="language-plaintext highlighter-rouge">ngrx-store-localstorage</code></li> </ul> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> @ngrx/store ngrx-store-localstorage
-</code></pre></div></div> <hr/> <h2 id="mermaid">Mermaid</h2> <p>The diagram below was generated by the following code:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">mermaid
-</span><span class="sb">sequenceDiagram
-    participant John
-    participant Alice
-    Alice-&gt;&gt;John: Hello John, how are you?
-    John--&gt;&gt;Alice: Great!</span>
-<span class="p">```</span>
-</code></pre></div></div> <pre><code class="language-mermaid">sequenceDiagram
-    participant John
-    participant Alice
-    Alice-&gt;&gt;John: Hello John, how are you?
-    John--&gt;&gt;Alice: Great!
-</code></pre> <h2 id="1--define-your-booking-model">1. 📁 Define Your Booking Model</h2> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/app/models/booking.ts</span>
-
-<span class="k">export</span> <span class="kr">interface</span> <span class="nx">Booking</span> <span class="p">{</span>
-  <span class="nl">id</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">date</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div> <hr/> <h2 id="2--create-booking-actions">2. 🎬 Create Booking Actions</h2> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/app/store/bookings/booking.actions.ts</span>
-
-<span class="k">import</span> <span class="p">{</span> <span class="nx">createAction</span><span class="p">,</span> <span class="nx">props</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/store</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Booking</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../models/booking</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">addBooking</span> <span class="o">=</span> <span class="nf">createAction</span><span class="p">(</span><span class="dl">'</span><span class="s1">[Booking] Add Booking</span><span class="dl">'</span><span class="p">,</span> <span class="nx">props</span><span class="o">&lt;</span><span class="p">{</span> <span class="na">booking</span><span class="p">:</span> <span class="nx">Booking</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">());</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">removeBooking</span> <span class="o">=</span> <span class="nf">createAction</span><span class="p">(</span><span class="dl">'</span><span class="s1">[Booking] Remove Booking</span><span class="dl">'</span><span class="p">,</span> <span class="nx">props</span><span class="o">&lt;</span><span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="kr">number</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">());</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">clearBookings</span> <span class="o">=</span> <span class="nf">createAction</span><span class="p">(</span><span class="dl">'</span><span class="s1">[Booking] Clear All</span><span class="dl">'</span><span class="p">);</span>
-</code></pre></div></div> <hr/> <h2 id="3--create-booking-reducer">3. 🧠 Create Booking Reducer</h2> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/app/store/bookings/booking.reducer.ts</span>
-
-<span class="k">import</span> <span class="p">{</span> <span class="nx">createReducer</span><span class="p">,</span> <span class="nx">on</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/store</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">addBooking</span><span class="p">,</span> <span class="nx">removeBooking</span><span class="p">,</span> <span class="nx">clearBookings</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./booking.actions</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Booking</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../models/booking</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">initialState</span><span class="p">:</span> <span class="nx">Booking</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
-
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">bookingReducer</span> <span class="o">=</span> <span class="nf">createReducer</span><span class="p">(</span>
-  <span class="nx">initialState</span><span class="p">,</span>
-  <span class="nf">on</span><span class="p">(</span><span class="nx">addBooking</span><span class="p">,</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span> <span class="nx">booking</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">[...</span><span class="nx">state</span><span class="p">,</span> <span class="nx">booking</span><span class="p">]),</span>
-  <span class="nf">on</span><span class="p">(</span><span class="nx">removeBooking</span><span class="p">,</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span> <span class="nx">id</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">b</span> <span class="o">=&gt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">id</span><span class="p">)),</span>
-  <span class="nf">on</span><span class="p">(</span><span class="nx">clearBookings</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">[])</span>
+<span class="k">return </span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">AuthProvider</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">BrowserRouter</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">AppRouter</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">BrowserRouter</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">AuthProvider</span><span class="p">&gt;</span>
 <span class="p">);</span>
-</code></pre></div></div> <hr/> <h2 id="4--create-local-storage-meta-reducer">4. 💾 Create Local Storage Meta-Reducer</h2> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/app/store/localStorageSync.reducer.ts</span>
+</code></pre></div></div> <p>Open your routing file or create one Router.jsx and import the feature’s Routes. This will allow the App to use the pre-existing routes for the login feature. Ensure no other routes are using these endpoints:</p> <p>/login /reset /reset/confirm /signup /verify</p> <p>import {AuthRoutes} from “../features/auth/routes/auth.routes”;</p> <p>Wrap the AuthRoutes in this router file like the below:</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">AppRouter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">darkMode</span><span class="p">,</span> <span class="nx">setDarkMode</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
 
-<span class="k">import</span> <span class="p">{</span> <span class="nx">ActionReducer</span><span class="p">,</span> <span class="nx">INIT</span><span class="p">,</span> <span class="nx">UPDATE</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/store</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">localStorageSync</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ngrx-store-localstorage</span><span class="dl">'</span><span class="p">;</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">Routes</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="cm">/* Feature routes */</span><span class="si">}</span>
+      <span class="si">{</span><span class="nc">AuthRoutes</span><span class="p">({</span> <span class="nx">darkMode</span><span class="p">,</span> <span class="nx">setDarkMode</span> <span class="p">})</span><span class="si">}</span>
 
-<span class="k">export</span> <span class="kd">function</span> <span class="nf">localStorageSyncReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">:</span> <span class="nx">ActionReducer</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">):</span> <span class="nx">ActionReducer</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nf">localStorageSync</span><span class="p">({</span>
-    <span class="na">keys</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">bookings</span><span class="dl">'</span><span class="p">],</span>
-    <span class="na">rehydrate</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="p">})(</span><span class="nx">reducer</span><span class="p">);</span>
+      <span class="si">{</span><span class="cm">/* =====================
+          SYSTEM ROUTES
+      ===================== */</span><span class="si">}</span>
+
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"/not-found"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">NotFoundPage</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+
+      <span class="si">{</span><span class="cm">/* Root */</span><span class="si">}</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"/"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">Navigate</span> <span class="na">to</span><span class="p">=</span><span class="s">"/home"</span> <span class="na">replace</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+
+      <span class="si">{</span><span class="cm">/* Catch-all */</span><span class="si">}</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"*"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">Navigate</span> <span class="na">to</span><span class="p">=</span><span class="s">"/home"</span> <span class="na">replace</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Routes</span><span class="p">&gt;</span>
+  <span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div></div> <hr/> <h2 id="5--bootstrap-application-with-store">5. 🚀 Bootstrap Application with Store</h2> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/main.ts</span>
 
-<span class="k">import</span> <span class="p">{</span> <span class="nx">bootstrapApplication</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/platform-browser</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./app/app.component</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">appConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./app/app.config</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">provideStore</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/store</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">bookingReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./app/store/bookings/booking.reducer</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">localStorageSyncReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./app/store/localStorageSync.reducer</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">MetaReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/store</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">AppRouter</span><span class="p">;</span>
+</code></pre></div></div> <p>This combines the App original pages and functions untouched as we include the Feature.</p> <h2 id="configuring-the-environment-variables">Configuring the Environment Variables;</h2> <p>It is advantageous to have evironment variables to allow configuration providing good stability of droping features. We set up the feature to have an .env.example of which you will need to configure</p> <p>find the file and name it .env place the proper login api you are using to supply the app feature. Note that the User_API is none functional at this time. A future variant my provide User based requirements but for this feature and application we have scoped the app to login only with one landing route. It is of no use at this time to point to a user endpoint for this reason.</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#</span> <span class="nx">example</span> <span class="nx">file</span>
+<span class="err">#</span> <span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">example</span>
+<span class="nx">VITE_AUTH_API_URL</span><span class="o">=</span><span class="nx">https</span><span class="p">:</span><span class="c1">//api.yourproductiondomain.com/auth</span>
+<span class="nx">VITE_USER_API_URL</span><span class="o">=</span><span class="nx">https</span><span class="p">:</span><span class="c1">//api.yourproductiondomain.com/users</span>
+<span class="nx">VITE_AUTHTEL_API_URL</span><span class="o">=</span><span class="nx">https</span><span class="p">:</span><span class="c1">//api.yourproductiondomain.com/authtelemetry</span>
+</code></pre></div></div> <p>Open your env.ts file or create it and paste the below. Alternatively you will have it in the downloaded repo</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/config/env.ts</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">API_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">AUTH_BASE_URL</span><span class="p">:</span> <span class="k">import</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VITE_AUTH_API_URL</span><span class="p">,</span>
+  <span class="na">USER_API_URL</span><span class="p">:</span> <span class="k">import</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VITE_USER_API_URL</span><span class="p">,</span>
+  <span class="na">AUTHTEL_API_URL</span><span class="p">:</span> <span class="k">import</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VITE_AUTHTEL_API_URL</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div></div> <p>There is one more important folder we didnt really cover elsewhere in this series which is moving the Page Loader into a ui folder at the root level. This allows access from both the feature and any app/feature needing a loader. The Loader Requires a root level found in context/LoaderContext.tsx</p> <p>Topics</p> <p>What you change</p> <p>What stays the same</p> <p>When to extract to a package</p> <p>So what we have covered to completion is a working authentication feature that is dropin ready. Its updates and interface testing or any api changes make it easy to implement and maintain so as to continually update and redrop upgrades easily. Another benefit is hosting becomes easier for different apps on one cloud storage.</p> <p>You can grab the finalized <a href="https://github.com/cryshansen/login-feature-react">version</a> for your inhouse development to extend its capacity to suite your needs. Download drop into a features folder at your root, configure endpoints / routing and done!</p> <p>Alternatively, if you just want an app prebuild with login incorporated, you can download our test app integration at <a href="https:/github.com/cryshansen/base-login-app">base-login-app</a></p> <h2 id="optional-post-what-id-do-differently-next-time">Optional Post: What I’d Do Differently Next Time</h2> <p>Shows senior thinking:</p> <p>Tradeoffs</p> <p>What broke</p> <p>What scaled well</p>]]></content><author><name></name></author><category term="react-posts"/><category term="auth"/><category term="react-login-series"/><category term="react"/><category term="login"/><category term="authentication"/><category term="auth"/><category term="UI"/><category term="integration"/><summary type="html"><![CDATA[Part 7 Login Series focuses on installation of this feature into any v19 react app.]]></summary></entry><entry><title type="html">React Login Series - Login Feature Complete Test Suite | Part 6b</title><link href="https://cryhansen.github.io/blog/2026/post-6-testing-suite/" rel="alternate" type="text/html" title="React Login Series - Login Feature Complete Test Suite | Part 6b"/><published>2026-01-28T00:00:00+00:00</published><updated>2026-01-28T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/post-6-testing-suite</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/post-6-testing-suite/"><![CDATA[<h2 id="login-feature-test-suite-overview">Login Feature Test Suite Overview</h2> <p>The Login Feature in our React application has been tested across multiple layers to ensure robustness, correctness, and maintainability. Tests cover UI behavior, routing logic, service integration, state management, and event emission. We classify tests into four primary types:</p> <p>Test Style Purpose Contract Test Locks down public guarantees of the AuthContext API for consumers, such as expected return values from login, logout, /me resolution, and event emission. Behavior Test Validates internal mechanics of AuthContext and components, like password toggle, loader visibility, and input updates. Unit Test Isolates single functions such as resetPassword, verifyEmailAccount, or requestPasswordResetApi to confirm correct outputs and error handling. Integration Test Tests multiple pieces working together, such as login → /me → state update → event emission → logout, simulating realistic usage flows.</p> <hr/> <h3 id="file-level-test-breakdown">File-Level Test Breakdown</h3> <ol> <li>LoginPage.test.jsx — UI &amp; Form Behavior</li> </ol> <p>Tests the Login Page component directly, covering interactions and visibility of inputs and buttons.</p> <p>Test Name Purpose renders email and password inputs Ensures both fields are present in the DOM. allows typing into email and password fields Confirms controlled inputs update state correctly. toggles password visibility Verifies show/hide password button works and updates input type. signin button is disabled when values are missing Checks that form validation prevents submission with incomplete input. shows signed-in message Confirms AuthContext’s authMessage appears after login. shows error message Confirms error messages render correctly when login fails. finds inputs via document.getElementById Ensures inputs are properly attached to DOM nodes for legacy references.</p> <hr/> <ol> <li>ProtectedRoute.test.jsx — Routing &amp; Guard Behavior</li> </ol> <p>Ensures public and private routes enforce authentication rules correctly.</p> <p>Test Name Purpose redirects unauthenticated user to login Validates that protected routes redirect to /login when authuser is null. renders fallback GuardLoader Confirms loader is shown while authReady is false.</p> <hr/> <ol> <li>AuthContext.test.tsx — Contract, Behavior, and Service Integration</li> </ol> <p>Focuses on AuthContext itself, testing state transitions, service interactions, and edge cases.</p> <p>Test Name Purpose sets authuser when /me succeeds Ensures session bootstrap correctly sets user identity. sets authuser to null when unauthenticated Confirms failed /me returns null. logs in and resolves session via /me Verifies login flow updates state and sets success message. clears authuser on logout Ensures logout destroys session and sets success message. throws when passwords do not match Validates resetPassword rejects mismatched passwords. calls confirmPasswordResetApi and sets success message Confirms password reset interacts with API and updates authMessage. sets error message when API returns failure Confirms API errors are caught and reflected in authMessage. handles service failures Verifies proper error handling for JSON errors, invalid tokens, or reCAPTCHA failures. 4. AuthContextEvents.test.tsx — Event Emission &amp; Integration Flow</p> <p>Tests end-to-end behavior of AuthContext in combination with the Auth Telemetry service.</p> <p>Test Name Purpose emits events and handles login → logout flow Ensures emitAuthEvent is called at key points (login, /me resolution, logout) and state updates correctly. 5. Additional Test Coverage</p> <p>To maximize coverage and robustness, the following tests were added or recommended:</p> <p>Test Type Purpose State transition tests Ensures AuthContext state updates in correct order: authReady, authuser, authMessage. Negative routing tests Confirms protected routes redirect or block access under unauthorized conditions. Event emission tests Verifies emitAuthEvent triggers for login, logout, password_reset_submit, verify_email. Idempotency tests Ensures repeated calls to login/logout/reset password do not produce side effects or inconsistent state. End-to-end integration flow (non-Cypress) Simulates user flow: login → /me → AuthContext state → logout → state cleared.</p> <hr/> <h3 id="authcontext--login-flow">AuthContext &amp; Login Flow</h3> <pre><code class="language-mermaid">flowchart TD
+    A[Login Page Render] --&gt; B[User enters email &amp; password]
+    B --&gt; C[Login Button Click]
+    C --&gt; D[loginApi called]
+    D --&gt; E[/me API called]
+    E --&gt; F{success?}
+    F --&gt;|yes| G[authuser set, authMessage "success"]
+    F --&gt;|no| H[authuser null, authMessage "error"]
+    G --&gt; I[emitAuthEvent("user_login")]
+    H --&gt; I
+    I --&gt; J[Password Reset / Verify Email flows (optional)]
+    G --&gt; K[User clicks Logout]
+    K --&gt; L[logoutApi called]
+    L --&gt; M[resolveSession()]
+    M --&gt; N[authuser cleared, authMessage "logged out"]
+    N --&gt; O[emitAuthEvent("user_logout")]
+</code></pre> <h2 id="summary">Summary:</h2> <p>Our test suite now covers:</p> <ol> <li>UI component behavior (LoginPage.test.jsx)</li> <li>Routing &amp; protected route logic (ProtectedRoute.test.jsx)</li> <li>AuthContext contract, state management, and API interactions (AuthContext.test.tsx)</li> <li>Event emission and full login/logout integration (AuthContextEvents.test.tsx)</li> <li>Service error handling and edge cases</li> <li>Password reset, email verification, and reCAPTCHA failure paths</li> <li>Max coverage achieved by combining contract, behavior, unit, and integration tests</li> </ol> <p>This suite ensures robust, predictable login behavior and allows safe refactoring while guaranteeing public API contracts remain intact.</p>]]></content><author><name></name></author><category term="react-posts"/><category term="auth"/><category term="react-login-series"/><category term="testing-posts"/><category term="react"/><category term="login"/><category term="authentication"/><category term="auth"/><category term="UI"/><category term="testing"/><category term="rtl"/><category term="jest"/><category term="test-suite"/><summary type="html"><![CDATA[Part 6b in our Login Series covers the discussion of testing all layers of the application in its final Test Suite for Production.]]></summary></entry><entry><title type="html">What Git Never Explains – Stacked Branches &amp;amp; Merge Order</title><link href="https://cryhansen.github.io/blog/2026/what-github-doesnt-teach/" rel="alternate" type="text/html" title="What Git Never Explains – Stacked Branches &amp;amp; Merge Order"/><published>2026-01-26T00:00:00+00:00</published><updated>2026-01-26T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/what%20-github-doesnt-teach</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/what-github-doesnt-teach/"><![CDATA[<h2 id="what-git-never-explains-stacked-branches--merge-order">What Git Never Explains: Stacked Branches &amp; Merge Order</h2> <p>Git is excellent at telling you what it’s doing. It’s much worse at explaining why — especially when everything is technically correct but feels very wrong.</p> <p>Recently, I ran into a situation Git handled perfectly… and explained not at all.</p> <p>This post is about stacked branches, why they happen naturally, and how understanding Git’s mental model turns a scary moment into a non-event.</p> <h3 id="the-situation">The situation</h3> <p>I had two feature branches:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>post/post5b-cookie-auth
+post/post6-testing
+</code></pre></div></div> <ul> <li>post5b-cookie-auth contained a complete feature</li> <li>post6-testing was built on top of that work</li> <li>I merged post5b → post6</li> <li>I did not merge post5b → main</li> <li>Then I pushed both branches to GitHub</li> </ul> <p>At that point, everything worked — but I paused. I knew I also need to restructure the app into a solid dropin feature which means some further refactoring away from full app to a drop in feature ready to add on stack. My dilemma was now what to do with these branches. They both need to check in. Post 5 is refactored and finalized from a code base requirement for cookie auth and post 6 is finalized test cases.</p> <h2 id="how-do-i-merge-these-into-main-without-duplicating-commits-or-breaking-history">How do I merge these into main without duplicating commits or breaking history?</h2> <p>Git didn’t warn me. GitHub didn’t complain. But Git also didn’t explain what was happening either.</p> <h2 id="what-git-doesnt-explain">What Git doesn’t explain</h2> <p>Git does not think in terms of features, tickets, or intent. Git only cares about commit ancestry. That’s it.</p> <p>If one branch contains commits from another branch, Git considers that relationship real — regardless of whether main has seen those commits yet. This is where the confusion usually starts.</p> <p>Seeing the truth with git log –graph. When Git feels confusing, the fastest way to understand reality is to look at the graph.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log --oneline --graph --decorate --all
+</code></pre></div></div> <p>Conceptually, my history looked like this:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* F  (post/post6-testing)
+* E
+* D  (post/post5b-cookie-auth)
+* C
+* B
+* A  (main)
+</code></pre></div></div> <h2 id="git-commit-graph-stacked-branches">Git Commit Graph (Stacked Branches)</h2> <pre><code class="language-mermaid">
+gitGraph
+    commit id: "A" tag: "main"
+    commit id: "B"
+    commit id: "C"
+    branch post/post5b-cookie-auth
+    commit id: "D"
+    commit id: "E"
+    branch post/post6-testing
+    commit id: "F"
+</code></pre> <p>Important observations:</p> <ul> <li>post6-testing already contains post5b-cookie-auth</li> <li> <p>main contains neither</p> </li> <li>Commits have a strict parent → child relationship</li> </ul> <p>This leads to the rule Git never states explicitly:</p> <p>Branches must be merged into main in the same order they were built.</p> <h3 id="the-correct-merge-order">The correct merge order</h3> <p>Because post6-testing is built on top of post5b-cookie-auth, the merge order must be:</p> <ol> <li>Merge the base branch first</li> </ol> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>post/post5b-cookie-auth → main
+</code></pre></div></div> <p>Once this is merged, main now includes all commits up to D.</p> <ol> <li>Merge the stacked branch</li> </ol> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>post/post6-testing → main
+</code></pre></div></div> <h4 id="diagram-showing-the-merge-order">Diagram Showing the Merge Order</h4> <p>When you merge everything properly your merge order would look like this graph:</p> <pre><code class="language-mermaid">gitGraph
+   commit id:"A (main)"
+   commit id:"B"
+   commit id:"C"
 
-<span class="kd">const</span> <span class="nx">metaReducers</span><span class="p">:</span> <span class="nx">MetaReducer</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">localStorageSyncReducer</span><span class="p">];</span>
+   branch post/post5b-cookie-auth
+   checkout post/post5b-cookie-auth
+   commit id:"D (cookie auth)"
 
-<span class="nf">bootstrapApplication</span><span class="p">(</span><span class="nx">AppComponent</span><span class="p">,</span> <span class="p">{</span>
-  <span class="p">...</span><span class="nx">appConfig</span><span class="p">,</span>
-  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">...</span><span class="nx">appConfig</span><span class="p">.</span><span class="nx">providers</span><span class="p">,</span>
-    <span class="nf">provideStore</span><span class="p">({</span> <span class="na">bookings</span><span class="p">:</span> <span class="nx">bookingReducer</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">metaReducers</span> <span class="p">}),</span>
-  <span class="p">]</span>
-<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
-</code></pre></div></div> <hr/> <h2 id="-usage-in-components">✅ Usage in Components</h2> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Inject and use the store in your standalone component</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/store</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">addBooking</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store/bookings/booking.actions</span><span class="dl">'</span><span class="p">;</span>
+   branch post/post6-testing
+   checkout post/post6-testing
+   commit id:"E (tests)"
+   commit id:"F (refinements)"
 
-<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
-  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app-booking-button</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">standalone</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;button (click)="addSampleBooking()"&gt;Add Booking&lt;/button&gt;`</span>
-<span class="p">})</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nc">BookingButtonComponent</span> <span class="p">{</span>
-  <span class="nf">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">store</span><span class="p">:</span> <span class="nx">Store</span><span class="p">)</span> <span class="p">{}</span>
+   checkout main
+   merge post/post5b-cookie-auth tag:"merge post5b → main"
+   merge post/post6-testing tag:"merge post6 → main"
+</code></pre> <p>post6-testing is built on top of post5b-cookie-auth, so the base branch must land in main first. Git will then apply only the new commits when merging the stacked branch. If your branches form a stack, your merges must follow the stack.</p> <h4 id="git-and-github-will-automatically">Git (and GitHub) will automatically:</h4> <ul> <li>Skip commits already in main</li> <li>Apply only the new work</li> <li>Keep history clean</li> </ul> <p>This is expected behavior — not magic, not duplication, not a bug.</p> <hr/> <h3 id="why-this-feels-scary-even-though-its-fine">Why this feels scary (even though it’s fine)</h3> <p>At this point, most developers are thinking:</p> <ul> <li>“Am I going to re-merge commits?”</li> <li>“Will this break history?”</li> <li>“Should I rebase instead?”</li> <li>“Did I mess something up earlier?”</li> </ul> <p>The anxiety comes from Git hiding the mental model. Once you realize Git only follows commit ancestry, the fear disappears. If GitHub shows a clean diff, Git is doing exactly what it should.</p> <h3 id="stacked-branches-are-not-a-mistake">Stacked branches are not a mistake</h3> <p>This workflow happens naturally when:</p> <ul> <li>One feature builds on another</li> <li>You want smaller, reviewable changes</li> <li>You’re working incrementally (auth → tests → refinements)</li> </ul> <p>In other words: real-world development. Stacked branches aren’t sloppy — they’re a sign of intentional sequencing. The only requirement is understanding merge order.</p> <h3 id="the-mental-model-to-remember">The mental model to remember</h3> <p>If you remember nothing else, remember this:</p> <p>Git doesn’t care where you meant to merge. Git only cares which commits already exist.</p> <p>And therefore: <strong><em>Ancestors must land before descendants.</em></strong></p> <h2 id="tldr">TL;DR</h2> <ul> <li>Git tracks commit ancestry, not features</li> <li>If branch B is built on branch A: <ul> <li>A must be merged into main first</li> </ul> </li> <li>git log –graph shows the real structure</li> <li>GitHub PRs handle stacked merges cleanly</li> <li>You didn’t break anything — Git just didn’t explain the rules</li> </ul> <hr/> <h3 id="takeaway">Takeaway</h3> <p>Git isn’t just version control.</p> <p>It’s:</p> <ul> <li>Architecture protection</li> <li>Teaching structure</li> <li>Fear removal</li> <li>A safety net for thinking clearly</li> </ul>]]></content><author><name></name></author><category term="github-posts"/><category term="devops-posts"/><category term="git"/><category term="git-rebase"/><category term="git-stash"/><category term="git-branch"/><category term="github"/><category term="devops"/><summary type="html"><![CDATA[Github how to on merging branches commits with multiple branch history]]></summary></entry><entry><title type="html">React Login Series - Testing the Login Feature (RTL + Jest) | Part 6</title><link href="https://cryhansen.github.io/blog/2026/react-login-06-testing-login-feature/" rel="alternate" type="text/html" title="React Login Series - Testing the Login Feature (RTL + Jest) | Part 6"/><published>2026-01-20T00:00:00+00:00</published><updated>2026-01-20T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/react-login-06-testing-login-feature</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/react-login-06-testing-login-feature/"><![CDATA[<h2 id="post-6-testing-the-login-feature-rtl--jest">Post 6: Testing the Login Feature (RTL + Jest)</h2> <p>“Tests don’t prove your code works. They prove you understand what matters.”</p> <p>Everything we’ve built so far — hooks, services, context — was designed to make testing possible without pain. This post shows how those decisions pay off.</p> <p>We started with applying some code standard rules that we can test locally to clean up prior to any releases or pushes to main branch. This was briefly discussed and we will follow up on how it is handled. Then we dive into building test cases and defining Git Actions to run on every push. All these files can be found in the latest post on github.</p> <p>Lets grab the code from our last post, branch found at <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5b-cookie-auth">Post 5b Cookie Auth</a></p> <hr/> <h3 id="why-eslint">Why ESLint?</h3> <p>ESLint helps developers manage team coding standardizing naming and conventions other simple bug flagging. This is extremely valuable to help isolate and fix bugs before sharing with teams.It analyzes code statistically. And help alleviate some developer resources and turn around time. Lint rules are automated code checks that run while you write code (or before commits/builds) to:</p> <ul> <li>Catch bugs early</li> <li>Enforce consistent style</li> <li>Prevent dangerous patterns</li> <li>Warn you before runtime errors happen</li> </ul> <p>This is a very nice feature to enable for code review simplification. For instance, the code accidentally uses the same name in the api as the context therefore a lint rule and ‘Api’ naming convention on the api calls. We can add a rule for this a <code class="language-plaintext highlighter-rouge">functions with the same name in the same scope</code>.</p> <h4 id="eslint-setup">ESLint Setup</h4> <p>Install ESLint and typscript eslint for our context and service files</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-import
+npm <span class="nb">install</span> <span class="nt">-D</span> @typescript-eslint/parser @typescript-eslint/eslint-plugin
+npm <span class="nb">install</span> <span class="nt">-D</span> eslint-plugin-import
+</code></pre></div></div> <p>create a .eslintrc.cjs file and paste this base code:</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* eslint-env node */</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">root</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
 
-  <span class="nf">addSampleBooking</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nf">dispatch</span><span class="p">(</span><span class="nf">addBooking</span><span class="p">({</span>
-      <span class="na">booking</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">id</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nf">now</span><span class="p">(),</span>
-        <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Sample Booking</span><span class="dl">'</span><span class="p">,</span>
-        <span class="na">date</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">().</span><span class="nf">toISOString</span><span class="p">()</span>
-      <span class="p">}</span>
-    <span class="p">}));</span>
+  <span class="na">env</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">browser</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">es2021</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">},</span>
+
+  <span class="na">parserOptions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">ecmaVersion</span><span class="p">:</span> <span class="dl">"</span><span class="s2">latest</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">sourceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">module</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+
+  <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">react-hooks</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">import</span><span class="dl">"</span><span class="p">],</span>
+
+  <span class="na">extends</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">eslint:recommended</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">plugin:react/recommended</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">plugin:react-hooks/recommended</span><span class="dl">"</span><span class="p">],</span>
+
+  <span class="na">rules</span><span class="p">:</span> <span class="p">{</span>
+    <span class="cm">/* =========================
+       CRITICAL BUG PREVENTION
+    ========================= */</span>
+
+    <span class="c1">// Prevent accidental recursion &amp; shadowing</span>
+    <span class="dl">"</span><span class="s2">no-shadow</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">no-use-before-define</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">functions</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}],</span>
+
+    <span class="c1">// Prevent silent async failures</span>
+    <span class="dl">"</span><span class="s2">no-floating-promises</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">off</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">no-return-await</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="c1">// Enforce consistent function behavior</span>
+    <span class="dl">"</span><span class="s2">consistent-return</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="cm">/* =========================
+       AUTH ARCHITECTURE GUARDS
+    ========================= */</span>
+
+    <span class="c1">// Contexts must not import API services incorrectly</span>
+    <span class="dl">"</span><span class="s2">import/no-cycle</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="c1">// Enforce naming conventions</span>
+    <span class="dl">"</span><span class="s2">import/no-named-as-default</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="cm">/* =========================
+       REACT SAFETY
+    ========================= */</span>
+
+    <span class="dl">"</span><span class="s2">react/prop-types</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">off</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// using TS or not strict props</span>
+    <span class="dl">"</span><span class="s2">react/react-in-jsx-scope</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">off</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="cm">/* =========================
+       QUALITY OF LIFE
+    ========================= */</span>
+
+    <span class="dl">"</span><span class="s2">no-console</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">warn</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">allow</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">warn</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">]</span> <span class="p">}],</span>
+
+    <span class="cm">/*========================
+     CONTEXT  &lt;&gt; SERVICE RECURSION
+    ==============================*/</span>
+    <span class="dl">"</span><span class="s2">import/no-restricted-paths</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">zones</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="na">target</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src/features/api</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">from</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src/contexts</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">API services must not import Contexts</span><span class="dl">"</span><span class="p">,</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="na">target</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src/contexts</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">from</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src/features/api</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Contexts must not import API services directly</span><span class="dl">"</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">],</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="dl">"</span><span class="s2">no-restricted-globals</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">requestPasswordReset</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Use requestPasswordResetApi for API calls</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+
+  <span class="na">settings</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">react</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">version</span><span class="p">:</span> <span class="dl">"</span><span class="s2">detect</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+</code></pre></div></div> <p>Add a reference to lint in package.json</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eslint . --ext .js,.jsx,.ts,.tsx"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div> <p>Next run lint in command line to see errors and recommended fixes:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run lint
+
+</code></pre></div></div> <p>At this point some errors still exist and can be viewed using the last branch found at <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5b-cookie-auth">Post 5b Cookie Auth</a> so that we can fix remaining code in this post. We will look closely at running unit test and integration testing, form Ui testing.</p> <h3 id="what-were-testing-and-what-were-not">What We’re Testing (and What We’re Not)</h3> <p>Before writing a single test, we define scope.</p> <p>✅ We test:</p> <ul> <li>business logic</li> <li>auth state transitions</li> <li>success and failure paths</li> <li>user-visible behavior</li> </ul> <p>❌ We don’t test:</p> <ul> <li>CSS classes</li> <li>animations</li> <li>implementation details</li> <li> <p>third-party libraries</p> <p>If a test breaks when you rename a class — it’s a bad test.</p> </li> </ul> <hr/> <h3 id="testing-strategy-overview">Testing Strategy Overview</h3> <table> <thead> <tr> <th>Layer</th> <th>Type</th> <th>Tool</th> </tr> </thead> <tbody> <tr> <td>Hooks</td> <td>Unit tests</td> <td>Jest</td> </tr> <tr> <td>API layer</td> <td>Unit tests</td> <td>Jest</td> </tr> <tr> <td>Context</td> <td>Integration tests</td> <td>RTL</td> </tr> <tr> <td>Forms</td> <td>Integration tests</td> <td>RTL</td> </tr> </tbody> </table> <hr/> <h3 id="-unit-vs-integration-tests-clear-boundaries">🧪 Unit vs Integration Tests (Clear Boundaries)</h3> <h5 id="unit-tests">Unit Tests</h5> <ul> <li>isolated</li> <li>no DOM</li> <li>no routing</li> <li>no storage</li> </ul> <h6 id="examples">Examples:</h6> <ul> <li>useAuth</li> <li>authApi</li> </ul> <h5 id="integration-tests">Integration Tests</h5> <ul> <li>real components</li> <li>mocked boundaries</li> <li>user behavior driven</li> </ul> <h6 id="examples-1">Examples:</h6> <ul> <li>login form flow</li> <li>error rendering</li> <li>redirect after login</li> </ul> <hr/> <h3 id="diagram-test-coverage-boundaries">Diagram: Test Coverage Boundaries</h3> <pre><code class="language-mermaid">flowchart TD
+  UnitTests --&gt; Hooks
+  UnitTests --&gt; Services
+
+  IntegrationTests --&gt; Components
+  IntegrationTests --&gt; Context
+
+  Services --&gt; MockedAPI
+  Context --&gt; MockedStorage
+</code></pre> <hr/> <h3 id="mocking-the-network-authapi">Mocking the Network (authApi)</h3> <p>We never hit a real backend in tests. Instead:</p> <ul> <li>mock authApi</li> <li>control success/failure</li> <li>assert behavior</li> </ul> <h3 id="example">Example</h3> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">jest</span><span class="p">.</span><span class="nf">mock</span><span class="p">(</span><span class="dl">"</span><span class="s2">../services/authApi</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span>
+  <span class="na">login</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nf">fn</span><span class="p">(),</span>
+<span class="p">}));</span>
+</code></pre></div></div> <p>This allows:</p> <ul> <li>deterministic tests</li> <li>fast execution</li> <li>no environment dependency</li> </ul> <hr/> <h3 id="testing-failure-states-where-bugs-live">Testing Failure States (Where Bugs Live)</h3> <p>Success paths are easy. Failures reveal architecture.</p> <p>We explicitly test:</p> <ul> <li>invalid credentials</li> <li>network errors</li> <li>empty responses</li> <li>retry behavior</li> </ul> <hr/> <h3 id="diagram-failure--retry-loop">Diagram: Failure &amp; Retry Loop</h3> <pre><code class="language-mermaid">flowchart TD
+  Submit --&gt; authApi
+  authApi --&gt;|error| AuthContext
+  AuthContext --&gt;|set error| UI
+  UI --&gt;|retry| Submit
+</code></pre> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
+├─ app/
+│  ├─ App.jsx
+│  └─ Router.jsx
+│
+├─ context/
+│  └─ AuthContext.jsx
+│
+├─ features/
+│  └─ auth/
+│     ├─ components/
+│     │  ├─ LoginForm.jsx
+│     │  ├─ PasswordInput.jsx
+│     │  ├─ AuthError.jsx
+│     │  └─ AuthCTA.jsx
+│     ├─ hooks/
+│     │  └─ useLogin.js
+│     ├─ services/
+│     │  └─ authApi.js
+│     ├─ validators/
+│     │  └─ loginSchema.js
+│     ├─ tests/
+│     │  ├─ LoginForm.test.jsx
+│     │  └─ useLogin.test.js
+│     └─ index.js
+│
+└─ main.jsx
+
+</code></pre></div></div> <hr/> <h3 id="testing-context-behavior">Testing Context Behavior</h3> <p>AuthContext is tested through consumers, not directly.</p> <p>We verify:</p> <ul> <li>session stored</li> <li>state updated</li> <li>logout clears state</li> <li>rehydration works</li> </ul> <p>Rule</p> <p>If you test Context directly, you’re testing implementation — not behavior.</p> <hr/> <h3 id="diagram-context-integration-test-flow">Diagram: Context Integration Test Flow</h3> <pre><code class="language-mermaid">flowchart TD
+  Test --&gt; AuthProvider
+  AuthProvider --&gt; useAuth
+  useAuth --&gt; authApiMock
+
+  authApiMock --&gt;|success| AuthProvider
+  AuthProvider --&gt;|update state| Test
+</code></pre> <hr/> <h3 id="asserting-auth-flows-end-to-end-without-e2e">Asserting Auth Flows (End-to-End Without E2E)</h3> <p>We simulate:</p> <ul> <li>User types credentials</li> <li>Submits form</li> <li>API resolves</li> <li>Context updates</li> <li>UI redirects</li> </ul> <p>All inside JSDOM — no browser automation required.</p> <hr/> <h3 id="example-login-success-flow-conceptual">Example: Login Success Flow (Conceptual)</h3> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>render LoginForm
+→ fill inputs
+→ click submit
+→ expect loading
+→ expect redirect
+</code></pre></div></div> <p>That’s it. No sleep. No timers. No hacks.</p> <hr/> <h3 id="avoiding-brittle-ui-tests">Avoiding Brittle UI Tests</h3> <h5 id="bad-tests">Bad tests:</h5> <ul> <li>checking class names</li> <li>snapshot testing entire pages</li> <li>asserting exact markup</li> </ul> <h5 id="good-tests">Good tests:</h5> <ul> <li>getByRole</li> <li>getByLabelText</li> <li>findByText</li> <li>asserting what the user sees</li> </ul> <hr/> <h3 id="what-this-architecture-makes-easy">What This Architecture Makes Easy</h3> <p>Because we separated:</p> <ul> <li>API</li> <li>hooks</li> <li>context</li> <li>UI</li> </ul> <p>We can:</p> <ul> <li>mock cleanly</li> <li>test in isolation</li> <li>refactor safely</li> <li>trust changes</li> </ul> <hr/> <h3 id="why-this-matters-in-real-teams">Why This Matters in Real Teams</h3> <p>These tests:</p> <ul> <li>catch regressions</li> <li>document intent</li> <li>allow refactors</li> <li>reduce fear</li> </ul> <p>This is how features survive iteration.</p> <hr/> <h4 id="getting-into-code">Getting into code</h4> <p>We need to install vitest and jest</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event
+
+npm i <span class="nt">-D</span> @testing-library/user-event
+
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> msw
+
+</code></pre></div></div> <p>Open your vite.config.js (.ts) and configure the test property to the defineConfig</p> <p>Create a setup.ts setup file.</p> <p>update the package.json to add scripts</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div> <h5 id="sample-test-case-of-login">sample test case of login</h5> <p>Setup vitest</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">describe</span><span class="p">,</span> <span class="nx">it</span><span class="p">,</span> <span class="nx">expect</span><span class="p">,</span> <span class="nx">vi</span><span class="p">,</span> <span class="nx">beforeEach</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">vitest</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">login</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../services/auth.service</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nf">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">vi</span><span class="p">.</span><span class="nf">restoreAllMocks</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nf">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">auth.service login()</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">calls /auth/login with correct payload</span><span class="dl">"</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nb">global</span><span class="p">.</span><span class="nx">fetch</span> <span class="o">=</span> <span class="nx">vi</span><span class="p">.</span><span class="nf">fn</span><span class="p">().</span><span class="nf">mockResolvedValue</span><span class="p">({</span>
+      <span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">json</span><span class="p">:</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">user</span><span class="p">:</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span> <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@test.com</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test</span><span class="dl">"</span> <span class="p">},</span>
+        <span class="na">accessToken</span><span class="p">:</span> <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">}),</span>
+    <span class="p">}</span> <span class="kd">as </span><span class="kr">any</span><span class="p">);</span>
+
+    <span class="k">await</span> <span class="nf">login</span><span class="p">({</span>
+      <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@test.com</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">password</span><span class="p">:</span> <span class="dl">"</span><span class="s2">password123</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">});</span>
+
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">fetch</span><span class="p">).</span><span class="nf">toHaveBeenCalledWith</span><span class="p">(</span>
+      <span class="dl">"</span><span class="s2">/auth/login</span><span class="dl">"</span><span class="p">,</span>
+      <span class="nx">expect</span><span class="p">.</span><span class="nf">objectContaining</span><span class="p">({</span>
+        <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">({</span>
+          <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@test.com</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">password</span><span class="p">:</span> <span class="dl">"</span><span class="s2">password123</span><span class="dl">"</span><span class="p">,</span>
+        <span class="p">}),</span>
+      <span class="p">})</span>
+    <span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nf">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">throws a readable error on failure</span><span class="dl">"</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nb">global</span><span class="p">.</span><span class="nx">fetch</span> <span class="o">=</span> <span class="nx">vi</span><span class="p">.</span><span class="nf">fn</span><span class="p">().</span><span class="nf">mockResolvedValue</span><span class="p">({</span>
+      <span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="na">json</span><span class="p">:</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Invalid credentials</span><span class="dl">"</span> <span class="p">}),</span>
+    <span class="p">}</span> <span class="kd">as </span><span class="kr">any</span><span class="p">);</span>
+
+    <span class="k">await</span> <span class="nf">expect</span><span class="p">(</span><span class="nf">login</span><span class="p">({</span> <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bad@test.com</span><span class="dl">"</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">"</span><span class="s2">wrong</span><span class="dl">"</span> <span class="p">})).</span><span class="nx">rejects</span><span class="p">.</span><span class="nf">toThrow</span><span class="p">(</span><span class="dl">"</span><span class="s2">Invalid credentials</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div> <h3 id="series-wrap-up-what-you-now-have">Series Wrap-Up (What You Now Have)</h3> <p>By Post 6, you’ve built:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✔ Reusable login feature
+✔ Decoupled API layer
+✔ Centralized session management
+✔ Predictable auth flows
+✔ Test coverage that matters
+</code></pre></div></div> <p>This is production-level authentication, minus the cargo cult.</p> <p>Review the finalized code found in Github <a href="https://github.com/cryshansen/login-feature-react/tree/post/post6-testing">Post 6 Testing</a>. You can follow along with the next part of our series with post 7 - feature cleanup and test dropin directions. Our Series too a few different directions as we solidify a professional login feature while exporing the React frameworks.</p> <hr/> <h3 id="detailed-testing-suite">Detailed Testing Suite</h3> <p>Because this feature is intended for a production environment, we pushed the tesing to ensure full range of tests would give us confidence our system is clean and running as expected. Many layers have been implemented in this series with eslint code standards through to thorough testing components, contexts, integrations and service layers.</p> <p>A more detailed structure of the testing Suite can be found in blog post: <a href="/blog/2026/post-6-testing-suite/">Login Testing Suite</a></p> <p>In the git Repo the Feature Test Plan can be reviewed for details on each test file and its intent.</p> <hr/> <h3 id="bonus-test-cases-you-now-enable-a-multiflow-test-framework">Bonus: test cases you now enable a multiflow test framework.</h3> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✔ Logged-out user → /profile → redirected
+✔ Logged-in user → /login → redirected
+✔ Missing token → /reset-confirm → redirected
+✔ Valid token → page renders
+</code></pre></div></div> <p>This is exactly what interviewers look for.</p> <p>Final Posts Next up:</p> <ul> <li>Post 7 : Reusing the Feature in Another App</li> <li>Optional: what Id Do Differently next time.</li> </ul> <p>Lets now take what we have and test dropin instructions with the next post at <a href="/blog/2026/react-login-07-include-login-feature-in-another-app/">Login Dropin Feature</a></p>]]></content><author><name></name></author><category term="react-posts"/><category term="auth"/><category term="react-login-series"/><category term="testing-posts"/><category term="react"/><category term="login"/><category term="authentication"/><category term="auth"/><category term="UI"/><category term="testing"/><category term="rtl"/><category term="jest"/><summary type="html"><![CDATA[Part 6 in our Login Series covers the tesing aspect of our login features using RTL + Jset to ensure security and code functions as expected.]]></summary></entry><entry><title type="html">Why Branch Discipline in Git Isn’t Optional (And How It Saved This Auth Refactor)</title><link href="https://cryhansen.github.io/blog/2026/why-github-branch-discipline-in-git-isnt-optional/" rel="alternate" type="text/html" title="Why Branch Discipline in Git Isn’t Optional (And How It Saved This Auth Refactor)"/><published>2026-01-20T00:00:00+00:00</published><updated>2026-01-20T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/why-github-branch-discipline-in-git-isnt-optional</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/why-github-branch-discipline-in-git-isnt-optional/"><![CDATA[<h2 id="why-branch-discipline-in-git-isnt-optional-and-how-it-saved-this-auth-refactor">Why Branch Discipline in Git Isn’t Optional (And How It Saved This Auth Refactor)</h2> <p>When people first learn Git, branching often feels optional — something you do sometimes, mostly when things get messy.</p> <p>In reality, branch discipline is what prevents messes from ever happening.</p> <p>This post explains why branches matter, when to split work, and how Git gives you escape hatches — using a real refactor from a cookie-based auth system as the example. The cookie based system is part of a Login Feature React Post series. While switching from a MVP of localstorage to cookie authentication base, development needs to pause with normal branch cycle processes. See the github branch usage at <a href="https://github.com/cryshansen/login-feature-react/">Login Feature</a> and review the branches in dropdown. These branches match the posts associated to the code base.</p> <hr/> <h3 id="the-general-problem">The General Problem</h3> <p>Modern features aren’t linear. A single “feature” often involves:</p> <ul> <li>Refactoring existing code</li> <li>Changing types/contracts</li> <li>Removing old files</li> <li>Adding tests</li> <li>Adjusting tooling (ESLint, Vitest, etc.)</li> </ul> <p>If you do all of that on one branch, you create problems:</p> <ul> <li>You can’t publish intermediate posts</li> <li>You can’t reason about regressions</li> <li>You can’t roll back safely</li> <li>You can’t explain what changed and why</li> </ul> <p>Git branches are how you control narrative and risk.</p> <hr/> <h3 id="the-real-example-cookie-based-auth--tests">The Real Example: Cookie-Based Auth + Tests</h3> <pre><code class="language-mermaid">timeline
+    title Auth Refactor → Testing Evolution
+
+    section post/post5b-cookie-auth
+      Cookie-only auth context (/me) : AuthContext.tsx
+      Remove token persistence        : localStorage cleanup
+      Message contract enforced       : success | error | warning
+      Delete legacy files             : AuthContext.jsx
+
+    section post/post6-testing
+      Add MSW handlers                : /me, /login, /logout
+      Add Vitest config               : vitest.config.js
+      Write contract tests            : AuthContext.test.tsx
+</code></pre> <h4 id="the-goal">The goal</h4> <p><strong><em>Post 5b: Convert auth to cookie-only, /me identity changes.</em></strong> Normally, I check in to a new branch when the code is finalized then merge with main, then create a new branch and pull main into it. This is a choice so people can follow along on the login-feature post series via the code. However I still wasnt convinced the cookie auth was a clean code body. The switching feature from localstorage to cookie was over-kill for the projects final product. This meant a refactor was likely. I didnt want to merge it into main until i was certain this was a clean copy of cookie based authentication. It was clearly necessary to separate at this time. The biggest reason was the changes made to implement typescript for field mappings and separation of direct api calls within this cookie auth system.</p> <p><strong><em>Post 6: Add contract tests using MSW + Vitest</em></strong> At the same time, working on code standards and testing files to get a better sense of the change impact, I created branch 6 to correlate those changes. This means, post6 is ahead of 5b and we need to merge the changed files back into post5-cookie-auth. We dont want to include the testing files in 5b however. These are related — but they are not the same change.</p> <hr/> <h3 id="what-went-wrong-on-purpose">What Went Wrong (On Purpose)</h3> <p>During the cookie auth code completion, the idea of switching between the auth <code class="language-plaintext highlighter-rouge">types</code> (localStorage vs Cookie )many development changes occurred:</p> <ul> <li>The AuthContext was converted from JS → TSX</li> <li>Token logic was removed</li> <li>/me became the single identity resolver</li> <li>Message contracts were enforced</li> <li>Old files were deleted</li> <li>Test infrastructure was added</li> </ul> <p>At one point, the working tree looked like this:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>new file:   src/context/AuthContext.tsx
+deleted:    src/context/AuthContext.jsx
+deleted:    src/_tests_disabled/slugify.test.js
+modified:   auth.service.ts
+modified:   auth.types.ts
+untracked:  src/features/_tests_/
+untracked:  vitest.config.js
+</code></pre></div></div> <p>This is the exact moment where branch discipline really matters.</p> <hr/> <h3 id="the-key-insight">The Key Insight</h3> <p>Not everything that changed belongs in the same post. In this example our branches are intended to replicate the blog posting of code for the feature. (5b-cookie-auth vs post6-testing)</p> <ul> <li>Auth refactor = Post 5b</li> <li>Tests + tooling = Post 6</li> </ul> <p>So we split them.</p> <hr/> <h3 id="the-correct-strategy">The Correct Strategy</h3> <pre><code class="language-mermaid">gitGraph
+    commit id: "main"
+    branch post/post5b-cookie-auth
+    checkout post/post5b-cookie-auth
+    commit id: "cookie auth refactor"
+
+    branch post/post6-testing
+    checkout post/post6-testing
+    commit id: "testing setup"
+    commit id: "auth contract tests"
+
+
+</code></pre> <h4 id="keep-post-5b-pure">Keep Post 5b pure</h4> <p>Only include:</p> <ul> <li>Cookie-only AuthContext</li> <li>/me identity resolution</li> <li>Message contract cleanup</li> <li>File deletions related to auth</li> </ul> <p>That work was committed and pushed to: post/post5b-cookie-auth</p> <hr/> <h4 id="move-ahead-without-fear">Move ahead without fear</h4> <p>A new branch was created: post/post6-testing</p> <p>This branch is allowed to:</p> <ul> <li>Add MSW handlers</li> <li>Add Vitest config</li> <li>Add contract tests</li> <li>Modify tooling</li> <li>No pressure to “finish” everything at once.</li> </ul> <hr/> <h4 id="the-recovery-moment-this-is-the-lesson">The Recovery Moment (This Is the Lesson)</h4> <p>Even after branching, things got mixed temporarily.</p> <p>Instead of panic:</p> <ul> <li>We cherry-picked the correct commit back into post/post5b-cookie-auth</li> <li>Git detected the commit already existed during rebase</li> <li>The history stayed clean</li> <li>Nothing broke</li> </ul> <p>This is Git doing its job.</p> <hr/> <h4 id="why-this-matters">Why This Matters</h4> <p>Without branches:</p> <ul> <li>You rewrite history</li> <li>You squash unrelated ideas</li> <li>You lose teaching clarity</li> <li>You risk regressions</li> </ul> <p>With branches:</p> <ul> <li>Each post has a clean narrative</li> <li>Refactors are explainable</li> <li>Tests land when they’re ready</li> <li>You can pause and resume safely</li> </ul> <hr/> <h4 id="the-mental-model-that-helps">The Mental Model That Helps</h4> <p>Think of branches like chapters in a book:</p> <ul> <li>Each chapter should stand on its own</li> <li>You can reference earlier chapters</li> <li>You shouldn’t leak future material backward</li> </ul> <p>Git branches enforce that discipline technically, so you don’t have to rely on memory.</p> <hr/> <h3 id="final-state-the-ideal-outcome">Final State (The Ideal Outcome)</h3> <ul> <li>post/post5b-cookie-auth → Cookie auth refactor only</li> <li>post/post6-testing → Contract tests + MSW + Vitest</li> <li>Clean history</li> <li>Clear posts</li> <li>No rewrites</li> <li>No stress</li> </ul> <hr/> <h3 id="takeaway">Takeaway</h3> <p>Git isn’t just version control.</p> <p>It’s:</p> <ul> <li>Architecture protection</li> <li>Teaching structure</li> <li>Fear removal</li> <li>A safety net for thinking clearly</li> </ul> <p>If your feature feels “too big for one commit” — it is. Split it early. Your future self (and your readers) will thank you.</p>]]></content><author><name></name></author><category term="github-posts"/><category term="devops-posts"/><category term="git"/><category term="git-rebase"/><category term="git-stash"/><category term="git-branch"/><category term="github"/><category term="devops"/><summary type="html"><![CDATA[This Post describes the use of git to manage two branches of ongoing work and how to do it.]]></summary></entry><entry><title type="html">React Login Series - Auth Context Session, Persistence &amp;amp; Logout | Part 5</title><link href="https://cryhansen.github.io/blog/2026/react-login-05-auth-context-session-persistence/" rel="alternate" type="text/html" title="React Login Series - Auth Context Session, Persistence &amp;amp; Logout | Part 5"/><published>2026-01-10T00:00:00+00:00</published><updated>2026-01-10T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/react-login-05-auth-context-session-persistence</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/react-login-05-auth-context-session-persistence/"><![CDATA[<h2 id="post-5-auth-context-session-persistence--logout">Post 5: Auth Context: Session, Persistence &amp; Logout</h2> <p>“Authentication is not a form. It’s application state.”</p> <p>Next logical posts in the series:</p> <p>Implementing the API Layers (Node / Express / Nest / etc.) <a href="/blog/2026/react-login-04-auth-api-code/">Part 4c Coding</a> the endpoints.</p> <ul> <li>Token storage strategies (cookies vs memory)</li> <li>Connecting the API to the AuthContext</li> <li>End-to-end login flow walkthrough</li> </ul> <hr/> <h3 id="why-auth-context-exists">Why Auth Context Exists</h3> <p>By now we have:</p> <ul> <li>UI components (Post 2)</li> <li>useAuth hook managing async state (Post 3)</li> <li>authApi abstracting the backend (Post 4)</li> </ul> <p>What we still don’t have is a single source of truth for:</p> <ul> <li>whether the user is logged in</li> <li>who the user is</li> <li>how long the session lives</li> <li>how the app reacts to logout</li> </ul> <p>That responsibility belongs to Auth Context.</p> <hr/> <h3 id="the-role-of-authcontext">The Role of AuthContext</h3> <p>AuthContext is:</p> <ul> <li> <p>the app’s authentication authority</p> </li> <li> <p>session state manager</p> </li> <li> <p>persistence coordinator</p> </li> </ul> <p>AuthContext is not:</p> <ul> <li> <p>responsible for forms</p> </li> <li> <p>making network requests directly</p> </li> <li> <p>aware of UI layout</p> </li> <li> <p>tied to any one route</p> </li> </ul> <h2 id="think-of-it-as-application-infrastructure-not-a-feature-component">Think of it as application infrastructure, not a feature component.</h2> <h3 id="session-state-what-do-we-store">Session State: What Do We Store?</h3> <p>At minimum:</p> <ul> <li> <p>authentication status</p> </li> <li> <p>user info (if needed)</p> </li> <li> <p>token (or session id)</p> </li> </ul> <p>Example shape:</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">user</span><span class="p">:</span> <span class="kc">null</span> <span class="o">|</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">email</span> <span class="p">},</span>
+  <span class="nx">token</span><span class="p">:</span> <span class="kc">null</span> <span class="o">|</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="nx">isAuthenticated</span><span class="p">:</span> <span class="nx">boolean</span>
+<span class="p">}</span>
+</code></pre></div></div> <h4 id="rule">Rule</h4> <p>If the app needs it globally → Context owns it.</p> <hr/> <h3 id="memory-vs-localstorage-the-honest-tradeoff">Memory vs localStorage (The Honest Tradeoff)</h3> <h4 id="in-memory-state">In-Memory State</h4> <ul> <li>✅ Secure against XSS persistence</li> <li>❌ Lost on refresh</li> <li>❌ Requires re-login</li> </ul> <h4 id="localstorage">localStorage</h4> <ul> <li>✅ Survives reloads</li> <li>✅ Simple to implement</li> <li>❌ Accessible to JS</li> </ul> <p>This series chooses localStorage intentionally, without pretending it’s more secure than it is.</p> <hr/> <h3 id="diagram-session-persistence-flow">Diagram: Session Persistence Flow</h3> <pre><code class="language-mermaid">flowchart TD
+  LoginSuccess --&gt; AuthContext
+  AuthContext --&gt;|save| localStorage
+  AuthContext --&gt;|update| MemoryState
+
+  Reload --&gt; AppInit
+  AppInit --&gt;|rehydrate| localStorage
+  localStorage --&gt; AuthContext
+</code></pre> <hr/> <h3 id="rehydration-on-reload">Rehydration on Reload</h3> <p>On app start:</p> <ol> <li> <p>Context checks storage</p> </li> <li> <p>Valid session restores state</p> </li> <li> <p>UI updates immediately</p> </li> </ol> <p>No flicker. No guessing.</p> <hr/> <h3 id="diagram-app-startup-rehydration">Diagram: App Startup Rehydration</h3> <pre><code class="language-mermaid">flowchart TD
+  AppStart --&gt; AuthContext
+  AuthContext --&gt;|check| localStorage
+
+  localStorage --&gt;|session exists| AuthContext
+  AuthContext --&gt;|set authenticated| UI
+
+  localStorage --&gt;|empty| AuthContext
+  AuthContext --&gt;|unauthenticated| UI
+</code></pre> <hr/> <p>Logout Patterns (Simple, Predictable)</p> <p>Logout should:</p> <ul> <li>clear storage</li> <li>reset memory state</li> <li>redirect user</li> <li>invalidate session hints</li> </ul> <p>Nothing else.</p> <hr/> <p>🚪 Diagram: Logout Flow</p> <pre><code class="language-mermaid">flowchart TD
+  User --&gt; LogoutAction
+  LogoutAction --&gt; AuthContext
+
+  AuthContext --&gt;|clear| localStorage
+  AuthContext --&gt;|reset| MemoryState
+  AuthContext --&gt;|notify| UI
+
+  UI --&gt;|redirect| Login
+</code></pre> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
+├─ app/
+│  ├─ App.jsx
+│  └─ Router.jsx
+│
+├─ context/
+│  └─ AuthContext.jsx
+│
+├─ features/
+│  └─ auth/
+│     ├─ components/
+│     │  ├─ LoginForm.jsx
+│     │  ├─ PasswordInput.jsx
+│     │  ├─ AuthError.jsx
+│     │  └─ AuthCTA.jsx
+│     ├─ hooks/
+│     │  └─ useLogin.js
+│     ├─ services/
+│     │  └─ authApi.js
+│     ├─ validators/
+│     │  └─ loginSchema.js
+│     ├─ tests/
+│     │  ├─ LoginForm.test.jsx
+│     │  └─ useLogin.test.js
+│     └─ index.js
+│
+└─ main.jsx
+
+</code></pre></div></div> <hr/> <h3 id="app-level-integration">App-Level Integration</h3> <p>AuthContext should wrap everything that depends on session state.</p> <p>Typically:</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">AuthProvider</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nc">Router</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nc">AuthProvider</span><span class="p">&gt;</span>
+</code></pre></div></div> <p>This ensures:</p> <ul> <li> <p>routes respond to auth changes</p> </li> <li> <p>logout works everywhere</p> </li> <li> <p>session is consistent</p> </li> </ul> <h3 id="why-context-not-props-not-redux">Why Context (Not Props, Not Redux)</h3> <p>Context wins here because:</p> <ul> <li>scope is global</li> <li>updates are infrequent</li> <li>semantics are clear</li> <li>no external dependency needed</li> </ul> <p>This is exactly what Context was built for.</p> <hr/> <h3 id="what-you-have-now-vs-cookie-based-auth">What You Have Now vs Cookie-Based Auth</h3> <p>Right now you have token-in-localStorage auth. Cookie-based auth moves session ownership to the browser + server instead of JS.</p> <p>With Context in place:</p> <ul> <li>protected routes are trivial</li> <li>logout is universal</li> <li>session persistence “just works”</li> <li>testing becomes straightforward</li> </ul> <p>Both Authentication work. They solve different problems.</p> <p>Review the code found in Github <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5-persistence">Post 5 Session Persistence</a></p> <h3 id="what-you-have-now-localstorage-token-auth">What You Have Now (LocalStorage Token Auth)</h3> <p>How it works (our app today) If we review the <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5-persistence">code</a> from our last Github checked in branch, we can review how the code matches the below flow:</p> <pre><code class="language-mermaid">sequenceDiagram
+  participant U as User
+  participant F as Frontend
+  participant API as Backend
+  participant LS as localStorage
+
+  U-&gt;&gt;F: Submit login form
+  F-&gt;&gt;API: POST /login (credentials)
+  API--&gt;&gt;F: { token, user, expiresAt }
+
+  F-&gt;&gt;LS: Store token + user + expiresAt
+  F-&gt;&gt;F: Determine isAuthenticated
+
+  U-&gt;&gt;F: Refresh / revisit app
+  F-&gt;&gt;LS: Rehydrate auth state
+  F-&gt;&gt;F: Check expiresAt &gt; Date.now()
+
+  F-&gt;&gt;API: Request with Authorization header
+  API-&gt;&gt;API: Verify token signature &amp; claims
+  API--&gt;&gt;F: Protected response
+</code></pre> <h5 id="in-the-code">In the code:</h5> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">localStorage</span><span class="p">.</span><span class="nf">setItem</span><span class="p">(</span>
+  <span class="dl">"</span><span class="s2">auth_user</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">({</span>
+    <span class="nx">token</span><span class="p">,</span>
+    <span class="nx">expiresAt</span><span class="p">,</span>
+    <span class="nx">user</span><span class="p">,</span>
+  <span class="p">})</span>
+<span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">isAuthenticated</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">authuser</span> <span class="o">&amp;&amp;</span> <span class="nx">authuser</span><span class="p">.</span><span class="nx">expiresAt</span> <span class="o">&gt;</span> <span class="nb">Date</span><span class="p">.</span><span class="nf">now</span><span class="p">();</span>
+</code></pre></div></div> <pre><code class="language-mermaid">flowchart LR
+  Frontend --&gt;|Stores| Token[JWT Token]
+  Frontend --&gt;|Stores| Meta[expiresAt + user]
+  Frontend --&gt;|Decides| AuthState[Authenticated?]
+
+  Frontend --&gt;|Sends token via header| Backend
+  Backend --&gt;|Verifies| Token
+  Backend --&gt;|Allows / Denies| APIAccess[API Access]
+
+  Frontend:::frontend
+  Backend:::backend
+
+  classDef frontend fill:#E3F2FD,stroke:#1E88E5
+  classDef backend fill:#FFF3E0,stroke:#FB8C00
+
+</code></pre> <hr/> <p>** Pros (why this is popular)**</p> <ul> <li>Simple to understand</li> <li>Easy to debug</li> <li>Works without backend changes</li> <li>Fine for MVPs</li> <li>Works with mobile, desktop, SPAs</li> </ul> <p>** Cons (important)**</p> <ul> <li>Vulnerable to XSS</li> <li>JS can read token</li> <li>Logout is “best effort”</li> <li>Refresh logic is manual</li> <li>Harder to rotate tokens securely</li> </ul> <p>What weve built can be found on Github. Review the code branch found at <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5-persistence">Post 5 Auth Persistence</a></p> <hr/> <h3 id="post-5b-preview-cookie-based-auth">Post 5b Preview: Cookie-Based Auth</h3> <p>In the next post, we’ll shift authentication responsibility away from the frontend and into the browser and backend, using HTTP-only cookies and server-managed sessions.</p> <p>We’ll walk through how cookie-based auth works end-to-end, why the frontend never needs to touch a token, and how this model simplifies state management while improving security by default. We’ll also look at what actually happens during a request, how sessions are validated, and where expiration logic truly belongs.</p> <p>This post is especially useful if you’ve ever wondered “How am I logged in if I can’t see the token?” or if you’re comparing JWT-based approaches with a more traditional session model.</p> <p><a href="/blog/2026/react-login-05-auth-context-cookie-persistence/">Post 5b Cookie-Based Auth </a></p>]]></content><author><name></name></author><category term="react-posts"/><category term="auth"/><category term="react-login-series"/><category term="react"/><category term="login"/><category term="authentication"/><category term="auth"/><category term="UI"/><summary type="html"><![CDATA[Part 5 of this series walks through the authentication context, session state, persistence and login/logout functionality.]]></summary></entry><entry><title type="html">React Login Series - Auth Context Cookie Auth | Part 5b</title><link href="https://cryhansen.github.io/blog/2026/react-login-05-auth-context-cookie-persistence/" rel="alternate" type="text/html" title="React Login Series - Auth Context Cookie Auth | Part 5b"/><published>2026-01-10T00:00:00+00:00</published><updated>2026-01-10T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/react-login-05-auth-context-cookie-persistence</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/react-login-05-auth-context-cookie-persistence/"><![CDATA[<h2 id="convert-a-token-auth-system-to-a-cookie-based">Convert a Token Auth System to a Cookie Based</h2> <p>In the previous post, we built a token-in-localStorage authentication context, where the frontend owned the authentication lifecycle:</p> <ul> <li>storing the token</li> <li>rehydrating auth state</li> <li>checking expiration</li> <li>deciding whether a user was logged in</li> </ul> <p>That model works — especially for MVPs — but it pushes too much responsibility into JavaScript. Check out the branch on github at <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5-persistence">Post 5 Persistence</a></p> <p>In this post, we refactor that same system into a cookie-based authentication model, while keeping the AuthContext reusable, testable, and switchable between cookie and token models.</p> <p>Both approaches solve real problems. They simply optimize for different constraints.</p> <hr/> <h4 id="the-core-shift-who-owns-authentication">The Core Shift: Who Owns Authentication?</h4> <p><strong><em>Token-based auth</em></strong></p> <ul> <li>The frontend owns the session.</li> <li>It stores the token</li> <li>It checks expiration</li> <li>It decides when auth is valid</li> </ul> <p><strong><em>Cookie-based auth</em></strong></p> <ul> <li>The browser + backend own the session.</li> <li>The browser stores and sends the cookie</li> <li>The backend validates it</li> <li>The frontend just asks for state</li> <li>This refactor is about moving ownership out of JavaScript.</li> </ul> <hr/> <h4 id="cookie-based-auth-httponly-session-or-jwt">Cookie-Based Auth (HttpOnly Session or JWT)</h4> <p>At a high level, cookie-based authentication works like this:</p> <h5 id="1-user-logs-in">1. User logs in</h5> <p>The frontend submits credentials.</p> <hr/> <h5 id="2-backend-sets-an-httponly-cookie">2. Backend sets an HttpOnly cookie</h5> <p>On success, the backend responds with a cookie header:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Set-Cookie: auth=abc123; HttpOnly; Secure; SameSite=Lax
+</code></pre></div></div> <p>This cookie:</p> <ul> <li>cannot be accessed by JavaScript (HttpOnly)</li> <li>is sent only over HTTPS (Secure)</li> <li>is attached automatically to same-site requests (SameSite=Lax)</li> </ul> <hr/> <h5 id="3-the-browser-takes-over">3. The browser takes over</h5> <p>From this point on, the browser:</p> <ul> <li>stores the cookie</li> <li>attaches it to requests</li> <li>enforces transport and scope rules</li> <li>No frontend token handling is required.</li> </ul> <hr/> <h5 id="4-the-frontend-asks--it-doesnt-decide">4. The frontend asks — it doesn’t decide</h5> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">/api/protected</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">credentials</span><span class="p">:</span> <span class="dl">"</span><span class="s2">include</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div></div> <p>The cookie is attached automatically. The frontend never sees the token and never calculates expiration.</p> <hr/> <h4 id="ownership--responsibility">Ownership &amp; Responsibility</h4> <pre><code class="language-mermaid">flowchart LR
+  Browser --&gt;|Stores| Cookie[Auth Cookie]
+  Cookie --&gt;|Sent automatically| Backend
+
+  Backend --&gt;|Owns| Session[Session Store]
+  Backend --&gt;|Enforces| Expiration[Expiration Logic]
+
+  Frontend --&gt;|Asks| Backend
+  Backend --&gt;|Answers| Frontend
+
+  Frontend:::frontend
+  Browser:::browser
+  Backend:::backend
+
+  classDef frontend fill:#E3F2FD,stroke:#1E88E5
+  classDef browser fill:#E8F5E9,stroke:#43A047
+  classDef backend fill:#FFF3E0,stroke:#FB8C00
+</code></pre> <hr/> <p><strong>Request Lifecycle</strong></p> <pre><code class="language-mermaid">sequenceDiagram
+  participant U as User
+  participant F as Frontend
+  participant B as Browser
+  participant API as Backend
+
+  U-&gt;&gt;F: Submit login form
+  F-&gt;&gt;API: POST /login (credentials)
+  API--&gt;&gt;B: Set-Cookie auth=abc123 (HttpOnly, Secure)
+  B-&gt;&gt;B: Store cookie
+
+  U-&gt;&gt;F: Visit protected page
+  F-&gt;&gt;API: fetch /api/protected (credentials: include)
+  B-&gt;&gt;API: Send auth cookie automatically
+  API-&gt;&gt;API: Validate session &amp; expiration
+  API--&gt;&gt;F: User data / auth OK
+</code></pre> <hr/> <h3 id="why-this-matters">Why This Matters</h3> <p>With cookie-based auth:</p> <ul> <li>the frontend becomes simpler</li> <li>token exposure is eliminated</li> <li>logout is real (server-side)</li> <li>session rules live where they belong</li> <li>Authentication becomes harder to misuse accidentally.</li> </ul> <hr/> <h3 id="updating-the-authcontext-what-actually-changes">Updating the AuthContext (What Actually Changes)</h3> <p><strong><em>Before (token-based)</em></strong></p> <p>Auth state was rehydrated from storage:</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">authuser</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nf">getItem</span><span class="p">(</span><span class="dl">"</span><span class="s2">auth_user</span><span class="dl">"</span><span class="p">));</span>
+</code></pre></div></div> <p>Guards checked:</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!!</span><span class="nx">authuser</span><span class="p">?.</span><span class="nx">token</span><span class="p">;</span>
+</code></pre></div></div> <p>The frontend owned correctness.</p> <p><strong><em>After (cookie-based)</em></strong></p> <p>AuthContext now boots by asking the server:</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">/api/auth/me</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">credentials</span><span class="p">:</span> <span class="dl">"</span><span class="s2">include</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">})</span>
+    <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">ok</span> <span class="p">?</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">()</span> <span class="p">:</span> <span class="kc">null</span><span class="p">))</span>
+    <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nf">setAuthUser</span><span class="p">(</span><span class="nx">data</span><span class="p">?.</span><span class="nx">user</span> <span class="o">??</span> <span class="kc">null</span><span class="p">))</span>
+    <span class="p">.</span><span class="k">finally</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">setAuthReady</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>
+<span class="p">},</span> <span class="p">[]);</span>
+</code></pre></div></div> <p>That’s the entire shift.</p> <ul> <li>No tokens</li> <li>No expiration math</li> <li> <p>No localStorage</p> </li> <li>Server truth</li> </ul> <hr/> <h3 id="making-auth-switchable-token-or-cookie">Making Auth Switchable (Token or Cookie)</h3> <p>To keep this a drop-in feature, the context was refactored to support both modes.</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">AUTH_MODE</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cookie</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">cookie</span><span class="dl">"</span><span class="p">;</span>
+
+</code></pre></div></div> <ul> <li>Cookie mode → /auth/me decides state</li> <li>Token mode → localStorage is used</li> <li>Guards don’t care which mode is active</li> </ul> <p>This lets you:</p> <ul> <li>develop locally with tokens</li> <li>deploy securely with cookies</li> <li>keep one AuthContext</li> </ul> <hr/> <h3 id="telemetry-observability-without-coupling">Telemetry: Observability Without Coupling</h3> <p>During the refactor, auth telemetry was added without affecting auth flow.</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">emitAuthEvent</span><span class="p">(</span><span class="dl">"</span><span class="s2">login_success</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="nx">userId</span> <span class="p">});</span>
+<span class="nf">emitAuthEvent</span><span class="p">(</span><span class="dl">"</span><span class="s2">login_failure</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="nx">email</span> <span class="p">});</span>
+<span class="nf">emitAuthEvent</span><span class="p">(</span><span class="dl">"</span><span class="s2">password_reset_requested</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div> <hr/> <h4 id="telemetry-is">Telemetry is:</h4> <ul> <li>fire-and-forget</li> <li>non-blocking</li> <li>decoupled from auth correctness</li> <li>Auth still works even if telemetry fails.</li> </ul> <hr/> <h4 id="mental-model-shift">Mental Model Shift</h4> <p><strong><em>Token auth asks:</em></strong> “Do I still have a valid token?”</p> <p><strong><em>Cookie auth asks:</em></strong> “Server, who am I?”</p> <p>That’s it.</p> <p>Once you internalize that, most frontend auth code disappears.</p> <hr/> <h3 id="pros--cons">Pros &amp; Cons</h3> <p><strong>* Pros (why production apps prefer cookies)</strong></p> <ul> <li>HttpOnly → XSS safe</li> <li>Automatic sending</li> <li>Real server logout</li> <li>Silent refresh</li> <li>Short-lived sessions</li> <li>Simpler frontend logic</li> </ul> <p><strong>_ Cons _</strong></p> <ul> <li>Requires backend support</li> <li>Needs CORS + SameSite setup</li> <li>Slightly harder locally</li> <li>Cookies behave differently on mobile</li> </ul> <hr/> <h5 id="side-by-side-comparison">Side-by-Side Comparison**</h5> <table> <thead> <tr> <th>Feature</th> <th>LocalStorage Token</th> <th>Cookie Auth</th> </tr> </thead> <tbody> <tr> <td>Token readable by JS</td> <td>✅ Yes</td> <td>❌ No</td> </tr> <tr> <td>XSS resistant</td> <td>❌ No</td> <td>✅ Yes</td> </tr> <tr> <td>Logout truly invalidates</td> <td>❌ Mostly</td> <td>✅ Yes</td> </tr> <tr> <td>Frontend complexity</td> <td>High</td> <td>Low</td> </tr> <tr> <td>Backend complexity</td> <td>Low</td> <td>Medium</td> </tr> <tr> <td>Best for MVP</td> <td>✅</td> <td>⚠️</td> </tr> <tr> <td>Best for production</td> <td>⚠️</td> <td>✅</td> </tr> </tbody> </table> <hr/> <h3 id="which-to-use">Which to use?</h3> <p>For this login feature project:</p> <p>✔ Complex auth flows ✔ Email verification ✔ Password resets<br/> ✔ Route guards ✔ Real backend</p> <p>We built one AuthContext that supports both models. That’s the real win — not choosing cookies or tokens, but designing auth so ownership is explicit and changeable.</p> <p>Review the code branch found at <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5b-cookie-auth">Post 5b Cookie Auth</a></p> <hr/> <h3 id="post-6-preview-testing-rtl--jest">Post 6 Preview: Testing (RTL + Jest)</h3> <p>Next we’ll cover:</p> <ul> <li>mocking authApi</li> <li>testing context behavior</li> <li>asserting auth flows</li> <li>avoiding brittle UI tests</li> </ul> <p>This is where everything pays off. <a href="/blog/2026/react-login-06-testing-login-feature/">Post 6 Testing </a></p>]]></content><author><name></name></author><category term="react-posts"/><category term="auth"/><category term="react-login-series"/><category term="react"/><category term="login"/><category term="authentication"/><category term="auth"/><category term="UI"/><category term="Cookies"/><summary type="html"><![CDATA[Part 5 of this series walks through the authentication context using cookies vs session persistence.]]></summary></entry><entry><title type="html">React Login Series - Route Guards Auth Flow | Part 3b</title><link href="https://cryhansen.github.io/blog/2026/react-login-03-guarding-routes/" rel="alternate" type="text/html" title="React Login Series - Route Guards Auth Flow | Part 3b"/><published>2026-01-06T00:00:00+00:00</published><updated>2026-01-06T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/react-login-03-guarding-routes</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/react-login-03-guarding-routes/"><![CDATA[<h2 id="introduction">Introduction</h2> <p>After our last post <a href="/blog/2025/react-login-03-state-hooks/">Post 3 State Hooks</a> on <code class="language-plaintext highlighter-rouge">State Hooks</code> we set up our <code class="language-plaintext highlighter-rouge">authContext</code> for our different login form submissions.</p> <h2 id="why-route-guards-are-a-separate-concern">Why Route Guards Are a Separate Concern</h2> <p>By the time an authentication flow reaches this point, most of the <em>visible</em> work is done:</p> <ul> <li>Forms validate correctly</li> <li>Password strength is enforced</li> <li>Success and error messages render as expected</li> </ul> <p>But none of that actually prevents a user from typing a URL directly into the address bar.</p> <p>If <code class="language-plaintext highlighter-rouge">/profile</code> is publicly accessible, the app <strong>looks</strong> authenticated — but it isn’t.</p> <p>This is where <strong>route guarding</strong> comes in.</p> <p>Route guards answer one question:</p> <blockquote> <p><strong>Who is allowed to access this route?</strong></p> </blockquote> <p>They are not:</p> <ul> <li>Form logic</li> <li>UI state</li> <li>Feature behavior</li> </ul> <p>They are <strong>navigation policy</strong>.</p> <hr/> <h2 id="layouts-vs-guards-the-mental-model">Layouts vs Guards (The Mental Model)</h2> <p>This distinction is critical.</p> <h3 id="layout">Layout</h3> <ul> <li>Controls <strong>how a page looks</strong></li> <li>Wraps UI</li> <li>Has <em>no authority</em> over access</li> </ul> <p>Examples:</p> <ul> <li>Auth background</li> <li>Centered card</li> <li>Dark mode toggle</li> </ul> <h3 id="guard">Guard</h3> <ul> <li>Controls <strong>who may access a route</strong></li> <li>Wraps navigation</li> <li>Has <em>no concern</em> for styling</li> </ul> <p>Examples:</p> <ul> <li>Redirect unauthenticated users to <code class="language-plaintext highlighter-rouge">/login</code></li> <li>Prevent logged-in users from seeing <code class="language-plaintext highlighter-rouge">/signup</code></li> </ul> <blockquote> <p><strong>Layouts wrap UI. Guards wrap access.</strong></p> </blockquote> <p>Once you separate these concerns, routing becomes composable instead of confusing.</p> <hr/> <h2 id="the-three-route-types-in-an-auth-system">The Three Route Types in an Auth System</h2> <p>Every auth flow naturally divides into three categories:</p> <h3 id="1-public-only-routes">1. Public-only routes</h3> <p>Accessible <strong>only when logged out</strong></p> <ul> <li><code class="language-plaintext highlighter-rouge">/login</code></li> <li><code class="language-plaintext highlighter-rouge">/signup</code></li> <li><code class="language-plaintext highlighter-rouge">/reset</code></li> <li><code class="language-plaintext highlighter-rouge">/reset/confirm</code></li> </ul> <h3 id="2-protected-routes">2. Protected routes</h3> <p>Accessible <strong>only when authenticated</strong></p> <ul> <li><code class="language-plaintext highlighter-rouge">/profile</code></li> <li><code class="language-plaintext highlighter-rouge">/settings</code></li> </ul> <h3 id="3-token-based-routes">3. Token-based routes</h3> <p>Accessible without auth, but validated <strong>inside the page</strong></p> <ul> <li><code class="language-plaintext highlighter-rouge">/confirm-email</code></li> <li><code class="language-plaintext highlighter-rouge">/reset/confirm?token=...</code></li> </ul> <p>These routes should not be protected by auth state — they are guarded by <strong>tokens</strong>, not sessions.</p> <hr/> <h2 id="guard-components">Guard Components</h2> <p>Before moving further, lets grab the branch we checked in to get started from here. <a href="https://github.com/cryshansen/login-feature-react/tree/post/post3-state-hooks">Post 3 State Hooks </a></p> <h3 id="protectedroute-auth-required">ProtectedRoute (Auth Required)</h3> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Navigate</span><span class="p">,</span> <span class="nx">Outlet</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useAuth</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../context/AuthContext</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * 🔒 ProtectedRoute
+ *
+ * Allows access ONLY when the user is authenticated.
+ * Redirects unauthenticated users to /login.
+ */</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">ProtectedRoute</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">isAuthenticated</span><span class="p">,</span> <span class="nx">authReady</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">useAuth</span><span class="p">();</span>
+
+  <span class="c1">// Prevent redirect flicker while auth initializes</span>
+  <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">authReady</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Loading...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
   <span class="p">}</span>
+
+  <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">isAuthenticated</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Navigate</span> <span class="na">to</span><span class="p">=</span><span class="s">"/login"</span> <span class="na">replace</span> <span class="p">/&gt;;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Outlet</span> <span class="p">/&gt;;</span>
 <span class="p">}</span>
-</code></pre></div></div> <hr/> <h2 id="-final-notes">📦 Final Notes</h2> <ul> <li>State persists in <code class="language-plaintext highlighter-rouge">localStorage</code> under the key <code class="language-plaintext highlighter-rouge">bookings</code>.</li> <li>Clearing the browser’s storage will reset state.</li> <li>This setup is perfect for small apps and prototypes.</li> </ul> <blockquote> <p>🔐 Remember: <code class="language-plaintext highlighter-rouge">localStorage</code> is not secure. Avoid storing sensitive data.</p> </blockquote> <hr/> <h2 id="-summary">📝 Summary</h2> <ul> <li>✅ Setup NgRx store in standalone mode</li> <li>✅ Created <code class="language-plaintext highlighter-rouge">bookings</code> state with actions + reducer</li> <li>✅ Used <code class="language-plaintext highlighter-rouge">ngrx-store-localstorage</code> to persist state</li> </ul> <p>This setup can be extended to manage more slices of state (e.g., <code class="language-plaintext highlighter-rouge">users</code>, <code class="language-plaintext highlighter-rouge">auth</code>, etc.) by adding to the <code class="language-plaintext highlighter-rouge">keys</code> array in the meta-reducer.</p> <hr/> <p>Let me know if you’d like this exported as a Markdown file or deployed to your Jekyll blog!</p>]]></content><author><name>Albert Einstein</name></author><category term="angular-posts"/><category term="formatting"/><category term="charts"/><summary type="html"><![CDATA[Looking for a local storage tutorial that gives you a workable business case other than shopping carts?]]></summary></entry></feed>
+</code></pre></div></div> <hr/> <h3 id="publiconlyroute-auth-not-allowed">PublicOnlyRoute (Auth NOT Allowed)</h3> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Navigate</span><span class="p">,</span> <span class="nx">Outlet</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useAuth</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../context/AuthContext</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * 🚫 PublicOnlyRoute
+ *
+ * Allows access ONLY when the user is NOT authenticated.
+ * Redirects logged-in users to /profile.
+ */</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">PublicOnlyRoute</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">isAuthenticated</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">useAuth</span><span class="p">();</span>
+
+  <span class="k">if </span><span class="p">(</span><span class="nx">isAuthenticated</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Navigate</span> <span class="na">to</span><span class="p">=</span><span class="s">"/profile"</span> <span class="na">replace</span> <span class="p">/&gt;;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Outlet</span> <span class="p">/&gt;;</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>These components do one thing each. They don’t render pages — they enforce policy.</p> <hr/> <h3 id="feature-based-authlayout-drop-in-design">Feature-Based AuthLayout (Drop-In Design)</h3> <p>This project treats authentication as a feature, not a global concern.</p> <p>That means:</p> <ul> <li>Auth pages bring their own layout</li> <li>The rest of the app is unaffected</li> <li>The feature can be dropped into another app cleanly</li> </ul> <p><strong>AuthLayout responsibility</strong></p> <ul> <li>Background</li> <li>Card container</li> <li>Dark mode toggle</li> <li>Visual consistency for auth screens</li> </ul> <p>It does not decide access.</p> <hr/> <h3 id="composing-layouts-and-guards">Composing Layouts and Guards</h3> <p>React Router allows stacking behavior through nesting.</p> <p>Here’s the final routing structure.</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">Routes</span><span class="p">&gt;</span>
+  <span class="si">{</span><span class="cm">/* AUTH FEATURE (public-only) */</span><span class="si">}</span>
+  <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">AuthLayout</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="na">setDarkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">setDarkMode</span><span class="si">}</span> <span class="p">/&gt;</span><span class="si">}</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">PublicOnlyRoute</span> <span class="p">/&gt;</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"/login"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">LoginPage</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"/signup"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">SignupPage</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"/reset"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">RequestResetPage</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"/reset/confirm"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">ConfirmResetPage</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"/confirm-email"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">ConfirmEmailPage</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Route</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">Route</span><span class="p">&gt;</span>
+
+  <span class="si">{</span><span class="cm">/* APPLICATION (protected) */</span><span class="si">}</span>
+  <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">ProtectedRoute</span> <span class="p">/&gt;</span><span class="si">}</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"/profile"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">ProfilePage</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">Route</span><span class="p">&gt;</span>
+
+  <span class="si">{</span><span class="cm">/* Fallback */</span><span class="si">}</span>
+  <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path</span><span class="p">=</span><span class="s">"*"</span> <span class="na">element</span><span class="p">=</span><span class="si">{</span><span class="p">&lt;</span><span class="nc">Navigate</span> <span class="na">to</span><span class="p">=</span><span class="s">"/login"</span> <span class="na">replace</span> <span class="p">/&gt;</span><span class="si">}</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nc">Routes</span><span class="p">&gt;</span>
+</code></pre></div></div> <hr/> <h3 id="route-tree-diagram">Route Tree Diagram</h3> <p>This diagram shows how access flows through the app:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Routes
+│
+├─ AuthLayout
+│   └─ PublicOnlyRoute
+│       ├─ /login
+│       ├─ /signup
+│       ├─ /reset
+│       ├─ /reset/confirm
+│       └─ /confirm-email
+│
+├─ ProtectedRoute
+│   └─ /profile
+│
+└─ * → /login
+</code></pre></div></div> <p>Each layer has exactly one responsibility.</p> <hr/> <h3 id="why-this-architecture-scales">Why This Architecture Scales</h3> <p>This approach makes future changes easy:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Add roles → AdminRoute
+
+Add verification → VerifiedEmailRoute
+
+Add new auth pages → no router rewrite
+
+Remove auth feature → no app-wide refactor
+</code></pre></div></div> <p>It also mirrors how production teams structure large React apps.</p> <hr/> <h3 id="key-takeaways">Key Takeaways</h3> <ul> <li>Route guards are navigation policy, not UI</li> <li>Layouts and guards should never be mixed</li> <li>Auth features can (and should) own their own layout</li> <li>Nesting routes is more powerful than conditional rendering</li> <li>Clean naming (ProtectedRoute, PublicOnlyRoute) matters</li> </ul> <p>At this point, the app doesn’t just look authenticated — it behaves like one.</p> <p>We have fully covered everything we need and layered the feature correctly before moving forwad with our next post. We hit our milestoe and can checkoff these items:</p> <p>✅ UI composition (forms, fields, layouts) ✅ State hooks (derived state, guards, submit conditions) ✅ Auth context integration ✅ Route guards (public-only + protected) ✅ Layout vs guard separation ✅ Feature-based drop-in auth design</p> <p>Review this code found in Github <a href="https://github.com/cryshansen/login-feature-react/tree/post/post3a-route-guard">Post 3a Route Guard</a></p> <h4 id="coming-next">Coming Next</h4> <p>In <a href="/blog/2026/react-login-04-auth-api-decoupling/">Post 4 API Decoupling</a> , we’ll discuss the</p> <ul> <li>Why service layers matter</li> <li>API abstraction</li> <li>Environment decoupling</li> <li>Mocking backend behavior in tests</li> </ul> <p>This is where frontend code starts to feel production-ready.</p>]]></content><author><name></name></author><category term="react-posts"/><category term="auth"/><category term="routing"/><category term="architecture"/><category term="react-login-series"/><category term="react"/><category term="login"/><category term="authentication"/><category term="auth"/><category term="react-router"/><category term="layouts"/><category term="guards"/><summary type="html"><![CDATA[In this Part of the series we look at guarding routes in a feature-based react auth flow]]></summary></entry><entry><title type="html">React Login Series - Auth API Integrating an Authentication API | Part 4c</title><link href="https://cryhansen.github.io/blog/2026/react-login-04-auth-api-code/" rel="alternate" type="text/html" title="React Login Series - Auth API Integrating an Authentication API | Part 4c"/><published>2026-01-06T00:00:00+00:00</published><updated>2026-01-06T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/react-login-04-auth-api-code</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/react-login-04-auth-api-code/"><![CDATA[<h2 id="integrating-an-authentication-api">Integrating an Authentication API</h2> <p>In the previous [post] (/blog/2026/react-login-04-auth-api-endpoints/) of this Login Feature Series,we defined the authentication endpoint contract — what endpoints exist, what they accept, and what they return. How do I connect my React login feature to a real authentication API?</p> <p>In this post, we implement the frontend integration layer that consumes those endpoints from a Java-backed authentication API.</p> <h3 id="using-black-box-endpoints">Using Black Box Endpoints</h3> <p>Although the backend is implemented in Java, it is still treated as a black box from the frontend’s perspective. We integrate only through HTTP endpoints, not Java internals.</p> <p>In this particulre Post we want to tie into expisting APIs and therefore our code structure looks thinner. Let’s move to the this layer: integrating with an existing Java authentication API. In this post, we assume:</p> <ul> <li>Java owns users and authentication</li> <li>The frontend does not reimplement auth logic</li> <li>React communicates directly with Java over HTTP</li> <li>The frontend treats the API as a contract, not an implementation</li> </ul> <p>Grab the code <a href="https://github.com/cryshansen/login-feature-react/tree/post/post3a-route-guard">Post 3a Route Guard</a> before starting.</p> <h3 id="backend-ownership-model">Backend Ownership Model</h3> <p>Our backend is a Java service exposing the following endpoints:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /auth/login
+POST /auth/register
+POST /auth/reset-request
+POST /auth/reset-confirm
+</code></pre></div></div> <p>This Java API is the single source of truth for:</p> <ul> <li>User credentials</li> <li>Password rules enforcement</li> <li>Token issuance</li> <li>Password reset workflows</li> </ul> <p>The frontend’s responsibility is to:</p> <ul> <li>Collect input</li> <li>Call the correct endpoint</li> <li>React to success or failure</li> <li>Manage UI state and routing</li> </ul> <hr/> <p>Instead, React communicates directly with the Java API.</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>React App
+   ↓ HTTPS
+Java Auth API
+</code></pre></div></div> <p>The file structure will look like this:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
+├─ app/
+│  ├─ App.jsx
+│  └─ Router.jsx
+│
+├─ context/
+│  └─ AuthContext.jsx
+│
+├─ features/
+│  └─ api/
+│     ├─ services/
+│     │  └─ auth.service.ts &lt;-- api client
+│     ├─ schemas/
+│     │  └─ auth.types.ts &lt;-- contracts
+│
+└─ main.jsx
+
+</code></pre></div></div> <p>This is the most common and correct setup in real-world systems.</p> <hr/> <h4 id="why-typescript-on-the-frontend-api-layer">Why TypeScript on the frontend API layer?</h4> <p>The code now switches to typescript to strongly type the boundaries for these reasons:</p> <ul> <li>Ensures request shapes are correct</li> <li>Prevents silent payload mismatches</li> <li>Makes refactors safe</li> <li>Keeps UI logic honest</li> </ul> <p>We are not rewriting the backend — we are typing the boundary.</p> <hr/> <h3 id="defining-auth-api-types-frontend">Defining Auth API Types (Frontend)</h3> <p>These types represent what the Java API expects and returns.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// auth.types.ts</span>
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">LoginRequest</span> <span class="p">{</span>
+  <span class="nl">email</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">RegisterRequest</span> <span class="p">{</span>
+  <span class="nl">email</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">firstName</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">lastName</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">AuthUser</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">email</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">AuthResponse</span> <span class="p">{</span>
+  <span class="nl">user</span><span class="p">:</span> <span class="nx">AuthUser</span><span class="p">;</span>
+  <span class="nl">accessToken</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">refreshToken</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>This file becomes the frontend’s contract mirror of the Java API.</p> <hr/> <h3 id="api-client-layer-frontend">API Client Layer (Frontend)</h3> <p>Instead of calling fetch directly inside components, we centralize API calls within the services file for authentications.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// features/api/services/auth.service.ts</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">LoginRequest</span><span class="p">,</span> <span class="nx">RegisterRequest</span><span class="p">,</span> <span class="nx">AuthResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../schemas/auth.types</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">BASE_URL</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">/auth</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * Shared request helper
+ */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nf">request</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">endpoint</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">RequestInit</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">fetch</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">BASE_URL</span><span class="p">}${</span><span class="nx">endpoint</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">...(</span><span class="nx">options</span><span class="p">.</span><span class="nx">headers</span> <span class="o">||</span> <span class="p">{}),</span>
+    <span class="p">},</span>
+    <span class="na">credentials</span><span class="p">:</span> <span class="dl">"</span><span class="s2">include</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">...</span><span class="nx">options</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">res</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">message</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Authentication request failed</span><span class="dl">"</span><span class="p">;</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">();</span>
+      <span class="nx">message</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">error</span> <span class="o">||</span> <span class="nx">message</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+      <span class="c1">// ignore parse errors</span>
+    <span class="p">}</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * POST /auth/login
+ */</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">login</span><span class="p">(</span><span class="nx">payload</span><span class="p">:</span> <span class="nx">LoginRequest</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AuthResponse</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">request</span><span class="o">&lt;</span><span class="nx">AuthResponse</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">"</span><span class="s2">/login</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">payload</span><span class="p">),</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * POST /auth/register
+ */</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">register</span><span class="p">(</span><span class="nx">payload</span><span class="p">:</span> <span class="nx">RegisterRequest</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AuthResponse</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">request</span><span class="o">&lt;</span><span class="nx">AuthResponse</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">"</span><span class="s2">/register</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">payload</span><span class="p">),</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * POST /auth/reset-request
+ */</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">requestPasswordReset</span><span class="p">(</span><span class="nx">email</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">request</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">"</span><span class="s2">/reset-request</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">({</span> <span class="nx">email</span> <span class="p">}),</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * POST /auth/reset-confirm
+ */</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">confirmPasswordReset</span><span class="p">(</span><span class="nx">token</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">newPassword</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">request</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">"</span><span class="s2">/reset-confirm</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">({</span>
+      <span class="nx">token</span><span class="p">,</span>
+      <span class="na">password</span><span class="p">:</span> <span class="nx">newPassword</span><span class="p">,</span>
+    <span class="p">}),</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>This gives us:</p> <ul> <li>A single integration point</li> <li>One file touching fetch</li> <li>One place handles errors</li> <li>Typed boundary</li> <li>No backend assumptions</li> <li>Java/PHP interchangeable</li> <li>Typed responses</li> <li>Clean separation from UI logic</li> </ul> <hr/> <h3 id="mapping-ui-screens-to-java-endpoints">Mapping UI Screens to Java Endpoints</h3> <table> <thead> <tr> <th>UI Screen</th> <th>Java Endpoint</th> </tr> </thead> <tbody> <tr> <td>Login</td> <td>POST /auth/login</td> </tr> <tr> <td>Signup</td> <td>POST /auth/register</td> </tr> <tr> <td>Forgot Password</td> <td>POST /auth/reset-request</td> </tr> <tr> <td>Reset Password</td> <td>POST /auth/reset-confirm</td> </tr> </tbody> </table> <p>Each screen maps to exactly one backend responsibility. No endpoint does more than one job.</p> <h3 id="password-reset-flow-end-to-end">Password Reset Flow (End-to-End)</h3> <h4 id="1-reset-request">1. Reset Request</h4> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /auth/reset-request
+</code></pre></div></div> <ul> <li>User submits email</li> <li>Java generates reset token</li> <li>Email is sent</li> <li>Response is always generic (security)</li> </ul> <p>Frontend response handling:</p> <ul> <li>Show “Check your email” message</li> <li>No account existence leaks</li> </ul> <hr/> <h4 id="2-reset-confirmation">2. Reset Confirmation</h4> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /auth/reset-confirm
+</code></pre></div></div> <p>Payload includes:</p> <ul> <li>Reset token</li> <li>New password</li> </ul> <p>Java:</p> <ul> <li>Validates token</li> <li>Enforces password rules</li> <li>Updates credentials</li> </ul> <p>Frontend:</p> <ul> <li>Uses existing password rules UI</li> <li>Redirects on success</li> </ul> <h4 id="error-handling-strategy">Error Handling Strategy</h4> <p>The frontend should expect structured errors from Java.</p> <p>Example:</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid credentials"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUTH_INVALID"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div> <p>This allows:</p> <ul> <li>Clear UI messaging</li> <li>Consistent handling across screens</li> <li>Future i18n support</li> </ul> <hr/> <h4 id="how-this-fits-the-login-feature-architecture">How This Fits the Login Feature Architecture</h4> <p>At this stage in the series, we now have:</p> <ul> <li>Feature-based UI</li> <li>Route guards and layouts</li> <li>Centralized auth state</li> <li>Password validation UX</li> <li>Direct Java API integration</li> <li>Typed frontend API contracts</li> </ul> <p>The frontend remains framework-agnostic, while the backend remains authoritative.</p> <hr/> <h3 id="connecting-the-auth-api-to-authcontext">Connecting the Auth API to AuthContext</h3> <p>At this point in the Login Feature Series, we have a fully typed, environment-decoupled Auth API layer. What we have not yet shown is <strong>where that API is actually consumed</strong>.</p> <p>This is intentional.</p> <p>The Auth API (<code class="language-plaintext highlighter-rouge">auth.service.ts</code>) is <strong>never called directly by UI components</strong>.<br/> It is integrated <strong>exclusively through AuthContext</strong>.</p> <p>This preserves a clean separation of responsibilities:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UI → useAuth → AuthContext → authApi → Backend
+</code></pre></div></div> <h4 id="why-authcontext-is-the-integration-point">Why AuthContext Is the Integration Point</h4> <p>AuthContext owns authentication state, not networking details.</p> <p>Its responsibilities are to:</p> <p>orchestrate login and logout</p> <p>manage user and token state</p> <p>expose semantic actions (login, logout, register)</p> <p>hide backend behavior from the UI</p> <p>The API service, by contrast, has a single job:</p> <p>communicate with the backend</p> <h4 id="integrating-the-api-inside-authcontext">Integrating the API Inside AuthContext</h4> <p>AuthContext imports the API functions and wraps them in meaningful actions.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// context/AuthContext.tsx</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">login</span> <span class="kd">as </span><span class="nx">loginApi</span><span class="p">,</span> <span class="nx">register</span> <span class="kd">as </span><span class="nx">registerApi</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@/features/api/services/auth.service</span><span class="dl">"</span><span class="p">;</span>
+</code></pre></div></div> <p>A login action then becomes:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">login</span> <span class="o">=</span> <span class="k">async </span><span class="p">(</span><span class="nx">credentials</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">setLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">loginApi</span><span class="p">(</span><span class="nx">credentials</span><span class="p">);</span>
+
+    <span class="nf">setUser</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">user</span><span class="p">);</span>
+    <span class="nf">setToken</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">accessToken</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+    <span class="nf">setLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div> <p>Key observations:</p> <p>AuthContext decides what login means</p> <p>The API only returns data</p> <p>State updates happen in one place</p> <h4 id="exposing-auth-actions-to-the-app">Exposing Auth Actions to the App</h4> <p>AuthContext exposes these actions through its provider:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">user</span><span class="p">,</span>
+  <span class="nx">token</span><span class="p">,</span>
+  <span class="nx">loading</span><span class="p">,</span>
+  <span class="nx">login</span><span class="p">,</span>
+  <span class="nx">logout</span><span class="p">,</span>
+  <span class="nx">register</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div></div> <p>The rest of the application consumes them via useAuth.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">login</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">useAuth</span><span class="p">();</span>
+<span class="k">await</span> <span class="nf">login</span><span class="p">({</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">password</span> <span class="p">});</span>
+</code></pre></div></div> <p>No endpoints. No fetch logic. No backend assumptions.</p> <h4 id="why-this-matters">Why This Matters</h4> <p>This final connection completes the architecture:</p> <p>Components express intent</p> <p>Context orchestrates state</p> <p>Services handle communication</p> <p>Backends remain replaceable</p> <p>The frontend stays stable even if the backend changes from Java to PHP — or anything else.</p> <h4 id="key-takeaway">Key Takeaway</h4> <p>When Backends owns authentication, React integrates — it does not reimplement. AuthContext orchestrates. Services communicate. Components request intent.</p> <p>TypeScript on the frontend doesn’t compete with Java. It complements it by enforcing correctness at the boundary. After Post 4, we now have:</p> <ul> <li>clean boundaries</li> <li>replaceable backends</li> <li>testable hooks</li> <li>predictable behavior</li> </ul> <p>Review the Github <a href="https://github.com/cryshansen/login-feature-react/tree/post/post4c-auth-api-code">4c Auth Api Code</a> branch to compare working code to your build if you need it.</p> <hr/> <h4 id="final-thought">Final Thought</h4> <p>A login system isn’t “done” when the form works. It’s done when every endpoint has a clear job, a clear contract, and a clear owner. This API design gives your Login Feature a backbone you can scale, test, and reuse.</p> <hr/> <h3 id="post-5-preview-auth-context--session-persistence">Post 5 Preview: Auth Context &amp; Session Persistence</h3> <p>Next, we’ll cover:</p> <ul> <li>rehydrating auth state on refresh</li> <li>session vs memory tradeoffs</li> <li>logout patterns</li> <li>protected route behavior</li> </ul> <p><a href="/blog/2026/react-login-05-auth-context-session-persistence/">Post 5 Session Persistence </a></p>]]></content><author><name></name></author><category term="react-posts"/><category term="auth"/><category term="react-login-series"/><category term="react"/><category term="login"/><category term="authentication"/><category term="auth"/><category term="UI"/><summary type="html"><![CDATA[A production-style authentication system built with React, Tailwind, localStorage, API ready, and full testing coverage.]]></summary></entry><entry><title type="html">React Login Series - Auth API Layer &amp;amp; Environment Decoupling | Part 4a</title><link href="https://cryhansen.github.io/blog/2026/react-login-04-auth-api-decoupling/" rel="alternate" type="text/html" title="React Login Series - Auth API Layer &amp;amp; Environment Decoupling | Part 4a"/><published>2026-01-06T00:00:00+00:00</published><updated>2026-01-06T00:00:00+00:00</updated><id>https://cryhansen.github.io/blog/2026/react-login-04-auth-api-decoupling</id><content type="html" xml:base="https://cryhansen.github.io/blog/2026/react-login-04-auth-api-decoupling/"><![CDATA[<h2 id="auth-api-layer--environment-decoupling">Auth API Layer &amp; Environment Decoupling</h2> <p>Your UI should never know where the authentication comes from.</p> <p>A recap of what we’re building, we already have the UI components integrated and useAuth handling states / effects and offering context managine the session truth. We dont yet have the boundary between what the app does and where the data comes from which we handle using the Auth API. This asspect is a separation termed decoupling.</p> <h3 id="the-framework-of-api">The Framework of API</h3> <p>Firstly without any such separater our fetch logic can leak into and from hooks. Additionally the testing framework becomes more difficult because they need a server to support it. Environments become hard-coded making portability more cumbersome and refactoring components can cause breaks everywhere.</p> <p>When we implement an auth entication logic within the feature, it becomes portable, test with ease and swaping back ends is simple to fire up again in production environments where this setup matters. This is where <code class="language-plaintext highlighter-rouge">authApi.tx</code> takes the role.</p> <p>So from a coding stand point, what authAPI is, is a thin service layer connecting back ends to the interfaces</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UI → useAuth → authApi → Backend
+
+</code></pre></div></div> <p>The UI never sees fetch. <code class="language-plaintext highlighter-rouge">useAuth</code> never sees urls and the backend can change without touching the app.</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+src/
+├─ app/
+│  ├─ App.jsx
+│  └─ Router.jsx
+│
+├─ context/
+│  └─ AuthContext.jsx
+│
+├─ features/
+│  └─ auth/
+│     ├─ api/
+│     │  ├─ authApi.ts        ← network boundary
+│     │  └─ auth.types.ts     ← contract mirror
+│     ├─ hooks/
+│     │  └─ useAuth.ts
+│     └─ components/
+
+</code></pre></div></div> <hr/> <h3 id="auth-api-boundary-diagram">Auth API Boundary Diagram</h3> <pre><code class="language-mermaid">flowchart TD
+  UI --&gt; useAuth
+  useAuth --&gt; authApi
+
+  authApi --&gt;|fetch| Backend
+  Backend --&gt;|response| authApi
+
+  authApi --&gt;|normalized result| useAuth
+  useAuth --&gt;|state update| UI
+
+</code></pre> <p><strong>Takeaways:</strong></p> <ul> <li>Only one file knows about endpoints</li> <li>Only one place handles headers</li> <li>Only one abstraction touches the network</li> </ul> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+UI
+↓
+Frontend API Boundary (authApi)
+↓
+Endpoint Contract (black box)
+↓
+Backend Implementation (Express / Java / PHP)
+
+</code></pre></div></div> <hr/> <h3 id="fetch-wrapper-one-door-in-one-door-out">Fetch Wrapper: One Door In, One Door Out</h3> <p>Every auth request should go through the same function.</p> <p>Conceptually:</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">request</span><span class="p">(</span><span class="nx">endpoint</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="err">→</span> <span class="nx">normalized</span> <span class="nx">result</span>
+</code></pre></div></div> <p>This lets you:</p> <ul> <li>handle errors once</li> <li>standardize JSON parsing</li> <li>mock easily</li> <li>add logging later</li> </ul> <hr/> <h3 id="diagram-fetch-wrapper-responsibility">Diagram: Fetch Wrapper Responsibility</h3> <pre><code class="language-mermaid">flowchart TD
+  Request --&gt; AuthApi
+  AuthApi --&gt;|add headers| Fetch
+  Fetch --&gt;|raw response| AuthApi
+
+  AuthApi --&gt;|parse JSON| Normalize
+  Normalize --&gt;|success or error| Caller
+</code></pre> <p><strong>Key rule</strong></p> <ul> <li>❌ No fetch() in components</li> <li>❌ No fetch() in hooks</li> <li>✅ Only inside authApi</li> </ul> <hr/> <h3 id="token-handling-without-security-theater">Token Handling (Without Security Theater)</h3> <p>This series intentionally avoids:</p> <ul> <li>pretending localStorage is secure</li> <li>over-engineered token vaults</li> <li>false guarantees</li> </ul> <hr/> <h4 id="reality">Reality:</h4> <ul> <li>Frontend tokens are session hints</li> <li>Real security lives on the backend</li> <li>The goal is consistency, not illusion</li> </ul> <hr/> <h4 id="token-responsibilities-in-the-frontend">Token responsibilities in the frontend:</h4> <ul> <li>store</li> <li>attach to requests</li> <li>clear on logout</li> <li>Nothing more.</li> </ul> <hr/> <h3 id="diagram-token-lifecycle">Diagram: Token Lifecycle</h3> <pre><code class="language-mermaid">flowchart TD
+  LoginSuccess --&gt; Token
+  Token --&gt;|store| Storage
+  Storage --&gt;|rehydrate| AuthContext
+
+  AuthApi --&gt;|read token| Storage
+  Storage --&gt;|attach header| Request
+
+  Logout --&gt;|clear| Storage
+</code></pre> <hr/> <h3 id="mocking-apis-in-tests-this-is-the-win">Mocking APIs in Tests (This Is the Win)</h3> <p>Because <code class="language-plaintext highlighter-rouge">authApi</code> (<code class="language-plaintext highlighter-rouge">auth.service.ts</code>) is isolated:</p> <ul> <li>tests do not need a server</li> <li>hooks are testable</li> <li>UI is deterministic</li> <li>You can replace the entire backend with a mock.</li> </ul> <hr/> <h3 id="diagram-real-vs-mock-backend-swap">Diagram: Real vs Mock Backend Swap</h3> <pre><code class="language-mermaid">flowchart TD
+  useAuth --&gt; authApi
+
+  authApi --&gt;|real env| RealBackend
+  authApi --&gt;|test env| MockBackend
+</code></pre> <p>Environment decides behavior — not code paths.</p> <hr/> <h3 id="environment-decoupling">Environment Decoupling</h3> <p>Your app should never care whether it’s:</p> <ul> <li>local</li> <li>staging</li> <li>production</li> <li>test</li> </ul> <p>That decision lives in one place.</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">API_URL</span> <span class="o">=</span> <span class="k">import</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VITE_API_URL</span><span class="p">;</span>
+</code></pre></div></div> <p>Or replaced entirely during tests.</p> <hr/> <h3 id="final-thoughts">Final Thoughts</h3> <p>At this stage, the backend is treated as a black box — it may be Java, PHP, Express, or something else entirely.This post describes why the frontend needs an API boundary — regardless of backend that we will choose. No code has been checked in as we discuss architectural concepts.</p> <h3 id="whats-next">Whats Next</h3> <p>Our next post in the Login Series <a href="/blog/2026/react-login-04-auth-api-endpoints/">API Endpoints</a> discusses break down of api endpoints, structuring the api depending on which architectural need and prepare our system for coding the api.</p>]]></content><author><name></name></author><category term="react-posts"/><category term="auth"/><category term="react-login-series"/><category term="react"/><category term="login"/><category term="authentication"/><category term="auth"/><category term="UI"/><summary type="html"><![CDATA[A production-style authentication system built with React, Tailwind, localStorage, API ready, and full testing coverage.]]></summary></entry></feed>

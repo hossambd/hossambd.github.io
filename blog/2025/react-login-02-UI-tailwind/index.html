@@ -1,0 +1,396 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="dNntxSC0mShXeLWFqw9ftBD0usXNQi3snCahDaJJfes"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> React Login Series - Design and Integrate Tailwind UI | Part 2d | Crystal H. Hansen </title> <meta name="author" content="Crystal H. Hansen"> <meta name="description" content="This step continues on the Login Feature convertion of Tailwind UI page components required for the login/registration feature."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website, Crystal Hansen Developer portfolio, developer, Crystal Hansen Developer, Crystal Hansen's Developer site."> <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5"> <link defer rel="stylesheet" href="/assets/css/scholar-icons.css?62b2ac103a88034e6882a5be5f3e2772"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://cryhansen.github.io/blog/2025/react-login-02-UI-tailwind/"> <script src="/assets/js/theme.js?a81d82887dd692e91686b43de4542f18"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css" integrity="sha256-Oppd74ucMR5a5Dq96FxjEzGF7tTw2fZ/6ksAqDCM8GY=" crossorigin="anonymous" media="screen and (prefers-color-scheme: light)"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css" integrity="sha256-nyCNAiECsdDHrr/s2OQsp5l9XeY2ZJ0rMepjCT2AkBk=" crossorigin="anonymous" media="screen and (prefers-color-scheme: dark)"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html@3.4.47/bundles/css/diff2html.min.css" integrity="sha256-IMBK4VNZp0ivwefSn51bswdsrhk0HoMTLc2GqFHFBXg=" crossorigin="anonymous"> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Crystal</span> H. Hansen </a> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse text-right" id="navbarNav"> <ul class="navbar-nav ml-auto flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item"> <button id="search-toggle" title="Search" onclick="openSearchModal()"> <span class="nav-link">ctrl k <i class="ti ti-search"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" title="Change theme"> <i class="ti ti-sun-moon" id="light-toggle-system"></i> <i class="ti ti-moon-filled" id="light-toggle-dark"></i> <i class="ti ti-sun-filled" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">React Login Series - Design and Integrate Tailwind UI | Part 2d</h1> <p class="post-meta"> Created on December 23, 2025 </p> <p class="post-tags"> <a href="/blog/2025"> <i class="fa-solid fa-calendar fa-sm"></i> 2025 </a>   ·   <a href="/blog/tag/react"> <i class="fa-solid fa-hashtag fa-sm"></i> react</a>   <a href="/blog/tag/login"> <i class="fa-solid fa-hashtag fa-sm"></i> login</a>   <a href="/blog/tag/signup"> <i class="fa-solid fa-hashtag fa-sm"></i> signup</a>   <a href="/blog/tag/authentication"> <i class="fa-solid fa-hashtag fa-sm"></i> authentication</a>   <a href="/blog/tag/auth"> <i class="fa-solid fa-hashtag fa-sm"></i> auth</a>   <a href="/blog/tag/ui"> <i class="fa-solid fa-hashtag fa-sm"></i> UI</a>   <a href="/blog/tag/tailwind-ui"> <i class="fa-solid fa-hashtag fa-sm"></i> tailwind UI</a>   ·   <a href="/blog/category/react-posts"> <i class="fa-solid fa-tag fa-sm"></i> react-posts</a>   <a href="/blog/category/auth"> <i class="fa-solid fa-tag fa-sm"></i> auth</a>   <a href="/blog/category/react-login-series"> <i class="fa-solid fa-tag fa-sm"></i> react-login-series</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <h2 id="post-2-continuation-of-building-the-ui">Post 2: Continuation of Building the UI</h2> <p>This post and <a href="/blog/2026/react-authentication-adding-password-strength-meter/">previous</a> post covers the separation of the UI password meter. Our Feature Series, where we build the general Authentication UI of our drop in feature. In this part we complete the remaining feature pages and components.</p> <p>→ Series overview: /blog/react-login/</p> <p>Grab the branch <a href="https://github.com/cryshansen/login-feature-react/tree/post/2c-password-strength-meter" rel="external nofollow noopener" target="_blank">Post Password Strength UI</a>.</p> <hr> <h3 id="the-architecture-of-the-final-ui-version-of-our-series">The Architecture of the final UI Version of Our Series</h3> <p>Lets take a look at what we should have for files within the last checked in code structure. We indicate which files we will be refactoring in this poast.</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
+  ├─ app/
+  │   ├─ App.jsx
+  │   └─ Router.jsx
+
+  └─ features/
+      └─ auth/
+        ├─ components/
+        |    ├─ elements/
+        |    |  ├─ AccountDropdown.jsx
+        |    |  └─ AuthBackground.jsx
+        |    |  └─ DarkModeButton.jsx
+        |    ├─ forms/
+        |    |  ├─ ConfirmEmail.jsx      &lt;- see below post
+        |    |  ├─ ConfirmPasswordFields.jsx
+        |    |  ├─ ConfirmResetForm.jsx    &lt;- see below post
+        |    |  ├─ LoginForm.jsx
+        |    |  ├─ PasswordField.jsx
+        |    |  ├─ PasswordRules.jsx
+        |    |  ├─ PasswordStrengthMeter.jsx
+        |    |  ├─ RequestResetForm.jsx   &lt;- see below post
+        |    |  └─ SignupForm.jsx
+        |    ├─ layout/
+        |      ├─ AuthLayout.jsx
+        |      ├─ AuthFacingHeader.jsx
+        |      ├─ HeaderTopLevel.jsx
+        |      └─ AuthFacingFooter.jsx
+        |    ├─ utils/
+        |      ├─ passwordRules.jsx
+        |      └─ passwordStrength.jsx
+        ├─ pages/
+        │  ├─ ConfirmEmailPage.jsx    &lt;- adjust by below post
+        │  ├─ ConfirmResetPage.jsx    &lt;- adjust  by below post
+        │  ├─ LoginPage.jsx
+        │  ├─ NotFoundPage.jsx    &lt;- adjust  by below post
+        │  ├─ ProfilePage.jsx     &lt;- adjust by below post
+        │  ├─ RequestResetPage.jsx    &lt;- adjust by below post
+        │  └─ SignupPage.jsx
+  └─ main.jsx
+</code></pre></div></div> <p>These are the changes and additions we need to implement the Login Feature UI. All we are hoping for at this stage is the layout to render the page, form and fields. There should be little to no coding at this point as we are working on setting up the design front end UI. If needed refer to the github repository <a href="https://github.com/cryshansen/login-feature-react/tree/post/2c-password-strength-meter" rel="external nofollow noopener" target="_blank">Password Strength Meter</a> branch connected to the previous post to review the structure and finalize these pages.</p> <hr> <h4 id="adjusting-page-files">Adjusting Page Files</h4> <ol> <li>Confirmation Email Page <code class="language-plaintext highlighter-rouge">ConfirmEmailPage.jsx</code> </li> <li>Request Reset Page <code class="language-plaintext highlighter-rouge">RequestResetPage.jsx</code> </li> <li>Confirm Reset Page <code class="language-plaintext highlighter-rouge">ConfirmResetPage.jsx</code> </li> <li>Profile Page <code class="language-plaintext highlighter-rouge">ProfilePage.jsx</code> </li> <li>Not Found Page <code class="language-plaintext highlighter-rouge">NotFoundPage.jsx</code> </li> </ol> <hr> <h5 id="1-confirmation-email-page---after-signup---email-sent-with-link">1. Confirmation Email Page -&gt; after signup -&gt; email sent with link</h5> <p>The <code class="language-plaintext highlighter-rouge">ConfirmationEmailPage.jsx</code> handles the validation of the email on signup. This page will capture url parameters to confirm within our system. This is a standard architectural component. Lets open it and copy code:</p> <p>Head over to [ Tailwind UI] (https://tailwindcss.com/plus/ui-blocks/marketing/feedback/404-pages) for a quick styled 404 / Not Found page to structure our response to our parameter link.<br> Copy the <code class="language-plaintext highlighter-rouge">code</code> toggle, dark mode and <code class="language-plaintext highlighter-rouge">React</code> dropdown. choosing v3.4 in the <code class="language-plaintext highlighter-rouge">code</code> area dropdown</p> <p>Or, copy the code below:</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//ConfirmationEmailPage.jsx</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useSearchParams</span><span class="p">,</span> <span class="nx">Link</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">AuthBackground</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/elements/AuthBackground</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">ConfirmEmailPage</span><span class="p">({</span> <span class="nx">darkMode</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">AuthBackground</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"sm:mx-auto sm:w-full sm:max-w-sm"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">img</span> <span class="na">alt</span><span class="p">=</span><span class="s">"Your Company"</span> <span class="na">src</span><span class="p">=</span><span class="s">"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&amp;shade=500"</span> <span class="na">className</span><span class="p">=</span><span class="s">"mx-auto h-10 w-auto"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-center"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-base font-semibold text-indigo-400"</span><span class="p">&gt;</span>OK!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-4 text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl"</span><span class="p">&gt;</span>Your Email is Confirmed.<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-gray-600"</span><span class="p">&gt;</span>Confirming your email…<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-6 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8"</span><span class="p">&gt;</span>Your account is now active. You can log in.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-10 flex items-center justify-center gap-x-6"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Link</span>
+            <span class="na">to</span><span class="p">=</span><span class="s">"/login"</span>
+            <span class="na">className</span><span class="p">=</span><span class="s">"rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"</span>
+          <span class="p">&gt;</span>
+            Go back home
+          <span class="p">&lt;/</span><span class="nc">Link</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Link</span> <span class="na">to</span><span class="p">=</span><span class="s">"#"</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-sm font-semibold text-white"</span><span class="p">&gt;</span>
+            Contact support <span class="p">&lt;</span><span class="nt">span</span> <span class="na">aria-hidden</span><span class="p">=</span><span class="s">"true"</span><span class="p">&gt;</span><span class="ni">&amp;rarr;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nc">Link</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">AuthBackground</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>The HTML / React syntax above shows two messages: “Confriming your email…” is intended as part of a spinner while the intended url parameters will be assest then the message “Your account is now active….” These elements will be refactored during our Part 3 post Managing State and Side Effects <a href="/blog/2025/react-login-03-state-hooks/">post</a></p> <hr> <h5 id="2-request-reset-page---forgot-password-link---email-sent-with-link">2. Request Reset Page -&gt; forgot password link -&gt; email sent with link</h5> <p>This Page function is to handle the user requesting a reset of their password and involves an email input to send a reset link for the user to reset their password. This drives the workflow towards the</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//RequestResetPage.jsx</span>
+
+<span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Link</span><span class="p">,</span> <span class="nx">useNavigate</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">AuthBackground</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/elements/AuthBackground</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">RequestResetForm</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/forms/RequestResetForm</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">RequestResetPage</span><span class="p">({</span> <span class="nx">darkMode</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="nx">darkMode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">// temp for testing</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">AuthBackground</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"sm:mx-auto sm:w-full sm:max-w-sm"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">img</span> <span class="na">alt</span><span class="p">=</span><span class="s">"Your Company"</span> <span class="na">src</span><span class="p">=</span><span class="s">"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&amp;shade=500"</span> <span class="na">className</span><span class="p">=</span><span class="s">"mx-auto h-10 w-auto"</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white"</span><span class="p">&gt;</span>Reset your Password<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">div</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="s2">`p-8 rounded shadow-sm backdrop-blur-md border mt-10 sm:mx-auto sm:w-full sm:max-w-sm border border-white/10 rounded-lg p-8 
+        </span><span class="p">${</span><span class="nx">darkMode</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">bg-slate-900/60 </span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">bg-gray-50 bg-gray-800 border-slate-200/70</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">RequestResetForm</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">AuthBackground</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>We include the <requestresetform> above which extracts the fields which will render a form within this components fields. This separates the layout from the form functions. Further the Form reuses the email field we abstracted in an earlier step.</requestresetform></p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">///RequestResetForm</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">EmailField</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./EmailField</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">RequestResetForm</span><span class="p">({</span> <span class="nx">darkMode</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">handleSubmit</span> <span class="o">=</span> <span class="k">async </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nf">preventDefault</span><span class="p">();</span>
+  <span class="p">};</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">className</span><span class="p">=</span><span class="s">"space-y-6"</span> <span class="na">onSubmit</span><span class="p">=</span><span class="si">{</span><span class="nx">handleSubmit</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">EmailField</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span>
+        <span class="na">className</span><span class="p">=</span><span class="err">"</span><span class="na">flex</span> <span class="na">w-full</span> <span class="na">justify-center</span> <span class="na">rounded-md</span> <span class="na">bg-indigo-600</span> <span class="na">px-3</span> <span class="na">py-1</span><span class="err">.</span><span class="na">5</span> <span class="na">text-sm</span><span class="err">/</span><span class="na">6</span> <span class="na">font-semibold</span> <span class="na">text-white</span> <span class="na">shadow-sm</span> 
+              <span class="na">hover</span><span class="err">:</span><span class="na">bg-indigo-500</span> <span class="na">focus-visible</span><span class="err">:</span><span class="na">outline</span> <span class="na">focus-visible</span><span class="err">:</span><span class="na">outline-2</span> <span class="na">focus-visible</span><span class="err">:</span><span class="na">outline-offset-2</span> <span class="na">focus-visible</span><span class="err">:</span><span class="na">outline-indigo-600</span> <span class="err">"</span>
+      <span class="p">&gt;</span>
+        Send Reset Link
+      <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>The reset page is complete and abstraction of components allows us to build faster and focus on field specific requirements.</p> <hr> <h5 id="3-confirm-reset-page">3. Confirm Reset Page</h5> <p>Next we deal with the <code class="language-plaintext highlighter-rouge">ConfirmResetPage.jsx</code> and the form component creatd for this page. there are three parts to this</p> <p>Copy this code:</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//ConfirmResetPage.jsx</span>
+<span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useSearchParams</span><span class="p">,</span> <span class="nx">Link</span><span class="p">,</span> <span class="nx">useNavigate</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">AuthBackground</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/elements/AuthBackground</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ConfirmResetForm</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/forms/ConfirmResetForm</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">ConfirmResetPage</span><span class="p">({</span> <span class="nx">darkMode</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">AuthBackground</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"sm:mx-auto sm:w-full sm:max-w-sm"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">img</span> <span class="na">alt</span><span class="p">=</span><span class="s">"Your Company"</span> <span class="na">src</span><span class="p">=</span><span class="s">"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&amp;shade=500"</span> <span class="na">className</span><span class="p">=</span><span class="s">"mx-auto h-10 w-auto"</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-2xl font-semibold text-center mb-6"</span><span class="p">&gt;</span>Set new password<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">div</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="s2">`p-8 rounded-lg shadow-sm backdrop-blur-md border bg-gray-800
+        </span><span class="p">${</span><span class="nx">darkMode</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">bg-slate-900/60 border-white/10</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">bg-white/70 bg-gray-800 border-slate-200/70</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">ConfirmResetForm</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">AuthBackground</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div> <hr> <h6 id="3a-confirm-request-form">3a Confirm Request Form</h6> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//ConfirmResetForm</span>
+
+<span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useSearchParams</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ConfirmPasswordFields</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./ConfirmPasswordFields</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">PasswordInput</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./PasswordField</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">ConfirmResetForm</span><span class="p">({</span> <span class="nx">darkMode</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">searchParams</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useSearchParams</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">searchParams</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">);</span> <span class="c1">//see routing for structure token=</span>
+  <span class="kd">const</span> <span class="nx">email</span> <span class="o">=</span> <span class="nx">searchParams</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">email</span><span class="dl">"</span><span class="p">);</span> <span class="c1">//see routing email=</span>
+
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">password</span><span class="p">,</span> <span class="nx">setPassword</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useState</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">confirm</span><span class="p">,</span> <span class="nx">setConfirm</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useState</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">currentPassword</span><span class="p">,</span> <span class="nx">setCurrentPassword</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useState</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">passwordsMatch</span> <span class="o">=</span> <span class="nx">password</span> <span class="o">===</span> <span class="nx">confirm</span> <span class="o">&amp;&amp;</span> <span class="nx">password</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="kd">const</span> <span class="nx">handleSubmit</span> <span class="o">=</span> <span class="k">async </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">//console.log(email + " " + pw + " " +  confirm  + " " + token);</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nf">preventDefault</span><span class="p">();</span>
+  <span class="p">};</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">className</span><span class="p">=</span><span class="s">"space-y-5"</span> <span class="na">onSubmit</span><span class="p">=</span><span class="si">{</span><span class="nx">handleSubmit</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="cm">/* Current password */</span><span class="si">}</span>
+      <span class="p">&lt;</span><span class="nc">PasswordInput</span> <span class="na">label</span><span class="p">=</span><span class="s">"Current Password"</span> <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">currentPassword</span><span class="si">}</span> <span class="na">onChange</span><span class="p">=</span><span class="si">{</span><span class="nx">setCurrentPassword</span><span class="si">}</span> <span class="na">autoComplete</span><span class="p">=</span><span class="s">"current-password"</span> <span class="p">/&gt;</span>
+
+      <span class="si">{</span><span class="cm">/* New password */</span><span class="si">}</span>
+      <span class="p">&lt;</span><span class="nc">ConfirmPasswordFields</span>
+        <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span>
+        <span class="na">password</span><span class="p">=</span><span class="si">{</span><span class="nx">password</span><span class="si">}</span>
+        <span class="na">setPassword</span><span class="p">=</span><span class="si">{</span><span class="nx">setPassword</span><span class="si">}</span>
+        <span class="na">confirm</span><span class="p">=</span><span class="si">{</span><span class="nx">confirm</span><span class="si">}</span>
+        <span class="na">setConfirm</span><span class="p">=</span><span class="si">{</span><span class="nx">setConfirm</span><span class="si">}</span>
+        <span class="na">showConfirm</span><span class="p">=</span><span class="si">{</span><span class="kc">true</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">button</span>
+        <span class="na">type</span><span class="p">=</span><span class="s">"submit"</span>
+        <span class="na">disabled</span><span class="p">=</span><span class="si">{</span><span class="o">!</span><span class="nx">passwordsMatch</span><span class="si">}</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="s2">`
+                w-full py-3 rounded-xl font-semibold transition
+                </span><span class="p">${</span><span class="nx">passwordsMatch</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">bg-indigo-600 hover:bg-indigo-700 text-white</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">bg-gray-300 text-gray-500 cursor-not-allowed</span><span class="dl">"</span><span class="p">}</span><span class="s2">
+              `</span><span class="si">}</span>
+      <span class="p">&gt;</span>
+        Update Password
+      <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>This keeps responsibilities clear:</p> <ul> <li>PasswordField handles authentication</li> <li>ConfirmPasswordFields handles password creation</li> </ul> <hr> <h5 id="3b-reset-password-flow-architecture-choice-mixing-both-password-components">3b. Reset Password flow: Architecture choice Mixing Both Password Components</h5> <p>Reset flows are special.</p> <p>A proper reset/change password screen includes:</p> <ol> <li>Current password (or token-based auth)</li> <li>New password</li> <li>Confirm new password</li> </ol> <p>The solution was composition, not reuse-by-force.</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">PasswordField</span>
+  <span class="na">label</span><span class="p">=</span><span class="s">"Current Password"</span>
+  <span class="na">value</span><span class="p">=</span><span class="si">{</span><span class="nx">currentPassword</span><span class="si">}</span>
+  <span class="na">onChange</span><span class="p">=</span><span class="si">{</span><span class="nx">setCurrentPassword</span><span class="si">}</span>
+  <span class="na">autoComplete</span><span class="p">=</span><span class="s">"current-password"</span>
+<span class="p">/&gt;</span>
+
+<span class="p">&lt;</span><span class="nc">ConfirmPasswordFields</span>
+  <span class="na">password</span><span class="p">=</span><span class="si">{</span><span class="nx">newPassword</span><span class="si">}</span>
+  <span class="na">setPassword</span><span class="p">=</span><span class="si">{</span><span class="nx">setNewPassword</span><span class="si">}</span>
+  <span class="na">confirm</span><span class="p">=</span><span class="si">{</span><span class="nx">confirmPassword</span><span class="si">}</span>
+  <span class="na">setConfirm</span><span class="p">=</span><span class="si">{</span><span class="nx">setConfirmPassword</span><span class="si">}</span>
+  <span class="na">showConfirm</span>
+<span class="p">/&gt;</span>
+</code></pre></div></div> <hr> <h5 id="4-profile-page">4. Profile Page</h5> <p>This page takes similar fields from the abastracted fields in past post which illustrates how easy it is to implement a small components into forms and pages. Open the <code class="language-plaintext highlighter-rouge">Profile.jsx</code> and Copy the code below</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useNavigate</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">AuthBackground</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/elements/AuthBackground</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">FirstLastNameFields</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/forms/FirstLastNameFields</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">EmailField</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/forms/EmailField</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">ProfilePage</span><span class="p">({</span> <span class="nx">darkMode</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="nx">darkMode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">// temp for testing</span>
+  <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span> <span class="na">firstname</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bob</span><span class="dl">"</span><span class="p">,</span> <span class="na">lastName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Smith</span><span class="dl">"</span><span class="p">,</span> <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@test.com</span><span class="dl">"</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">""</span> <span class="p">};</span>
+
+  <span class="kd">const</span> <span class="nx">handleEmailChange</span> <span class="o">=</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{};</span>
+  <span class="kd">const</span> <span class="nx">handlePasswordReset</span> <span class="o">=</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{};</span>
+  <span class="kd">const</span> <span class="nx">handleProfileSave</span> <span class="o">=</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{};</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">AuthBackground</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"sm:mx-auto sm:w-full sm:max-w-sm"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">img</span> <span class="na">alt</span><span class="p">=</span><span class="s">"Your Company"</span> <span class="na">src</span><span class="p">=</span><span class="s">"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&amp;shade=500"</span> <span class="na">className</span><span class="p">=</span><span class="s">"mx-auto h-10 w-auto"</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white pb-4"</span><span class="p">&gt;</span>Profile<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="s2">`max-w-xl space-y-8 p-6 rounded-lg shadow-sm backdrop-blur-md border bg-slate-900 border-white/20`</span><span class="si">}</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="cm">/* Name Section */</span><span class="si">}</span>
+        <span class="p">&lt;</span><span class="nt">section</span> <span class="na">className</span><span class="p">=</span><span class="s">"space-y-4 "</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">FirstLastNameFields</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="p">/&gt;</span>
+
+          <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleProfileSave</span><span class="si">}</span> <span class="na">className</span><span class="p">=</span><span class="s">"px-4 py-2 bg-indigo-600 text-white rounded"</span><span class="p">&gt;</span>
+            Save name
+          <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+
+        <span class="si">{</span><span class="cm">/* Email Section */</span><span class="si">}</span>
+        <span class="p">&lt;</span><span class="nt">section</span> <span class="na">className</span><span class="p">=</span><span class="s">"space-y-4"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-lg font-medium"</span><span class="p">&gt;</span>Email<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+
+          <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-sm text-gray-600"</span><span class="p">&gt;</span>
+            Current email: <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="cm">/* &lt;input
+                    type="email"
+                    className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                    value={newEmail}
+                    autoComplete="on"
+                     onChange={(e) =&gt; setNewEmail(e.target.value)}
+                  /&gt; */</span><span class="si">}</span>
+          <span class="p">&lt;</span><span class="nc">EmailField</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nt">button</span>
+            <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleEmailChange</span><span class="si">}</span>
+            <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="s2">`px-4 py-2 border rounded border-indigo-600 text-indigo-600 hover:bg-indigo-300
+                   </span><span class="p">${</span><span class="nx">darkMode</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">bg-slate-800</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">bg-white</span><span class="dl">"</span><span class="p">}</span><span class="s2">   
+                  `</span><span class="si">}</span>
+          <span class="p">&gt;</span>
+            Request email change
+          <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+
+        <span class="si">{</span><span class="cm">/* Password Section */</span><span class="si">}</span>
+        <span class="p">&lt;</span><span class="nt">section</span> <span class="na">className</span><span class="p">=</span><span class="s">"space-y-2"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-lg font-medium"</span><span class="p">&gt;</span>Password<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">button</span>
+            <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handlePasswordReset</span><span class="si">}</span>
+            <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="s2">`text-sm text-indigo-600 hover:underline
+                   </span><span class="p">${</span><span class="nx">darkMode</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">bg-slate-800</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">bg-white</span><span class="dl">"</span><span class="p">}</span><span class="s2">   
+                  `</span><span class="si">}</span>
+          <span class="p">&gt;</span>
+            Send password reset link
+          <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">AuthBackground</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>Note the three separate components reused in this file. We created a component for firstname / lastname used in this file and the signup file.</p> <p>We created the email component to share it accross the forms requiring it. this allows us to itemize the validations of email.</p> <hr> <h5 id="5-not-found-page">5. Not Found Page</h5> <p>Head over to <a href="https://tailwindcss.com/plus/ui-blocks/marketing/feedback/404-pages" rel="external nofollow noopener" target="_blank"> Tailwind UI</a> for a fully styled 404 / Not Found page to UI structure.<br> Copy the <code class="language-plaintext highlighter-rouge">code</code> toggle, dark mode and <code class="language-plaintext highlighter-rouge">React</code> dropdown. choosing v3.4 in the <code class="language-plaintext highlighter-rouge">code</code> area dropdown</p> <p>Or, copy the code below which has already changed a tags to Link syntax:</p> <p>Open the <code class="language-plaintext highlighter-rouge">NotFoundPage.jsx</code> page and paste the code within the return directly.</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useSearchParams</span><span class="p">,</span> <span class="nx">Link</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">AuthBackground</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/elements/AuthBackground</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">NotFoundPage</span><span class="p">({</span> <span class="nx">darkMode</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">AuthBackground</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"sm:mx-auto sm:w-full sm:max-w-sm"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">img</span> <span class="na">alt</span><span class="p">=</span><span class="s">"Your Company"</span> <span class="na">src</span><span class="p">=</span><span class="s">"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&amp;shade=500"</span> <span class="na">className</span><span class="p">=</span><span class="s">"mx-auto h-10 w-auto"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-center"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-base font-semibold text-indigo-400"</span><span class="p">&gt;</span>404<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-4 text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl"</span><span class="p">&gt;</span>Page not found<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-6 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8"</span><span class="p">&gt;</span>Sorry, we couldn’t find the page you’re looking for.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-10 flex items-center justify-center gap-x-6"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Link</span>
+            <span class="na">to</span><span class="p">=</span><span class="s">"/login"</span>
+            <span class="na">className</span><span class="p">=</span><span class="s">"rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"</span>
+          <span class="p">&gt;</span>
+            Go back home
+          <span class="p">&lt;/</span><span class="nc">Link</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Link</span> <span class="na">to</span><span class="p">=</span><span class="s">"#"</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-sm font-semibold text-white"</span><span class="p">&gt;</span>
+            Contact support <span class="p">&lt;</span><span class="nt">span</span> <span class="na">aria-hidden</span><span class="p">=</span><span class="s">"true"</span><span class="p">&gt;</span><span class="ni">&amp;rarr;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nc">Link</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">AuthBackground</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div> <hr> <h4 id="the-app-routing-flow-of-our-feature-pages">The App Routing flow of our feature pages</h4> <p>We can visualize what we have just built with the pages and forms of our feature. This flow diagram represents the intent-driven navigation of the authentication system. Rather than treating auth as isolated pages, all entry points are modeled as part of a unified user journey gated by a shared layout.</p> <pre><code class="language-mermaid">flowchart TD
+  User --&gt;|Visits| AuthLayout
+  AuthLayout --&gt; Login
+  AuthLayout --&gt; Signup
+  AuthLayout --&gt; ResetPassword
+  AuthLayout --&gt; ResetConfirm
+  Signup --&gt; |Email Link| ConfirmEmail
+  Login --&gt;|Success| App
+  Login --&gt;|Failure| Login
+  ConfirmEmail --&gt; |Update Token| Login
+  ResetPassword --&gt;|Email Sent| ResetConfirm
+  ResetConfirm --&gt;|Password Updated| Login
+
+  User --&gt;|Invalid Route| NotFound
+
+</code></pre> <p>This workflod diagram illustrates the pages and functions. It will help use next when we discuss managing state &amp; side effects and session states, API posts.</p> <hr> <h4 id="bonus---add-oauth-ui">Bonus - Add OAuth UI</h4> <p>Adding OAuth Buttons within both the <code class="language-plaintext highlighter-rouge">LoginPage.jsx</code> and <code class="language-plaintext highlighter-rouge">SignupPage.jsx</code> that can be enabled with OAuth processes. For the time being, we are dropping in the buttons for a future managed handling of the OAuth app flow.</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">OAuthButtons</span><span class="p">({</span> <span class="nx">darkMode</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"relative my-8"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"absolute inset-0 flex items-center"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"w-full border-t border-slate-300"</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"relative flex justify-center text-sm"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">className</span><span class="p">=</span><span class="s">"bg-slate-900 px-3 text-slate-100"</span><span class="p">&gt;</span>or continue with<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"flex space-x-6 mt-10 sm:mx-auto sm:w-full sm:max-w-sm justify-center gap-1"</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="cm">/** grid-template-columns: repeat(2,minmax(0,1fr));*/</span><span class="si">}</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">className</span><span class="p">=</span><span class="s">"flex items-center gap-2 bg-slate-700 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"w-5 h-5"</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">svg</span> <span class="na">viewBox</span><span class="p">=</span><span class="s">"0 0 24 24"</span> <span class="na">aria-hidden</span><span class="p">=</span><span class="s">"true"</span> <span class="na">className</span><span class="p">=</span><span class="s">"aegn aegu"</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">path</span>
+                <span class="na">d</span><span class="p">=</span><span class="s">"M12.0003 4.75C13.7703 4.75 15.3553 5.36002 16.6053 6.54998L20.0303 3.125C17.9502 1.19 15.2353 0 12.0003 0C7.31028 0 3.25527 2.69 1.28027 6.60998L5.27028 9.70498C6.21525 6.86002 8.87028 4.75 12.0003 4.75Z"</span>
+                <span class="na">fill</span><span class="p">=</span><span class="s">"#EA4335"</span>
+              <span class="p">&gt;&lt;/</span><span class="nt">path</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">path</span>
+                <span class="na">d</span><span class="p">=</span><span class="s">"M23.49 12.275C23.49 11.49 23.415 10.73 23.3 10H12V14.51H18.47C18.18 15.99 17.34 17.25 16.08 18.1L19.945 21.1C22.2 19.01 23.49 15.92 23.49 12.275Z"</span>
+                <span class="na">fill</span><span class="p">=</span><span class="s">"#4285F4"</span>
+              <span class="p">&gt;&lt;/</span><span class="nt">path</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">path</span>
+                <span class="na">d</span><span class="p">=</span><span class="s">"M5.26498 14.2949C5.02498 13.5699 4.88501 12.7999 4.88501 11.9999C4.88501 11.1999 5.01998 10.4299 5.26498 9.7049L1.275 6.60986C0.46 8.22986 0 10.0599 0 11.9999C0 13.9399 0.46 15.7699 1.28 17.3899L5.26498 14.2949Z"</span>
+                <span class="na">fill</span><span class="p">=</span><span class="s">"#FBBC05"</span>
+              <span class="p">&gt;&lt;/</span><span class="nt">path</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">path</span>
+                <span class="na">d</span><span class="p">=</span><span class="s">"M12.0004 24.0001C15.2404 24.0001 17.9654 22.935 19.9454 21.095L16.0804 18.095C15.0054 18.82 13.6204 19.245 12.0004 19.245C8.8704 19.245 6.21537 17.135 5.2654 14.29L1.27539 17.385C3.25539 21.31 7.3104 24.0001 12.0004 24.0001Z"</span>
+                <span class="na">fill</span><span class="p">=</span><span class="s">"#34A853"</span>
+              <span class="p">&gt;&lt;/</span><span class="nt">path</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+          Google
+        <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">className</span><span class="p">=</span><span class="s">"flex items-center gap-2 bg-slate-700 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"w-5 h-5"</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">svg</span> <span class="na">viewBox</span><span class="p">=</span><span class="s">"0 0 20 20"</span> <span class="na">fill</span><span class="p">=</span><span class="s">"currentColor"</span> <span class="na">aria-hidden</span><span class="p">=</span><span class="s">"true"</span> <span class="na">className</span><span class="p">=</span><span class="s">"aegl aeib"</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">path</span>
+                <span class="na">d</span><span class="p">=</span><span class="s">"M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"</span>
+                <span class="na">clipRule</span><span class="p">=</span><span class="s">"evenodd"</span>
+                <span class="na">fillRule</span><span class="p">=</span><span class="s">"evenodd"</span>
+              <span class="p">&gt;&lt;/</span><span class="nt">path</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="si">}</span>
+          Github
+        <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>Open both pages above and import the component:</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">OAuthButtons</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../components/forms/OAuthButtons</span><span class="dl">"</span><span class="p">;</span>
+</code></pre></div></div> <p>Within the return, area of Page our usage of &lt;OAuthButtons darkMode={darkMode}&gt;</p> <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-10 sm:mx-auto sm:w-full sm:max-w-sm border  border-white/10 rounded-lg p-8 bg-gray-900 backdrop-blur-sm"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nc">SignupForm</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="s">"mt-10 text-center text-sm/6 text-gray-400"</span><span class="p">&gt;</span>
+    Already a member?<span class="si">{</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="si">}</span>
+    <span class="p">&lt;</span><span class="nc">Link</span> <span class="na">to</span><span class="p">=</span><span class="s">"/login"</span> <span class="na">className</span><span class="p">=</span><span class="s">"font-semibold text-indigo-400 hover:text-indigo-300"</span><span class="p">&gt;</span>
+      Login here.
+    <span class="p">&lt;/</span><span class="nc">Link</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nc">OAuthButtons</span> <span class="na">darkMode</span><span class="p">=</span><span class="si">{</span><span class="nx">darkMode</span><span class="si">}</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></div> <hr> <h4 id="final-thoughts">Final Thoughts</h4> <p>This post is non-extensive and may be easier facilitated via the github <a href="https://github.com/cryshansen/login-feature-react/tree/post/2d-UI-OAuth-add" rel="external nofollow noopener" target="_blank">Post 2d UI OAuth </a> for UI since there are many pages and many items extracted from the tailwind UI into components that allow one place coding. The code focuses on layout and structure — not API calls, state management, or authentication logic.</p> <p>The goal is to establish a reusable auth shell that all auth flows (login, signup, password reset, email confirmation) can share.</p> <p>The next <a href="/blog/2025/react-login-03-state-hooks/">Part 3 Managing State</a> in the series focuses on the React Hooks, States and managing Loading, error, success states. Our code may already contain some of these components, due to copying from functional code, however we will cover these aspects of the react hook library theory and approach.</p> </div> </article> <br> <hr> <br> <ul class="list-disc pl-8"></ul> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/react-login-07-include-login-feature-in-another-app/">React Login Series - Reusing the Feature in Another App | Part 7</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/post-6-testing-suite/">React Login Series - Login Feature Complete Test Suite | Part 6b</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/what-github-doesnt-teach/">What Git Never Explains -- Stacked Branches &amp; Merge Order</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/why-github-branch-discipline-in-git-isnt-optional/">Why Branch Discipline in Git Isn’t Optional (And How It Saved This Auth Refactor)</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/react-login-06-testing-login-feature/">React Login Series - Testing the Login Feature (RTL + Jest) | Part 6</a> </li> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Crystal H. Hansen. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <script src="/assets/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?a0db7e5d5c70cc3252b3138b0c91dcaf" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.7.0/dist/mermaid.min.js" integrity="sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js" integrity="sha256-1rA678n2xEx7x4cTZ5x4wpUCj6kUMZEZ5cxLSVSFWxw=" crossorigin="anonymous"></script> <script defer src="/assets/js/mermaid-setup.js?38ca0a0126f7328d2d9a46bad640931f" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/diff2html@3.4.47/bundles/js/diff2html-ui.min.js" integrity="sha256-eU2TVHX633T1o/bTQp6iIJByYJEtZThhF9bKz/DcbbY=" crossorigin="anonymous"></script> <script defer src="/assets/js/diff2html-setup.js?80a6e52ce727518bbd3aed2bb6ba5601" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script> <script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script> <script defer src="/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script> <script defer src="/assets/js/copy_code.js?c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/js/mathjax-setup.js?a5bb4e6a542c546dd929b24b8b236dfd"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script defer src="/assets/js/progress-bar.js?2f30e0e6801ea8f5036fa66e1ab0a71a" type="text/javascript"></script> <script src="/assets/js/vanilla-back-to-top.min.js?f40d453793ff4f64e238e420181a1d17"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/js/search/ninja-keys.min.js?a3446f084dcaecc5f75aa1757d087dcf"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/js/search-setup.js?6c304f7b1992d4b60f7a07956e52f04a"></script> <script src="/assets/js/search-data.js"></script> <script src="/assets/js/shortcut-key.js?6f508d74becd347268a7f822bca7309d"></script> </body> </html>

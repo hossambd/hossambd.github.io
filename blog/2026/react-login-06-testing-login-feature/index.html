@@ -1,0 +1,223 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="google-site-verification" content="dNntxSC0mShXeLWFqw9ftBD0usXNQi3snCahDaJJfes"> <meta http-equiv="Permissions-Policy" content="interest-cohort=()"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> React Login Series - Testing the Login Feature (RTL + Jest) | Part 6 | Crystal H. Hansen </title> <meta name="author" content="Crystal H. Hansen"> <meta name="description" content="Part 6 in our Login Series covers the tesing aspect of our login features using RTL + Jset to ensure security and code functions as expected."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website, Crystal Hansen Developer portfolio, developer, Crystal Hansen Developer, Crystal Hansen's Developer site."> <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5"> <link defer rel="stylesheet" href="/assets/css/scholar-icons.css?62b2ac103a88034e6882a5be5f3e2772"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://cryhansen.github.io/blog/2026/react-login-06-testing-login-feature/"> <script src="/assets/js/theme.js?a81d82887dd692e91686b43de4542f18"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css" integrity="sha256-Oppd74ucMR5a5Dq96FxjEzGF7tTw2fZ/6ksAqDCM8GY=" crossorigin="anonymous" media="screen and (prefers-color-scheme: light)"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css" integrity="sha256-nyCNAiECsdDHrr/s2OQsp5l9XeY2ZJ0rMepjCT2AkBk=" crossorigin="anonymous" media="screen and (prefers-color-scheme: dark)"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html@3.4.47/bundles/css/diff2html.min.css" integrity="sha256-IMBK4VNZp0ivwefSn51bswdsrhk0HoMTLc2GqFHFBXg=" crossorigin="anonymous"> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Crystal</span> H. Hansen </a> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse text-right" id="navbarNav"> <ul class="navbar-nav ml-auto flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item"> <button id="search-toggle" title="Search" onclick="openSearchModal()"> <span class="nav-link">ctrl k <i class="ti ti-search"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" title="Change theme"> <i class="ti ti-sun-moon" id="light-toggle-system"></i> <i class="ti ti-moon-filled" id="light-toggle-dark"></i> <i class="ti ti-sun-filled" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">React Login Series - Testing the Login Feature (RTL + Jest) | Part 6</h1> <p class="post-meta"> Created on January 20, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/react"> <i class="fa-solid fa-hashtag fa-sm"></i> react</a>   <a href="/blog/tag/login"> <i class="fa-solid fa-hashtag fa-sm"></i> login</a>   <a href="/blog/tag/authentication"> <i class="fa-solid fa-hashtag fa-sm"></i> authentication</a>   <a href="/blog/tag/auth"> <i class="fa-solid fa-hashtag fa-sm"></i> auth</a>   <a href="/blog/tag/ui"> <i class="fa-solid fa-hashtag fa-sm"></i> UI</a>   <a href="/blog/tag/testing"> <i class="fa-solid fa-hashtag fa-sm"></i> testing</a>   <a href="/blog/tag/rtl"> <i class="fa-solid fa-hashtag fa-sm"></i> rtl</a>   <a href="/blog/tag/jest"> <i class="fa-solid fa-hashtag fa-sm"></i> jest</a>   ·   <a href="/blog/category/react-posts"> <i class="fa-solid fa-tag fa-sm"></i> react-posts</a>   <a href="/blog/category/auth"> <i class="fa-solid fa-tag fa-sm"></i> auth</a>   <a href="/blog/category/react-login-series"> <i class="fa-solid fa-tag fa-sm"></i> react-login-series</a>   <a href="/blog/category/testing-posts"> <i class="fa-solid fa-tag fa-sm"></i> testing-posts</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <h2 id="post-6-testing-the-login-feature-rtl--jest">Post 6: Testing the Login Feature (RTL + Jest)</h2> <p>“Tests don’t prove your code works. They prove you understand what matters.”</p> <p>Everything we’ve built so far — hooks, services, context — was designed to make testing possible without pain. This post shows how those decisions pay off.</p> <p>We started with applying some code standard rules that we can test locally to clean up prior to any releases or pushes to main branch. This was briefly discussed and we will follow up on how it is handled. Then we dive into building test cases and defining Git Actions to run on every push. All these files can be found in the latest post on github.</p> <p>Lets grab the code from our last post, branch found at <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5b-cookie-auth" rel="external nofollow noopener" target="_blank">Post 5b Cookie Auth</a></p> <hr> <h3 id="why-eslint">Why ESLint?</h3> <p>ESLint helps developers manage team coding standardizing naming and conventions other simple bug flagging. This is extremely valuable to help isolate and fix bugs before sharing with teams.It analyzes code statistically. And help alleviate some developer resources and turn around time. Lint rules are automated code checks that run while you write code (or before commits/builds) to:</p> <ul> <li>Catch bugs early</li> <li>Enforce consistent style</li> <li>Prevent dangerous patterns</li> <li>Warn you before runtime errors happen</li> </ul> <p>This is a very nice feature to enable for code review simplification. For instance, the code accidentally uses the same name in the api as the context therefore a lint rule and ‘Api’ naming convention on the api calls. We can add a rule for this a <code class="language-plaintext highlighter-rouge">functions with the same name in the same scope</code>.</p> <h4 id="eslint-setup">ESLint Setup</h4> <p>Install ESLint and typscript eslint for our context and service files</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-import
+npm <span class="nb">install</span> <span class="nt">-D</span> @typescript-eslint/parser @typescript-eslint/eslint-plugin
+npm <span class="nb">install</span> <span class="nt">-D</span> eslint-plugin-import
+</code></pre></div></div> <p>create a .eslintrc.cjs file and paste this base code:</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* eslint-env node */</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">root</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+
+  <span class="na">env</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">browser</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">es2021</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">},</span>
+
+  <span class="na">parserOptions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">ecmaVersion</span><span class="p">:</span> <span class="dl">"</span><span class="s2">latest</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">sourceType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">module</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+
+  <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">react-hooks</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">import</span><span class="dl">"</span><span class="p">],</span>
+
+  <span class="na">extends</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">eslint:recommended</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">plugin:react/recommended</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">plugin:react-hooks/recommended</span><span class="dl">"</span><span class="p">],</span>
+
+  <span class="na">rules</span><span class="p">:</span> <span class="p">{</span>
+    <span class="cm">/* =========================
+       CRITICAL BUG PREVENTION
+    ========================= */</span>
+
+    <span class="c1">// Prevent accidental recursion &amp; shadowing</span>
+    <span class="dl">"</span><span class="s2">no-shadow</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">no-use-before-define</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">functions</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}],</span>
+
+    <span class="c1">// Prevent silent async failures</span>
+    <span class="dl">"</span><span class="s2">no-floating-promises</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">off</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">no-return-await</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="c1">// Enforce consistent function behavior</span>
+    <span class="dl">"</span><span class="s2">consistent-return</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="cm">/* =========================
+       AUTH ARCHITECTURE GUARDS
+    ========================= */</span>
+
+    <span class="c1">// Contexts must not import API services incorrectly</span>
+    <span class="dl">"</span><span class="s2">import/no-cycle</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="c1">// Enforce naming conventions</span>
+    <span class="dl">"</span><span class="s2">import/no-named-as-default</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="cm">/* =========================
+       REACT SAFETY
+    ========================= */</span>
+
+    <span class="dl">"</span><span class="s2">react/prop-types</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">off</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// using TS or not strict props</span>
+    <span class="dl">"</span><span class="s2">react/react-in-jsx-scope</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">off</span><span class="dl">"</span><span class="p">,</span>
+
+    <span class="cm">/* =========================
+       QUALITY OF LIFE
+    ========================= */</span>
+
+    <span class="dl">"</span><span class="s2">no-console</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">warn</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">allow</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">warn</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">]</span> <span class="p">}],</span>
+
+    <span class="cm">/*========================
+     CONTEXT  &lt;&gt; SERVICE RECURSION
+    ==============================*/</span>
+    <span class="dl">"</span><span class="s2">import/no-restricted-paths</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">zones</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="na">target</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src/features/api</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">from</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src/contexts</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">API services must not import Contexts</span><span class="dl">"</span><span class="p">,</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="na">target</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src/contexts</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">from</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./src/features/api</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Contexts must not import API services directly</span><span class="dl">"</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">],</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="dl">"</span><span class="s2">no-restricted-globals</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">requestPasswordReset</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Use requestPasswordResetApi for API calls</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+
+  <span class="na">settings</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">react</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">version</span><span class="p">:</span> <span class="dl">"</span><span class="s2">detect</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+</code></pre></div></div> <p>Add a reference to lint in package.json</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"lint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eslint . --ext .js,.jsx,.ts,.tsx"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div> <p>Next run lint in command line to see errors and recommended fixes:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run lint
+
+</code></pre></div></div> <p>At this point some errors still exist and can be viewed using the last branch found at <a href="https://github.com/cryshansen/login-feature-react/tree/post/post5b-cookie-auth" rel="external nofollow noopener" target="_blank">Post 5b Cookie Auth</a> so that we can fix remaining code in this post. We will look closely at running unit test and integration testing, form Ui testing.</p> <h3 id="what-were-testing-and-what-were-not">What We’re Testing (and What We’re Not)</h3> <p>Before writing a single test, we define scope.</p> <p>✅ We test:</p> <ul> <li>business logic</li> <li>auth state transitions</li> <li>success and failure paths</li> <li>user-visible behavior</li> </ul> <p>❌ We don’t test:</p> <ul> <li>CSS classes</li> <li>animations</li> <li>implementation details</li> <li> <p>third-party libraries</p> <p>If a test breaks when you rename a class — it’s a bad test.</p> </li> </ul> <hr> <h3 id="testing-strategy-overview">Testing Strategy Overview</h3> <table> <thead> <tr> <th>Layer</th> <th>Type</th> <th>Tool</th> </tr> </thead> <tbody> <tr> <td>Hooks</td> <td>Unit tests</td> <td>Jest</td> </tr> <tr> <td>API layer</td> <td>Unit tests</td> <td>Jest</td> </tr> <tr> <td>Context</td> <td>Integration tests</td> <td>RTL</td> </tr> <tr> <td>Forms</td> <td>Integration tests</td> <td>RTL</td> </tr> </tbody> </table> <hr> <h3 id="-unit-vs-integration-tests-clear-boundaries">🧪 Unit vs Integration Tests (Clear Boundaries)</h3> <h5 id="unit-tests">Unit Tests</h5> <ul> <li>isolated</li> <li>no DOM</li> <li>no routing</li> <li>no storage</li> </ul> <h6 id="examples">Examples:</h6> <ul> <li>useAuth</li> <li>authApi</li> </ul> <h5 id="integration-tests">Integration Tests</h5> <ul> <li>real components</li> <li>mocked boundaries</li> <li>user behavior driven</li> </ul> <h6 id="examples-1">Examples:</h6> <ul> <li>login form flow</li> <li>error rendering</li> <li>redirect after login</li> </ul> <hr> <h3 id="diagram-test-coverage-boundaries">Diagram: Test Coverage Boundaries</h3> <pre><code class="language-mermaid">flowchart TD
+  UnitTests --&gt; Hooks
+  UnitTests --&gt; Services
+
+  IntegrationTests --&gt; Components
+  IntegrationTests --&gt; Context
+
+  Services --&gt; MockedAPI
+  Context --&gt; MockedStorage
+</code></pre> <hr> <h3 id="mocking-the-network-authapi">Mocking the Network (authApi)</h3> <p>We never hit a real backend in tests. Instead:</p> <ul> <li>mock authApi</li> <li>control success/failure</li> <li>assert behavior</li> </ul> <h3 id="example">Example</h3> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">jest</span><span class="p">.</span><span class="nf">mock</span><span class="p">(</span><span class="dl">"</span><span class="s2">../services/authApi</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span>
+  <span class="na">login</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nf">fn</span><span class="p">(),</span>
+<span class="p">}));</span>
+</code></pre></div></div> <p>This allows:</p> <ul> <li>deterministic tests</li> <li>fast execution</li> <li>no environment dependency</li> </ul> <hr> <h3 id="testing-failure-states-where-bugs-live">Testing Failure States (Where Bugs Live)</h3> <p>Success paths are easy. Failures reveal architecture.</p> <p>We explicitly test:</p> <ul> <li>invalid credentials</li> <li>network errors</li> <li>empty responses</li> <li>retry behavior</li> </ul> <hr> <h3 id="diagram-failure--retry-loop">Diagram: Failure &amp; Retry Loop</h3> <pre><code class="language-mermaid">flowchart TD
+  Submit --&gt; authApi
+  authApi --&gt;|error| AuthContext
+  AuthContext --&gt;|set error| UI
+  UI --&gt;|retry| Submit
+</code></pre> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
+├─ app/
+│  ├─ App.jsx
+│  └─ Router.jsx
+│
+├─ context/
+│  └─ AuthContext.jsx
+│
+├─ features/
+│  └─ auth/
+│     ├─ components/
+│     │  ├─ LoginForm.jsx
+│     │  ├─ PasswordInput.jsx
+│     │  ├─ AuthError.jsx
+│     │  └─ AuthCTA.jsx
+│     ├─ hooks/
+│     │  └─ useLogin.js
+│     ├─ services/
+│     │  └─ authApi.js
+│     ├─ validators/
+│     │  └─ loginSchema.js
+│     ├─ tests/
+│     │  ├─ LoginForm.test.jsx
+│     │  └─ useLogin.test.js
+│     └─ index.js
+│
+└─ main.jsx
+
+</code></pre></div></div> <hr> <h3 id="testing-context-behavior">Testing Context Behavior</h3> <p>AuthContext is tested through consumers, not directly.</p> <p>We verify:</p> <ul> <li>session stored</li> <li>state updated</li> <li>logout clears state</li> <li>rehydration works</li> </ul> <p>Rule</p> <p>If you test Context directly, you’re testing implementation — not behavior.</p> <hr> <h3 id="diagram-context-integration-test-flow">Diagram: Context Integration Test Flow</h3> <pre><code class="language-mermaid">flowchart TD
+  Test --&gt; AuthProvider
+  AuthProvider --&gt; useAuth
+  useAuth --&gt; authApiMock
+
+  authApiMock --&gt;|success| AuthProvider
+  AuthProvider --&gt;|update state| Test
+</code></pre> <hr> <h3 id="asserting-auth-flows-end-to-end-without-e2e">Asserting Auth Flows (End-to-End Without E2E)</h3> <p>We simulate:</p> <ul> <li>User types credentials</li> <li>Submits form</li> <li>API resolves</li> <li>Context updates</li> <li>UI redirects</li> </ul> <p>All inside JSDOM — no browser automation required.</p> <hr> <h3 id="example-login-success-flow-conceptual">Example: Login Success Flow (Conceptual)</h3> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>render LoginForm
+→ fill inputs
+→ click submit
+→ expect loading
+→ expect redirect
+</code></pre></div></div> <p>That’s it. No sleep. No timers. No hacks.</p> <hr> <h3 id="avoiding-brittle-ui-tests">Avoiding Brittle UI Tests</h3> <h5 id="bad-tests">Bad tests:</h5> <ul> <li>checking class names</li> <li>snapshot testing entire pages</li> <li>asserting exact markup</li> </ul> <h5 id="good-tests">Good tests:</h5> <ul> <li>getByRole</li> <li>getByLabelText</li> <li>findByText</li> <li>asserting what the user sees</li> </ul> <hr> <h3 id="what-this-architecture-makes-easy">What This Architecture Makes Easy</h3> <p>Because we separated:</p> <ul> <li>API</li> <li>hooks</li> <li>context</li> <li>UI</li> </ul> <p>We can:</p> <ul> <li>mock cleanly</li> <li>test in isolation</li> <li>refactor safely</li> <li>trust changes</li> </ul> <hr> <h3 id="why-this-matters-in-real-teams">Why This Matters in Real Teams</h3> <p>These tests:</p> <ul> <li>catch regressions</li> <li>document intent</li> <li>allow refactors</li> <li>reduce fear</li> </ul> <p>This is how features survive iteration.</p> <hr> <h4 id="getting-into-code">Getting into code</h4> <p>We need to install vitest and jest</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event
+
+npm i <span class="nt">-D</span> @testing-library/user-event
+
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> msw
+
+</code></pre></div></div> <p>Open your vite.config.js (.ts) and configure the test property to the defineConfig</p> <p>Create a setup.ts setup file.</p> <p>update the package.json to add scripts</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div> <h5 id="sample-test-case-of-login">sample test case of login</h5> <p>Setup vitest</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">describe</span><span class="p">,</span> <span class="nx">it</span><span class="p">,</span> <span class="nx">expect</span><span class="p">,</span> <span class="nx">vi</span><span class="p">,</span> <span class="nx">beforeEach</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">vitest</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">login</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">../services/auth.service</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nf">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">vi</span><span class="p">.</span><span class="nf">restoreAllMocks</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nf">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">auth.service login()</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">calls /auth/login with correct payload</span><span class="dl">"</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nb">global</span><span class="p">.</span><span class="nx">fetch</span> <span class="o">=</span> <span class="nx">vi</span><span class="p">.</span><span class="nf">fn</span><span class="p">().</span><span class="nf">mockResolvedValue</span><span class="p">({</span>
+      <span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">json</span><span class="p">:</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">user</span><span class="p">:</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span> <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@test.com</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test</span><span class="dl">"</span> <span class="p">},</span>
+        <span class="na">accessToken</span><span class="p">:</span> <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">,</span>
+      <span class="p">}),</span>
+    <span class="p">}</span> <span class="kd">as </span><span class="kr">any</span><span class="p">);</span>
+
+    <span class="k">await</span> <span class="nf">login</span><span class="p">({</span>
+      <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@test.com</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">password</span><span class="p">:</span> <span class="dl">"</span><span class="s2">password123</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">});</span>
+
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">fetch</span><span class="p">).</span><span class="nf">toHaveBeenCalledWith</span><span class="p">(</span>
+      <span class="dl">"</span><span class="s2">/auth/login</span><span class="dl">"</span><span class="p">,</span>
+      <span class="nx">expect</span><span class="p">.</span><span class="nf">objectContaining</span><span class="p">({</span>
+        <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">({</span>
+          <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@test.com</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">password</span><span class="p">:</span> <span class="dl">"</span><span class="s2">password123</span><span class="dl">"</span><span class="p">,</span>
+        <span class="p">}),</span>
+      <span class="p">})</span>
+    <span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nf">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">throws a readable error on failure</span><span class="dl">"</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nb">global</span><span class="p">.</span><span class="nx">fetch</span> <span class="o">=</span> <span class="nx">vi</span><span class="p">.</span><span class="nf">fn</span><span class="p">().</span><span class="nf">mockResolvedValue</span><span class="p">({</span>
+      <span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="na">json</span><span class="p">:</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Invalid credentials</span><span class="dl">"</span> <span class="p">}),</span>
+    <span class="p">}</span> <span class="kd">as </span><span class="kr">any</span><span class="p">);</span>
+
+    <span class="k">await</span> <span class="nf">expect</span><span class="p">(</span><span class="nf">login</span><span class="p">({</span> <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bad@test.com</span><span class="dl">"</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">"</span><span class="s2">wrong</span><span class="dl">"</span> <span class="p">})).</span><span class="nx">rejects</span><span class="p">.</span><span class="nf">toThrow</span><span class="p">(</span><span class="dl">"</span><span class="s2">Invalid credentials</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div> <h3 id="series-wrap-up-what-you-now-have">Series Wrap-Up (What You Now Have)</h3> <p>By Post 6, you’ve built:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✔ Reusable login feature
+✔ Decoupled API layer
+✔ Centralized session management
+✔ Predictable auth flows
+✔ Test coverage that matters
+</code></pre></div></div> <p>This is production-level authentication, minus the cargo cult.</p> <p>Review the finalized code found in Github <a href="https://github.com/cryshansen/login-feature-react/tree/post/post6-testing" rel="external nofollow noopener" target="_blank">Post 6 Testing</a>. You can follow along with the next part of our series with post 7 - feature cleanup and test dropin directions. Our Series too a few different directions as we solidify a professional login feature while exporing the React frameworks.</p> <hr> <h3 id="detailed-testing-suite">Detailed Testing Suite</h3> <p>Because this feature is intended for a production environment, we pushed the tesing to ensure full range of tests would give us confidence our system is clean and running as expected. Many layers have been implemented in this series with eslint code standards through to thorough testing components, contexts, integrations and service layers.</p> <p>A more detailed structure of the testing Suite can be found in blog post: <a href="/blog/2026/post-6-testing-suite/">Login Testing Suite</a></p> <p>In the git Repo the Feature Test Plan can be reviewed for details on each test file and its intent.</p> <hr> <h3 id="bonus-test-cases-you-now-enable-a-multiflow-test-framework">Bonus: test cases you now enable a multiflow test framework.</h3> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✔ Logged-out user → /profile → redirected
+✔ Logged-in user → /login → redirected
+✔ Missing token → /reset-confirm → redirected
+✔ Valid token → page renders
+</code></pre></div></div> <p>This is exactly what interviewers look for.</p> <p>Final Posts Next up:</p> <ul> <li>Post 7 : Reusing the Feature in Another App</li> <li>Optional: what Id Do Differently next time.</li> </ul> <p>Lets now take what we have and test dropin instructions with the next post at <a href="/blog/2026/react-login-07-include-login-feature-in-another-app/">Login Dropin Feature</a></p> </div> </article> <br> <hr> <br> <ul class="list-disc pl-8"></ul> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/react-login-07-include-login-feature-in-another-app/">React Login Series - Reusing the Feature in Another App | Part 7</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/post-6-testing-suite/">React Login Series - Login Feature Complete Test Suite | Part 6b</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/what-github-doesnt-teach/">What Git Never Explains -- Stacked Branches &amp; Merge Order</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/why-github-branch-discipline-in-git-isnt-optional/">Why Branch Discipline in Git Isn’t Optional (And How It Saved This Auth Refactor)</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2026/react-login-05-auth-context-cookie-persistence/">React Login Series - Auth Context Cookie Auth | Part 5b</a> </li> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Crystal H. Hansen. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <script src="/assets/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?a0db7e5d5c70cc3252b3138b0c91dcaf" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.7.0/dist/mermaid.min.js" integrity="sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js" integrity="sha256-1rA678n2xEx7x4cTZ5x4wpUCj6kUMZEZ5cxLSVSFWxw=" crossorigin="anonymous"></script> <script defer src="/assets/js/mermaid-setup.js?38ca0a0126f7328d2d9a46bad640931f" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/diff2html@3.4.47/bundles/js/diff2html-ui.min.js" integrity="sha256-eU2TVHX633T1o/bTQp6iIJByYJEtZThhF9bKz/DcbbY=" crossorigin="anonymous"></script> <script defer src="/assets/js/diff2html-setup.js?80a6e52ce727518bbd3aed2bb6ba5601" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script> <script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script> <script defer src="/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script> <script defer src="/assets/js/copy_code.js?c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/js/mathjax-setup.js?a5bb4e6a542c546dd929b24b8b236dfd"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script defer src="/assets/js/progress-bar.js?2f30e0e6801ea8f5036fa66e1ab0a71a" type="text/javascript"></script> <script src="/assets/js/vanilla-back-to-top.min.js?f40d453793ff4f64e238e420181a1d17"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/js/search/ninja-keys.min.js?a3446f084dcaecc5f75aa1757d087dcf"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/js/search-setup.js?6c304f7b1992d4b60f7a07956e52f04a"></script> <script src="/assets/js/search-data.js"></script> <script src="/assets/js/shortcut-key.js?6f508d74becd347268a7f822bca7309d"></script> </body> </html>
