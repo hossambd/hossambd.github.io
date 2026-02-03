@@ -3,8 +3,8 @@ layout: post
 title: React Login Series - Managing State & Side Effects | Part 3
 date: 2025-12-27
 description: In this Part of the series we look at the useAuth React Hook to manage state and effects
-tags: [ react, login , authentication, auth, UI ]
-categories: [ react-posts, auth ,react-login-series ]
+tags: [react, login, authentication, auth, UI]
+categories: [react-posts, auth, react-login-series]
 giscus_comments: false
 related_posts: true
 related_publications: false
@@ -13,9 +13,7 @@ mermaid:
   enabled: true
   zoomable: true
 code_diff: true
-
 ---
-
 
 ## Part 3: Managing State & Side Effects : useAuth Hook
 
@@ -28,26 +26,26 @@ The real challenge in authentication flows is application `state`, meaning:
 - What succeeded?
 - What side effects should happen — and where?
 
-In this post, we isolate that complexity into a single, reusable hook: `useAuth`. To follow along, pick up the git code [Post 2d UI OAuth ](https://github.com/cryshansen/login-feature-react/tree/post/2d-UI-OAuth-add) to continue to follow along. 
+In this post, we isolate that complexity into a single, reusable hook: `useAuth`. To follow along, pick up the git code [Post 2d UI OAuth ](https://github.com/cryshansen/login-feature-react/tree/post/2d-UI-OAuth-add) to continue to follow along.
 
 ---
 
 ### Why a useAuth Hook Exists
 
 Without a hook, login logic tends to leak everywhere:
+
 - Components manage API calls
 - Forms handle loading flags
 - Error strings get passed through multiple layers
 - Redirect logic lives in buttons
 
 That approach scales poorly. Instead, we treat login as business logic, not a UI concern. The goal of useAuth is simple:
+
 - One hook owns the login process end-to-end.
 
-
---- 
+---
 
 ##### Where These Fit in the Series
-
 
 1. Introduce useAuth responsibilities
 2. Show State & Side Effects diagram
@@ -57,13 +55,12 @@ That approach scales poorly. Instead, we treat login as business logic, not a UI
 
 That order teaches thinking before typing.
 
-
-
---- 
+---
 
 ### 1. Responsibilities of useAuth
 
 The hook is responsible for:
+
 - Initiating the login request
 - Tracking async state
 - Exposing a simple interface to the UI
@@ -71,6 +68,7 @@ The hook is responsible for:
 - Remaining testable without rendering components
 
 What it does not do:
+
 - Render UI
 - Know about layouts
 - Handle routing directly
@@ -81,8 +79,8 @@ What it does not do:
 ---
 
 ### 2. Show State & Side Effects diagram
-What we are building with the useAuth and AuthContext will flow from form submission triggers to pass the functions necessary to authenticate. 
 
+What we are building with the useAuth and AuthContext will flow from form submission triggers to pass the functions necessary to authenticate.
 
 ```mermaid
 
@@ -109,9 +107,10 @@ flowchart TD
 
 ---
 
-#### How This Diagram Maps to the Code 
+#### How This Diagram Maps to the Code
 
 ##### useAuth is the control layer
+
 - Owns async execution
 - Owns loading + error state
 - Talks to the API
@@ -132,23 +131,24 @@ flowchart TD
 
 ---
 
-#### Why This Matters 
+#### Why This Matters
 
 UI components do not “log users in”. They ask useAuth to do it, then react to state.
 
 This is the difference between:
+
 - ❌ Form-driven auth
 - ✅ State-driven auth
 
---- 
+---
 
-### State Model. 
+### State Model.
 
 - The login flow has only three meaningful states:
 - Idle / Loading
 - Success
 - Error
-Everything else is derived.
+  Everything else is derived.
 
 ### A minimal state shape looks like this:
 
@@ -163,6 +163,7 @@ This keeps the API predictable and easy to reason about.
 ### Async Handling Without UI Coupling
 
 The hook owns the async flow:
+
 - Starts loading
 - Calls the API
 - Catches errors
@@ -176,12 +177,9 @@ From the component’s perspective:
 
 The component never needs to know how login works — only what state it’s in. That separation is the entire point.
 
-
-#### 3. Show Failure + Retry Loop -- useAuth Failer and Retry Loop 
+#### 3. Show Failure + Retry Loop -- useAuth Failer and Retry Loop
 
 The diagram below focusses our attention on what happens when logins go wrong and how retury is handled cleanly without page reloads.
-
-
 
 ```mermaid
 flowchart TD
@@ -198,6 +196,7 @@ flowchart TD
   UI -->|retry submit| useAuth
 
 ```
+
 ##### Failure Does Not Break Flow
 
 Every auth action follows the same pattern:
@@ -218,18 +217,19 @@ They:
 
 This is why retry is “free” — the next call resets state naturally.
 
---- 
+---
 
 ##### Key talking point here is;
 
 - Errors do not break the flow
 - State resets naturally on the next submit
 - No conditionals inside the UI for API logic
-- Restry is free because state is isolated. 
+- Restry is free because state is isolated.
 
 ---
 
 #### 4. Show Context → Routes Flow → Diagram 2 useAuth AuthContext and Routing
+
 This one shows why context exists at all and how touting becomes a consumer , not a controller.
 
 ```mermaid
@@ -257,8 +257,9 @@ What this diagram communicates
 This aligns perfectly within the AuthLayout.jsx file:
 
 ```jsx
-{isAuthenticated ? <Outlet /> : <Navigate to="/login" />}
-
+{
+  isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+}
 ```
 
 ---
@@ -280,6 +281,7 @@ With useAuth:
 This is especially important once:
 
 -Auth CTA components
+
 - Modal variants
 - Light/Dark layouts
 - Mobile versions
@@ -310,7 +312,6 @@ UI tests can then focus purely on presentation.
 
 ---
 
-
 ### What This Enables Later
 
 By isolating login state early, we unlock:
@@ -325,9 +326,9 @@ This is what makes the feature portable — not just functional.
 
 ---
 
-### 5. AuthContext As State Owner  
+### 5. AuthContext As State Owner
 
-We create a file 
+We create a file
 
 ```text
 src/
@@ -336,7 +337,7 @@ src/
 │  └─ Router.jsx
 │
 ├─ context/
-│  └─ AuthContext.jsx <-- this file we manage the state hooks within. 
+│  └─ AuthContext.jsx <-- this file we manage the state hooks within.
 │
 ├─ features/
 │  └─ auth/.../
@@ -397,6 +398,7 @@ const { login, authMessage, clearAuthMessage, isAuthenticated } = useAuth();
 ```
 
 At this point, the form has access to:
+
 - login() → triggers authentication
 - authMessage → displays success / error info
 - isAuthenticated → reacts to state change
@@ -410,13 +412,14 @@ No API calls. No storage. No side effects.
 
 The submit handler becomes intentionally thin.
 
-**Before** 
+**Before**
 
 The form would have handled API calls directly.
 
 **After**
 
 The form simply forwards credentials.
+
 ```jsx
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -455,7 +458,7 @@ useEffect(() => {
 }, [isAuthenticated, navigate]);
 ```
 
- Why this matters:
+Why this matters:
 
 - Login success may come from refresh
 - Login may occur elsewhere
@@ -471,17 +474,9 @@ This maps directly to the Context → Routes diagram from earlier.
 Instead of conditionals tied to API responses, we render what the context provides.
 
 ```jsx
-{authMessage && (
-  <p
-    className={`text-sm ${
-      authMessage.type === "error"
-        ? "text-red-400"
-        : "text-green-400"
-    }`}
-  >
-    {authMessage.text}
-  </p>
-)}
+{
+  authMessage && <p className={`text-sm ${authMessage.type === "error" ? "text-red-400" : "text-green-400"}`}>{authMessage.text}</p>;
+}
 ```
 
 This is key:
@@ -533,9 +528,7 @@ export default function LoginForm({ darkMode }) {
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div>
-        <label className="block text-sm font-medium text-gray-100">
-          Email address
-        </label>
+        <label className="block text-sm font-medium text-gray-100">Email address</label>
         <input
           type="email"
           required
@@ -546,9 +539,7 @@ export default function LoginForm({ darkMode }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-100">
-          Password
-        </label>
+        <label className="block text-sm font-medium text-gray-100">Password</label>
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
@@ -556,28 +547,15 @@ export default function LoginForm({ darkMode }) {
             onChange={(e) => setPassword(e.target.value)}
             className="block w-full rounded-md bg-white/5 px-3 py-1.5 pr-10 text-white"
           />
-          <button
-            type="button"
-            onClick={() => setShowPassword((v) => !v)}
-            className="absolute inset-y-0 right-0 pr-3 text-gray-400"
-          >
-            {showPassword ? (
-              <EyeSlashIcon className="h-5 w-5" />
-            ) : (
-              <EyeIcon className="h-5 w-5" />
-            )}
+          <button type="button" onClick={() => setShowPassword((v) => !v)} className="absolute inset-y-0 right-0 pr-3 text-gray-400">
+            {showPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {authMessage && (
-        <p className="text-sm text-indigo-400">{authMessage.text}</p>
-      )}
+      {authMessage && <p className="text-sm text-indigo-400">{authMessage.text}</p>}
 
-      <button
-        type="submit"
-        className="w-full rounded-md bg-indigo-500 px-3 py-1.5 text-white"
-      >
+      <button type="submit" className="w-full rounded-md bg-indigo-500 px-3 py-1.5 text-white">
         Sign in
       </button>
 
@@ -598,6 +576,7 @@ export default function LoginForm({ darkMode }) {
 End the code section by reinforcing where logic lives.
 
 Why useAuth Stays Small
+
 ```jsx
 export function useAuth() {
   const ctx = useContext(AuthContext);
@@ -645,20 +624,19 @@ After this change:
 
 Most importantly:
 
-  The form no longer “logs users in.”
-  It participates in an authentication system.
+The form no longer “logs users in.”
+It participates in an authentication system.
 
 ---
 
 Next, we can:
 
 Repeat this pattern for `Signup`, `Reset`, `ConfirmReset` forms to handle these authentictions.
-This will show how `Reset Password` stays consistent. We continue to integrate the forms we have with the useState and useAuth features. 
-
+This will show how `Reset Password` stays consistent. We continue to integrate the forms we have with the useState and useAuth features.
 
 You can also review the rest of the page code at the Github branch [Post 3 State Hooks](https://github.com/cryshansen/login-feature-react/tree/post/post3-state-hooks)
 
---- 
+---
 
 #### Coming Next
 
@@ -670,4 +648,3 @@ In [Post 3a Guarding Routes]({% post_url 2026-01-06-react-login-03-guarding-rout
 - Includes a route tree diagram
 - Explains why AuthLayout lives inside the feature (drop-in design)
 - Reflects everything we reasoned through in this chat
-

@@ -3,8 +3,8 @@ layout: post
 title: "Setting Up NVM on macOS (Node Version Manager)"
 date: 2026-01-03
 description: "A practical guide to installing and using NVM on macOS for managing multiple Node.js versions."
-categories: [javascript, node, tooling ]
-tags: [ nvm, nodejs, macos, dev-environment, devOps ]
+categories: [javascript, node, tooling]
+tags: [nvm, nodejs, macos, dev-environment, devOps]
 ---
 
 ## Why Use NVM?
@@ -18,6 +18,7 @@ If you work on multiple JavaScript projects, you’ve probably run into this pro
 Installing Node globally makes this painful.
 
 **NVM (Node Version Manager)** solves this by allowing you to:
+
 - Install multiple Node.js versions
 - Switch versions per project
 - Match production environments more closely
@@ -46,10 +47,13 @@ If Node was installed via Homebrew, we’ll remove it later to avoid conflicts.
 ---
 
 ### Step 1: Insgtall NVM
+
 Run the official install script:
+
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 ```
+
 ⚠️ Always check the official repo for the latest version: [nvm offical repo](https://github.com/nvm-sh/nvm)
 
 This script:
@@ -65,15 +69,19 @@ This script:
 After installation, restart your terminal, or manually load NVM:
 
 For Zsh (default on modern macOS)
+
 ```bash
     source ~/.zshrc
 ```
+
 For Bash
+
 ```bash
     source ~/.bashrc
 ```
 
 Verify installation:
+
 ```bash
     nvm --version
 ```
@@ -82,38 +90,45 @@ If you see a version number, NVM is installed correctly 🎉
 
 ---
 
-####  Step 3: Install Node.js Using NVM
+#### Step 3: Install Node.js Using NVM
 
 List available Node versions:
+
 ```bash
 nvm ls-remote
 ```
 
 Install a specific version:
+
 ```bash
 nvm install 18
 ```
 
 Install the latest LTS:
+
 ```bash
 nvm install --lts
 ```
 
 Set the default Node version:
+
 ```basg
 nvm alias default 18
 ```
 
 Verify:
+
 ```bash
 node -v
 npm -v
 ```
+
 ---
 
 #### Step 4: Switching Node Versions
 
 Switch versions anytime:
+
 ```bash
 nvm use 16
 nvm use 18
@@ -121,6 +136,7 @@ nvm use 22
 ```
 
 List installed versions:
+
 ```bash
 nvm ls
 ```
@@ -132,11 +148,13 @@ This makes it easy to jump between legacy and modern projects.
 #### Step 5: Per-Project Node Versions with .nvmrc
 
 Inside a project root, create a .nvmrc file:
+
 ```bash
 18
 ```
 
 Then run:
+
 ```bash
 nvm use
 ```
@@ -155,13 +173,12 @@ If you previously installed Node with Homebrew, remove it to avoid conflicts:
 
 brew uninstall node
 
-
 Confirm NVM-managed Node is active:
 
 which node
 
-
 Expected output:
+
 ```text
 ~/.nvm/versions/node/...
 ```
@@ -169,6 +186,7 @@ Expected output:
 ---
 
 #### Common Issues & Fixes
+
 nvm: command not found
 
 Restart your terminal
@@ -188,6 +206,7 @@ export NVM_DIR="$HOME/.nvm"
 ---
 
 #### Recommended Workflow
+
 Typical setup I use:
 
 - .nvmrc in every Node project
@@ -199,6 +218,7 @@ This mirrors real-world team setups and CI pipelines.
 ---
 
 ### Final Thoughts
+
 NVM is one of those tools that:
 
 - Saves time

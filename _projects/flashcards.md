@@ -7,31 +7,33 @@ permalink: /projects/flashcards/
 importance: 4
 category: work
 related_publications: false
-tags: ["frontend","angular","JSON"]
+tags: ["frontend", "angular", "JSON"]
 ---
-
 
 ### General Websites Collection
 
 ##### Angular Sites
+
 - [Site A – studio-booker](/projects/studio-booker/)
 - [Site B – flashcards] (/projects/flashcards/)
 
 ##### Wordpress site
+
 - [Site C – crystalhansenartographic.ca](/projects/wp-artographic/)
 
 #### React SPA
+
 - [Site D - zackly-rite-spa](/projects/zackly-rite-spa/)
 - [Site E – chartcom](/projects/chartcom/)
-
-
 
 ## Introduction FlashcardsApp
 
 Github Repo: (https://github.com/cryshansen/flashcards-app)
 
 ## ✅ Why These Questions Are Great for Interviews
+
 ## 🔹 Angular / React Questions
+
 Cover essential framework concepts (components, lifecycle, routing, forms, RxJS/hooks)
 
 Interviewers often ask about:
@@ -47,6 +49,7 @@ Structural directives or JSX patterns
 RxJS / useEffect logic (real interview pain points)
 
 ## 🔹 Java Core
+
 Questions like:
 
 What is garbage collection?
@@ -60,17 +63,21 @@ What are collections, and how do you choose between ArrayList and LinkedList?
 These hit the heart of what Java interviews test.
 
 ## 🔹 Design Principles
+
 MVC, Dependency Injection, and modularity questions show architecture-level thinking
 
 Knowing these puts you in a higher bracket (e.g., senior or systems-oriented roles)
 
 ## 🔹 Algorithms & Data Structures
+
 Essential for any coding interview (LeetCode-style problems often revolve around trees, graphs, recursion, etc.)
 
 ## 🔹 Tooling
+
 Questions on Angular CLI, React dev tools, Java build tools (Maven/Gradle) are helpful bonus points.
 
 ## 🧠 Tip: Interviewers Are Looking For
+
 ```
 Category	What They Look For
 Knowledge	You understand the frameworks, syntax, and API behavior
@@ -79,7 +86,6 @@ Communication	You explain concepts like DI or GC clearly and confidently
 Practicality	You write code efficiently and follow best practices (e.g., not leaking memory)
 
 ```
-
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
 

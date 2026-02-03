@@ -6,7 +6,7 @@ img: assets/img/12.jpg
 permalink: /projects/java-projects/calendar/
 importance: 4
 category: java
-tags: ["frontend","angular","backend", "java", "springboot", "microservice","maven","MySql","MariaDB"]
+tags: ["frontend", "angular", "backend", "java", "springboot", "microservice", "maven", "MySql", "MariaDB"]
 ---
 
 ### Java Spring Boot Collection
@@ -17,10 +17,10 @@ tags: ["frontend","angular","backend", "java", "springboot", "microservice","mav
 - [calendar] calendar
 - [lazy-image-loader](/projects/java-projects/lazy-image-loader/)
 
-This application is an older version of the bookit application however the ***bookit*** is a ***rest microservice*** whereas this application is a ***full stack*** java implementation.
-Java framework coupled with a mix of ***Angular.js V2*** framework and ***full calendar*** jsp (Jakarta Server Pages) server-side technology that enables developers to create dynamic web content. A JSP file typically has a .jsp extension and combines static content, such as HTML or XML, with dynamic elements written in Java.
+This application is an older version of the bookit application however the **_bookit_** is a **_rest microservice_** whereas this application is a **_full stack_** java implementation.
+Java framework coupled with a mix of **_Angular.js V2_** framework and **_full calendar_** jsp (Jakarta Server Pages) server-side technology that enables developers to create dynamic web content. A JSP file typically has a .jsp extension and combines static content, such as HTML or XML, with dynamic elements written in Java.
 
-Visit the repo and kick start your project! 
+Visit the repo and kick start your project!
 
 - [calendar Repository](https://github.com/cryshansen/calendar)
 
@@ -58,16 +58,16 @@ public class CalendarEventDao extends HibernateDaoSupport {
 
 	@SuppressWarnings("unchecked")
 	public List<CalendarEvent> getCalendarEvents(){
-		
+
 		return getHibernateTemplate().loadAll(CalendarEvent.class);
 
 	}
 	public  CalendarEvent getCalendarEventByCalendarEventId(int cEventId) {
 		 return (CalendarEvent) getHibernateTemplate().get(CalendarEvent.class, cEventId);
 	}
-	
+
 	public void addCalendarEvent(CalendarEvent cEvent) {
-		
+
 		getHibernateTemplate().save(cEvent);
 	}
 
@@ -79,12 +79,11 @@ public class CalendarEventDao extends HibernateDaoSupport {
 		dbSession.close();
 		return count;
 	}
-	
+
 }
 ```
 
 {% endraw %}
-
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -99,9 +98,9 @@ public class CalendarEventDao extends HibernateDaoSupport {
 
 When a user interacts with the calendar interface to add a new event, the following sequence of actions occurs:
 
-***User Action:*** The user clicks a "Save" or similar button after entering event details on the calendar interface.
+**_User Action:_** The user clicks a "Save" or similar button after entering event details on the calendar interface.
 
-***Browser Request:*** This triggers a POST request to the server, specifically targeting the CalendarEventController.
+**_Browser Request:_** This triggers a POST request to the server, specifically targeting the CalendarEventController.
 
 ##### Controller Processing:
 
@@ -131,38 +130,38 @@ The controller sends back a 200 OK HTTP response to the browser. The event is no
     The left illustrates the high level mind mapping of the system to aid in visualization of the system concepts and features, the right image itemizes the flow of the code logic
 </div>
 
+### Testing example
 
-### Testing example 
-
-Lets run some testing of the calendar using assertions to test the calenar event functions. 
-
+Lets run some testing of the calendar using assertions to test the calenar event functions.
 
 {% raw %}
+
 ```java
 @Test
 	public void testAddCalendarEvent() {
     	final CalendarEvent event= new CalendarEvent();
-	
-	
+
+
 	event.setCalEventTitle("Apothecary");
 	event.setBgColor("#cde9b5");
-	
-	
+
+
 	transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 
 	    protected void doInTransactionWithoutResult(TransactionStatus status) {
 	    	calendarEventDao.addCalendarEvent(event);
 	    	assertTrue( event.getCalEventId() > 0 );
 	    	CalendarEvent event4 = calendarEventDao.getCalendarEventByCalendarEventId( event.getCalEventId());
-	        
+
 	    	assertEquals( event.getCalEventTitle(), event4.getCalEventTitle());
 	        assertEquals( event.getBgColor(), event4.getBgColor());
-	       
-	        
+
+
 	        status.setRollbackOnly();
 	    }
-	    
+
 	});
 }
 ```
+
 {% endraw %}

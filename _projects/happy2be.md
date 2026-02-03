@@ -10,7 +10,6 @@ giscus_comments: false
 tags: ["backend", "java", "microservice"]
 ---
 
-
 ### Java Spring Boot Collection
 
 - [Bookit](/projects/java-projects/bookit)
@@ -21,11 +20,9 @@ tags: ["backend", "java", "microservice"]
 
 Furthering my exploration in Java Spring Boot APIs and cloud technologies, and using the foundation of fortune-ai, the desire to understand language models with human interface has be exploring the value ChatGPT can bring. Use to kickstart an app or tutorial.
 
-Visit the repo and kick start your project! 
+Visit the repo and kick start your project!
 
 - [Happy2be Repository](https://github.com/cryshansen/happy2be)
-
-
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -80,7 +77,6 @@ Below we explore a mind map of the process to aid in visualizations of the api s
 <div class="caption">
     Happy 2 Be Mind map of the backend of a to be chatbot developed to accept a propt and respond based on the emotional aspects of the message. User Engagement flow is the focus of this model.
 </div>
-
 
 {% raw %}
 

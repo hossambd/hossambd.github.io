@@ -7,7 +7,7 @@ permalink: /projects/java-projects/fortune-ai/
 importance: 2
 category: java
 related_publications: false
-tags: ["backend", "java", "springboot","microservice"]
+tags: ["backend", "java", "springboot", "microservice"]
 ---
 
 ### Java Spring Boot Collection
@@ -18,12 +18,11 @@ tags: ["backend", "java", "springboot","microservice"]
 - [calendar](/projects/java-projects/calendar/)
 - [lazy-image-loader](/projects/java-projects/lazy-image-loader/)
 
-
-Fortune-ai is a preliminary test of Java Spring Boot API development. The idea to represent a chatbot using chatgpt to provide prompting. It is simple to use and implement. 
+Fortune-ai is a preliminary test of Java Spring Boot API development. The idea to represent a chatbot using chatgpt to provide prompting. It is simple to use and implement.
 A test model is associated with pintmento.com as the front end display and integration with an AWS EC2 instance and an RDS database storage system.
- Use to kickstart an app or tutorial.
+Use to kickstart an app or tutorial.
 
-Visit the repo and kick start your project! 
+Visit the repo and kick start your project!
 
 - [Fortune-AI Repository](https://github.com/cryshansen/fortune-ai)
 
@@ -35,7 +34,6 @@ Visit the repo and kick start your project!
 <div class="caption">
    User Journey of the fortune-ai model, spring boot api.
 </div>
-
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -86,7 +84,7 @@ Here's the code for the rest controller endpoints:
 class FortuneController {
 
     private final OpenAIService openAIService;
-    
+
     @GetMapping("/lucky-number")
     public int getLuckyNumber() {
         return random.nextInt(100) + 1;

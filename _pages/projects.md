@@ -2,15 +2,14 @@
 layout: page
 title: projects
 permalink: /projects/
-description: 
+description:
 nav: true
 nav_order: 3
-display_categories: [drupal,java, python, work]
+display_categories: [drupal, java, python, work]
 horizontal: false
 toc:
   sidebar: left
 ---
-
 
 Welcome to my Technology Portfolio — a curated overview of the solutions I've developed across diverse technology stacks. From robust content management systems to intelligent automation tools and custom business applications, my work spans open-source platforms and advanced programming languages. Dive into my core development areas using the side navigation.
 
@@ -24,10 +23,13 @@ Whether you're seeking content architecture, e-commerce capabilities, or data-dr
   
     <h2 id="{{ category }}" class="category">{{ category }}</h2>
 
-  {% assign categorized_projects = site.projects | where: "category", category %}
-  {% assign sorted_projects = categorized_projects | sort: "importance" %}
+{% assign categorized_projects = site.projects | where: "category", category %}
+{% assign sorted_projects = categorized_projects | sort: "importance" %}
+
   <!-- Generate cards for each project -->
-  {% if page.horizontal %}
+
+{% if page.horizontal %}
+
   <div class="container">
     <div class="row row-cols-1 row-cols-md-2">
     {% for project in sorted_projects %}

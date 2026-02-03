@@ -25,7 +25,7 @@
   "work": [
     {
       "name": "Crystal Hansen Artographic",
-      "position":"Freelance Developer",
+      "position": "Freelance Developer",
       "url": "https://crystalhansenartographic.com",
       "startDate": "2025-03-01",
       "endDate": "present",
@@ -111,7 +111,7 @@
       "url": "https://cwbank.com",
       "startDate": "2013-11-01",
       "endDate": "2016-08-31",
-      "location": "Edmonton, Alberta",      
+      "location": "Edmonton, Alberta",
       "summary": "Developed internal tools and led data transformation initiatives for banking systems migration, including integrations with third-party systems and regulatory data compliance.",
       "highlights": [
         "Built tools for message logging, interface error handling, and transformation logic",
@@ -136,7 +136,6 @@
         "Key projects: CWBCareers (.NET, VB), INFOServer (.NET 3.5, C#), Wave (JavaScript, Java), SharePoint plugins"
       ]
     }
-
   ],
   "education": [
     {
@@ -148,7 +147,7 @@
       "startDate": "2006-01-01",
       "endDate": "2009-04-31",
       "score": "9",
-      "courses": ["Computer Systems Technology","Java", "VB", "C#" , ".Net","MSSQL", "Oracle"]
+      "courses": ["Computer Systems Technology", "Java", "VB", "C#", ".Net", "MSSQL", "Oracle"]
     },
     {
       "institution": "University of Saskatchewan, Saskatoon, Saskatchewan",
@@ -159,7 +158,7 @@
       "startDate": "2002-09-01",
       "endDate": "2005-04-31",
       "score": "8",
-      "courses": ["Fine Art","Computer Sciences", "History", "Statistics" , "Weather Systems"]
+      "courses": ["Fine Art", "Computer Sciences", "History", "Statistics", "Weather Systems"]
     },
     {
       "institution": "University of Alberta  - Extension, Edmonton, Alberta",
@@ -170,7 +169,7 @@
       "startDate": "2001-01-01",
       "endDate": "2002-04-31",
       "score": "10",
-      "courses": ["Computer Systems","HTML", "CSS", "Javascript", "Flash" , "MySql", "Dreamweaver"]
+      "courses": ["Computer Systems", "HTML", "CSS", "Javascript", "Flash", "MySql", "Dreamweaver"]
     },
     {
       "institution": "International Corespondence Schools, Correspondence",
@@ -181,7 +180,7 @@
       "startDate": "1995-01-01",
       "endDate": "1996-04-31",
       "score": "10",
-      "courses": ["Computer Systems","Desktop Publishing", "Information Sciences", "Support Services"]
+      "courses": ["Computer Systems", "Desktop Publishing", "Information Sciences", "Support Services"]
     }
   ],
   "awards": [
@@ -208,15 +207,15 @@
       "level": "Mastery",
       "icon": "fa-solid fa-hashtag",
       "keywords": [
-        "Programming Languages: Java, Node.js, Python, PHP, .NET (C#, VB), Flask, Express",  
-        "Web Development: Angular / React / TypeScript / JSX / HTML5, CSS3, JS, BS5, RxJS",   
-        "Backend & APIs: Drupal/PHP,  WebAPI, Spring - MVC, Boot, Hibernate, JDBC, RESTful APIs, WebAPIs,ChatGPT API,PHP API, SOAP", 
-        "Database Management: MySQL, PostgreSQL, SQL Server, MariaDB, SAS EG, RDS, ETL Migrations", 
-        "Content Management & Migrations: Drupal, WordPress, custom modules, SEO Optimization, Google Search Console, GTM, LinkedIn/Google Ads",  
-        "Server & Deployment: Tomcat, Catalina, Apache, Nginx, Docker, Ubuntu, Unix, Linux, EC2",  
-        "DevOps & CI/CD: Git, GitHub, GitLab, Jenkins, GitHub Actions, TFS, Drush, Composer, CI/CD pipelines, Agile methodologies",  
-        "Cloud Platforms: AWS, Azure, GCP", 
-        "Security & Optimization: DKIM, SPF, OAuth, Basic Authentication, Role-Based Access Control (RBAC)"     
+        "Programming Languages: Java, Node.js, Python, PHP, .NET (C#, VB), Flask, Express",
+        "Web Development: Angular / React / TypeScript / JSX / HTML5, CSS3, JS, BS5, RxJS",
+        "Backend & APIs: Drupal/PHP,  WebAPI, Spring - MVC, Boot, Hibernate, JDBC, RESTful APIs, WebAPIs,ChatGPT API,PHP API, SOAP",
+        "Database Management: MySQL, PostgreSQL, SQL Server, MariaDB, SAS EG, RDS, ETL Migrations",
+        "Content Management & Migrations: Drupal, WordPress, custom modules, SEO Optimization, Google Search Console, GTM, LinkedIn/Google Ads",
+        "Server & Deployment: Tomcat, Catalina, Apache, Nginx, Docker, Ubuntu, Unix, Linux, EC2",
+        "DevOps & CI/CD: Git, GitHub, GitLab, Jenkins, GitHub Actions, TFS, Drush, Composer, CI/CD pipelines, Agile methodologies",
+        "Cloud Platforms: AWS, Azure, GCP",
+        "Security & Optimization: DKIM, SPF, OAuth, Basic Authentication, Role-Based Access Control (RBAC)"
       ]
     }
   ],
@@ -231,35 +230,17 @@
     {
       "name": "Cloud Computing",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "AWS",
-        "EC2",
-        "RDS",
-        "Google",
-        "Azure"
-      ]
+      "keywords": ["AWS", "EC2", "RDS", "Google", "Azure"]
     },
     {
       "name": "Photography",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "Composition",
-        "ISO",
-        "Photoshop",
-        "Lighting",
-        "digital enhancing"
-      ]
+      "keywords": ["Composition", "ISO", "Photoshop", "Lighting", "digital enhancing"]
     },
     {
       "name": "Illustrations",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "Lightboxes",
-        "architecture",
-        "logo creation",
-        "icon creation",
-        "digital drawing and painting"
-      ]
+      "keywords": ["Lightboxes", "architecture", "logo creation", "icon creation", "digital drawing and painting"]
     }
   ],
   "references": [
@@ -273,7 +254,6 @@
       "icon": "fa-solid fa-laptop",
       "reference": "COO, PGSTech,  request contact info "
     }
-   
   ],
   "projects": [
     {
@@ -287,12 +267,7 @@
     {
       "name": "Pinmento",
       "summary": "Geolocation-based journaling web app built with a Drupal front end. Enables users to drop pins on a Google Map and attach journal entries, fostering memory mapping and reflective exploration.",
-      "highlights": [
-        "Drupal theming",
-        "Google Maps JavaScript API",
-        "Pin-drop journaling",
-        "Geospatial content management"
-      ],
+      "highlights": ["Drupal theming", "Google Maps JavaScript API", "Pin-drop journaling", "Geospatial content management"],
       "startDate": "2023-10-01",
       "endDate": "present",
       "url": "https://pinmento.com"
@@ -308,12 +283,7 @@
     {
       "name": "Happy2Be",
       "summary": "Java Spring Boot application focused on mood analysis and positive reinforcement through conversational prompts. Expands emotional intelligence in AI by analyzing sentiment polarity and providing feedback.",
-      "highlights": [
-        "Java Spring Boot",
-        "Sentiment Analysis",
-        "Conversational Prompts",
-        "Positive Reinforcement AI"
-      ],
+      "highlights": ["Java Spring Boot", "Sentiment Analysis", "Conversational Prompts", "Positive Reinforcement AI"],
       "startDate": "2025-07-01",
       "endDate": "present",
       "url": ""
@@ -321,12 +291,7 @@
     {
       "name": "Fortune-ai",
       "summary": "Microservice chatbot designed for playful, fortune-style prompts using natural language responses. Focused on GPT integration and simple Java Spring Boot API deployment. Deployed to AWS for accessible querying.",
-      "highlights": [
-        "Java Spring Boot",
-        "Prompt-to-Fortune Generator",
-        "AWS Deployment",
-        "REST API"
-      ],
+      "highlights": ["Java Spring Boot", "Prompt-to-Fortune Generator", "AWS Deployment", "REST API"],
       "startDate": "2025-06-01",
       "endDate": "present",
       "url": "https://cryshansen.github.io/fortune-ai"
@@ -374,11 +339,5 @@
       "endDate": "present",
       "url": ""
     }
-
-    
   ]
 }
-
-
-
-

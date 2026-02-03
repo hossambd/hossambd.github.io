@@ -7,30 +7,30 @@ permalink: /projects/chartcom/
 importance: 3
 category: work
 related_publications: false
-tags: ["frontend","react","PHP", "API","fullstack", "Mysql"]
+tags: ["frontend", "react", "PHP", "API", "fullstack", "Mysql"]
 ---
-
 
 ### General Websites Collection
 
 ##### Angular Sites
+
 - [Site A – studio-booker](/projects/studio-booker/)
 - [Site B – flashcards](/projects/flashcards/)
 
 ##### Wordpress site
+
 - [Site C – crystalhansenartographic.ca](/projects/wp-artographic/)
 
 #### React SPA
+
 - [Site D - zackly-rite-spa](/projects/zackly-rite-spa/)
 - [Site E – chartcom] (/projects/chartcom/)
 
-
-## Introduction 
+## Introduction
 
 Github Repo:(https://github.com/cryshansen/chartcom)
 
-This project is a hybrid full-stack web application combining a **React frontend**, a **Node.js backend for development**, and a **PHP-based API** for live production. It serves as a creative portfolio and studio booking platform with dynamic image rendering, product showcasing, and scheduling. The system uses json files to deliver 'real data' to facilitate displays. 
-
+This project is a hybrid full-stack web application combining a **React frontend**, a **Node.js backend for development**, and a **PHP-based API** for live production. It serves as a creative portfolio and studio booking platform with dynamic image rendering, product showcasing, and scheduling. The system uses json files to deliver 'real data' to facilitate displays.
 
 ---
 
@@ -66,8 +66,8 @@ npm install react-router-dom bootstrap react-helmet
 ```tsx
 useEffect(() => {
   fetch(`${import.meta.env.VITE_API_URL}/api/index-images.php/images/list?category=studio${studioId}&folder=576`)
-    .then(res => res.json())
-    .then(data => setImages(data));
+    .then((res) => res.json())
+    .then((data) => setImages(data));
 }, [studioId]);
 ```
 
@@ -110,16 +110,16 @@ server/
   utils/
     fakeStudioBookings.js
 ```
+
 navigate to server and run `node utils/fakeStudioBookings.js`
 This will provide a month of mock bookings based on real world examples.
-
 
 ### Sample API Endpoint
 
 ```js
-app.get('/api/products', (req, res) => {
-  const products = JSON.parse(fs.readFileSync('./data/products.json', 'utf8'));
-  const blends = JSON.parse(fs.readFileSync('./data/productblends.json', 'utf8'));
+app.get("/api/products", (req, res) => {
+  const products = JSON.parse(fs.readFileSync("./data/products.json", "utf8"));
+  const blends = JSON.parse(fs.readFileSync("./data/productblends.json", "utf8"));
   res.json([...products, ...blends]);
 });
 ```
@@ -202,5 +202,3 @@ npm install --save-dev @types/react-helmet
 - Repo Notes: PHP repo includes notes and links to GitHub projects where applicable.
 
 ---
-
-

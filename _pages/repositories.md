@@ -2,7 +2,7 @@
 layout: page
 permalink: /repositories/
 title: repositories
-description: Below you find Crystal Hansens project repositories that contain some prominent personal and professional development stacks. 
+description: Below you find Crystal Hansens project repositories that contain some prominent personal and professional development stacks.
 nav: true
 nav_order: 4
 ---

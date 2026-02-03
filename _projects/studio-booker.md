@@ -7,35 +7,38 @@ permalink: /projects/studio-booker/
 importance: 3
 category: work
 related_publications: false
-tags: ["frontend", "fullstack","backend"]
+tags: ["frontend", "fullstack", "backend"]
 ---
 
-
 ### General Websites Collection
+
 ### Vanilla Site
+
 - [Site A – vanilla](/projects/vanilla)
 
 ##### Angular Sites
+
 - [Site B – studio-booker] (/projects/studio-booker/)
 - [Site C – flashcards](/projects/flashcards/)
 
 ##### Wordpress site
+
 - [Site D – crystalhansenartographic.ca](/projects/wp-artographic/)
 
 #### React SPA
+
 - [Site E - zackly-rite-spa](/projects/zackly-rite-spa/)
 - [Site F – chartcom](/projects/chartcom/)
 - [Site G – crystalhansenartographic](/projects/crystalhansenartographic/)
 
-
-
-## Introduction -  📸 Studio Booker App
+## Introduction - 📸 Studio Booker App
 
 Github Repo: (https://github.com/cryshansen/studio-booker)
 
 A streamlined Angular application for photographers to browse, book, and confirm studio rentals. Built with performance, usability, and modularity in mind, this app allows users to view studios, select time slots, add bookings to a cart, and complete checkout with confirmation and PDF generation.
 
 ## 🚀 Features
+
 🏢 Studio Listings – Browse a list of available studios with descriptions, pricing, and features.
 
 📅 Calendar View – View availability for each studio using FullCalendar. Click a day or event to book.
@@ -55,6 +58,7 @@ A streamlined Angular application for photographers to browse, book, and confirm
 📄 PDF Export – Generate clean confirmation receipts using html2pdf.js.
 
 ## 📂 Project Structure
+
 ```
     src/
     │
@@ -73,6 +77,7 @@ A streamlined Angular application for photographers to browse, book, and confirm
 ```
 
 ## 🛠️ Tech Stack
+
     Angular 17+ (Standalone Components)
 
     FullCalendar Angular Plugin
@@ -88,6 +93,7 @@ A streamlined Angular application for photographers to browse, book, and confirm
     html2pdf.js for printable/downloadable confirmations
 
 ## ✅ Booking Flow
+
     User lands on /studios
 
     Selects a studio and is routed to /calendar/:id?price=...&name=...
@@ -107,6 +113,7 @@ A streamlined Angular application for photographers to browse, book, and confirm
     Cart is cleared on confirmation load
 
 ## 📌 Notes
+
     Studios are currently hardcoded; can be connected to an API.
 
     Promo code (EXAMPLECODE) applies a static discount.
@@ -116,9 +123,11 @@ A streamlined Angular application for photographers to browse, book, and confirm
     Cart uses localStorage to persist across refresh/navigation.
 
 ## 📄 License
+
 MIT
 
 ## Further info:
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
 
 ## Development server
@@ -176,4 +185,3 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-

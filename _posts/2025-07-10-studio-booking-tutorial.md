@@ -13,12 +13,9 @@ mermaid:
   enabled: true
   zoomable: true
 code_diff: true
-
 ---
 
-
 # 🎥 Building a Studio Booking App with Angular: A Complete Tutorial
-
 
 ## Introduction
 
@@ -62,9 +59,11 @@ The user browses available studios with name, description, accessories, and pric
 
 }});
 ```
---- 
+
+---
 
 #### 2. Calendar View
+
 - Uses FullCalendar.js
 - Clicking a day opens a booking form with that date pre-filled
 - Clicking an event populates the form with existing booking info
@@ -83,6 +82,7 @@ Emits the completed booking object to be added to the cart.
 ---
 
 4. Cart System
+
 - Displays list of bookings
 - Allows item removal
 - Calculates total
@@ -92,7 +92,7 @@ Emits the completed booking object to be added to the cart.
 ---
 
 5. Checkout
-Includes:
+   Includes:
 
 - First/Last Name, Email, Address
 - Promo code validation (EXAMPLECODE)
@@ -101,7 +101,9 @@ Includes:
 - Sends booking + user info to the confirmation page.
 
 ---
+
 6. Confirmation
+
 - Displays cart summary and confirmation ID
 - Downloadable/printable PDF using html2pdf.js
 - Clears cart on load
@@ -109,6 +111,7 @@ Includes:
 ---
 
 #### Key Concepts
+
 - Angular routing (with route/query parameters)
 - Component communication via @Input() and @Output()
 - FullCalendar integration
@@ -136,9 +139,11 @@ Always show details
   RewriteRule . /index.html [L]
 </IfModule>
 ```
+
 ---
 
 # Potential Improvements
+
 - Backend database (e.g., Firebase, Node.js, Laravel)
 - Authentication & user accounts
 - Admin panel for booking management
@@ -148,6 +153,7 @@ Always show details
 ---
 
 ### Conclusion
+
 This project demonstrates how to build a modern Angular application with real-world booking workflows. It’s scalable, stylish, and packed with useful patterns for building your own booking system.
 
 Want to build it yourself or extend it? Fork it, deploy it, and make it your own! package found [github repository](https://github.com/cryshansen/studio-booker)

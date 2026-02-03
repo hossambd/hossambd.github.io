@@ -34,9 +34,10 @@ If you need to install Node.js, download it from
 
 Vite is now the recommended way to scaffold React apps. It’s fast, lightweight, and aligns with the modern React ecosystem.
 
-
 #### 🛠 Project Setup
+
 1. Create the Vite App
+
 ```bash
   npm create vite@latest
 ```
@@ -77,7 +78,7 @@ They do not block development for this series. try `nvm use 22` in this case.
 Then run:
 
 ```bash
-  npm create vite@latest  
+  npm create vite@latest
   your-app-name
   cd your-app-name
   npm install
@@ -85,16 +86,15 @@ Then run:
 
 ```
 
-
 Open the local URL shown in your terminal (usually http://localhost:5173).
 Your React app is now running.
 
 ---
 
-
 ### Understanding the Project Structure
 
 A fresh Vite + React project looks like this:
+
 ```text
 my-react-app/
 ├── index.html
@@ -108,20 +108,21 @@ my-react-app/
 
 #### Key Files Explained
 
-| File	            | Purpose |
-|------------------------------|
-| index.html        | Single-page HTML entry |
-| main.jsx          | React entry point |
-| App.jsx           | Root component |
-| package.json      | Dependencies & scripts |
-|-------------------------------|
+| File                            | Purpose                |
+| ------------------------------- | ---------------------- |
+| index.html                      | Single-page HTML entry |
+| main.jsx                        | React entry point      |
+| App.jsx                         | Root component         |
+| package.json                    | Dependencies & scripts |
+| ------------------------------- |
 
 ---
 
-### How React Renders Your App 
+### How React Renders Your App
 
 React starts in main.jsx:
-```jsx 
+
+```jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
@@ -140,6 +141,7 @@ This tells React to render the <App /> component inside the #root element define
 ### Your First Component
 
 Open App.jsx and replace its contents with:
+
 ```jsx
 export default function App() {
   return (
@@ -172,13 +174,12 @@ export default function App() {
   return (
     <div>
       <h1>Count: {count}</h1>
-      <button onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
   );
 }
 ```
+
 ---
 
 #### What’s happening here?
@@ -192,18 +193,21 @@ export default function App() {
 ### Handling Events
 
 React events are written in camelCase:
+
 ```jsx
 function handleClick() {
   console.log("Button clicked");
 }
 
-<button onClick={handleClick}>Click me</button>
+<button onClick={handleClick}>Click me</button>;
 ```
+
 ---
 
 ### Passing Data with Props
 
 Props let you pass data into components.
+
 ```jsx
 function Greeting({ name }) {
   return <h2>Hello {name}!</h2>;
@@ -211,6 +215,7 @@ function Greeting({ name }) {
 ```
 
 Usage:
+
 ```jsx
 <Greeting name="World" />
 <Greeting name="React" />
@@ -223,13 +228,19 @@ Props are read-only and flow downward.
 ### Conditional Rendering
 
 React lets you conditionally render UI easily:
+
 ```jsx
-{isLoggedIn ? <Dashboard /> : <Login />}
+{
+  isLoggedIn ? <Dashboard /> : <Login />;
+}
 ```
 
 Or:
+
 ```jsx
-{items.length === 0 && <p>No items found</p>}
+{
+  items.length === 0 && <p>No items found</p>;
+}
 ```
 
 ---
@@ -240,12 +251,11 @@ Or:
 const fruits = ["Apple", "Banana", "Cherry"];
 
 <ul>
-  {fruits.map(fruit => (
+  {fruits.map((fruit) => (
     <li key={fruit}>{fruit}</li>
   ))}
-</ul>
-
-``` 
+</ul>;
+```
 
 ⚠️ Always include a unique key when rendering lists.
 
@@ -261,34 +271,35 @@ export default function App() {
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
-      .then(res => res.json())
-      .then(data => setUsers(data));
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
   }, []);
 
   return (
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
   );
 }
-
 ```
 
 - useEffect runs after render
 - An empty dependency array ([]) means it runs once on mount
 
---- 
+---
 
 ### Adding Routing with React Router
 
 Install React Router:
+
 ```bash
 npm install react-router-dom
 ```
 
 Basic routing setup:
+
 ```jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -305,12 +316,14 @@ function App() {
 ```
 
 Navigation links:
+
 ```jsx
 import { Link } from "react-router-dom";
 
-<Link to="/login">Login</Link>
+<Link to="/login">Login</Link>;
 ```
---- 
+
+---
 
 ### Styling Your App
 
@@ -338,6 +351,7 @@ h1 {
 ### Building for Production
 
 When you’re ready to deploy:
+
 ```bash
 npm run build
 
@@ -356,4 +370,3 @@ This creates a dist/ folder containing static assets that can be deployed to:
 ### Final Thoughts
 
 React’s strength lies in its simplicity and composability. With modern tools like Vite and hooks, it’s never been easier to build fast, maintainable user interfaces.
-

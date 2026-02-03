@@ -7,21 +7,18 @@ permalink: /projects/python-projects/license-spring-api/
 importance: 2
 category: python
 giscus_comments: true
-tags: ["backend","tools"]
+tags: ["backend", "tools"]
 ---
-
 
 ### Python Collection
 
 - [Site A – Happy Faces ](/projects/python-projects/happyfaces/)
-- [Site B - Flask Sales Generator ](https://github.com/cryshansen/flask-generate-sales) 
+- [Site B - Flask Sales Generator ](https://github.com/cryshansen/flask-generate-sales)
 - [Site B – Scraper](/projects/python-projects/scraper-master/)
 - [Site C – License Spring API] License Spring API
 
-
-
-
 ### Python Repository
+
 - [License Spring API](https://github.com/cryshansen/python/license_spring)
 
 This project generates realistic fake sales data for a photography business using Python and the Faker library. Originally designed as a lightweight API and CSV generator using Flask, it was later ported to a Drupal module for integration into a dynamic sales dashboard.

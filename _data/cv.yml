@@ -38,7 +38,7 @@
   contents:
     - title: Freelance Developer and Founder
       institution: crystalhansenartographic
-      year: 2009 - 
+      year: 2009 -
       description:
         - Development of start-up concepts, a full-stack web portfolio and booking platform using React (Vite, TypeScript), Node.js (Express + Cron) Server backend included, and a PHP API backend for production server. Integrated dynamic image galleries, product listings, and studio scheduling with automated daily data generation and SEO optimization using React Helmet and .htaccess routing
         - Personal Developer concepts
@@ -55,7 +55,7 @@
       description:
         - Developed new functionality and conversions of base php into content types, modules and features
         - Integrations of APIs connecting third party systems.
-        - OAuth, RBA, CL/CI 
+        - OAuth, RBA, CL/CI
 
     - title: IT Risk Manager - Java developer
       institution: Canadian Western Bank, Edmonton, Alberta.
@@ -93,7 +93,7 @@
         - Pillar of Excellence award is offered by CWB as a nomination platform by its employees to acknowledge one another on exceptional performance.
     - year: 2003,2004, 2006, 2007
       items:
-        - Jason Lang Scholarship 
+        - Jason Lang Scholarship
         - Awarded for academic performance
 
 - title: Academic Interests

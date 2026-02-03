@@ -7,17 +7,18 @@ permalink: /projects/python-projects/scraper-master/
 importance: 1
 category: python
 giscus_comments: false
-tags: ["backend","tools"]
+tags: ["backend", "tools"]
 ---
+
 ### Python Collection
 
 - [Site A – Happy Faces ](/projects/python-projects/happyfaces/)
-- [Site B - Flask Sales Generator ](/projects/python-projects/flask-generate-sales) 
+- [Site B - Flask Sales Generator ](/projects/python-projects/flask-generate-sales)
 - [Site C – License Spring API](/projects/python-projects/license-spring-api)
 - [Site D – Scraper] (/projects/python-projects/scraper-master/)
 
-
 ### Python Repository
+
 - [Scraper master](https://github.com/cryshansen/python/tree/main/PythonScrape-master)
 
 This project illustrates the body of code repository for useful snippets and functions of python code blocks from scrapers to ssl, database from past working examples
@@ -49,7 +50,7 @@ The below illustrations comprise of system level folder structures and files res
      On the left, Scraper Bundle Layer - navigates different scrape code files. Middle, Data Level Files. Right, API Integrations code start points.
 </div>
 
-The purpose of such a repo is to generate and follow small tutorials around python as well as a go to to speed your workflow process. However now that AI exists its less necessary to source code. 
+The purpose of such a repo is to generate and follow small tutorials around python as well as a go to to speed your workflow process. However now that AI exists its less necessary to source code.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">

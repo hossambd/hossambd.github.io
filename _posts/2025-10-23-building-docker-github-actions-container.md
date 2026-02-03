@@ -1,24 +1,26 @@
 ---
 layout: post
-title: Building out a Docker Container for Spring Boot MailHog and Database 
+title: Building out a Docker Container for Spring Boot MailHog and Database
 date: 2025-10-23 01:59:00
 description: Every developer needs a container that runs without conflict to isolate bugs in processes.
-tags: [devops, spring-boot, docker , ports ]
-categories: [ devops-posts, github-posts]
+tags: [devops, spring-boot, docker, ports]
+categories: [devops-posts, github-posts]
 mermaid:
   enabled: true
   zoomable: true
 ---
 
-## 🐳 Building out a Docker Container for Spring Boot MailHog and Database 
+## 🐳 Building out a Docker Container for Spring Boot MailHog and Database
 
 ### Introduction
 
-New to DevOps? Need a simple walk through on how to set up a containerized app to run automated testing and deployment. This will get you started quickly. 
+New to DevOps? Need a simple walk through on how to set up a containerized app to run automated testing and deployment. This will get you started quickly.
 This article assumes docker is installed. Please follow DigitalOcean walk through to set up docker.
 
-### Repository Structure 
+### Repository Structure
+
 The repo is intentially small:
+
 ```text
 dockr-mail-db-shell/
 ├── docker-compose.yml
@@ -30,10 +32,13 @@ dockr-mail-db-shell/
 └── README.md
 
 ```
-Each file has a single responsibility. 
+
+Each file has a single responsibility.
 
 ### Docker Flowchart
+
 A clean docker setup looks like this:
+
 ```mermaid
 flowchart LR
     subgraph Docker Network
@@ -58,7 +63,9 @@ flowchart LR
     Browser -->|HTTP 8025| MailHog
 
 ```
+
 ### Explanation:
+
 #### App Container
 
 - Connects to MySQL via JDBC on hostname mysql:3306.
@@ -80,6 +87,7 @@ flowchart LR
 The heart of the setup is docker-compose.yml.
 
 Services Defined
+
 - app
   - Spring Boot application
   - Runs tests on startup
@@ -92,18 +100,18 @@ Services Defined
   - Captures outbound email
   - Provides SMTP + Web UI
 
-
---- 
+---
 
 #### Why Service Names Matter
 
 Inside Docker, containers communicate by service name, not localhost.
 
-Service	| Hostname Used by App
-MySQL	| mysql
-MailHog	| mailhog
+Service | Hostname Used by App
+MySQL | mysql
+MailHog | mailhog
 
 This allows the exact same config to work:
+
 - Locally
 - In GitHub Actions
 - In any CI runner
@@ -115,6 +123,7 @@ This allows the exact same config to work:
 Spring Boot is configured entirely via environment variables.
 
 Database
+
 ```
 spring.datasource.url=jdbc:mysql://mysql:3306/app_db
 spring.datasource.username=${DB_USER}
@@ -133,6 +142,7 @@ spring.mail.properties.mail.smtp.auth=false
 spring.mail.properties.mail.smtp.starttls.enable=false
 
 ```
+
 No mocks.
 No profiles just for CI.
 No special test-only wiring.
@@ -141,20 +151,19 @@ If the app can’t connect, the build fails immediately.
 
 ---
 
-
 ### Why MailHog Is the Secret Weapon
 
 Mail testing is usually skipped in CI because it’s “hard”.
 
 MailHog makes it trivial:
+
 - No credentials
 - No real emails sent
 - App behaves exactly like production
 - Messages are inspectable via HTTP
-You can even add assertions later by hitting:
+  You can even add assertions later by hitting:
 
 http://mailhog:8025/api/v2/messages
-
 
 This lets you test:
 
@@ -164,20 +173,24 @@ Template rendering
 
 All without touching SMTP infrastructure.
 
---- 
+---
 
 ### Environment Variables & Secrets
+
 #### Local Development
 
 Developers copy:
+
 ```
 cp .env.example .env
 ```
 
 Then run:
+
 ```
 docker compose up --build
 ```
+
 #### GitHub Actions
 
 GitHub Actions injects the same values using repository secrets:
@@ -188,7 +201,7 @@ GitHub Actions injects the same values using repository secrets:
 
 The app never knows where the values came from.
 
---- 
+---
 
 ### GitHub Actions Workflow: What Happens on Every Push
 
@@ -215,10 +228,7 @@ This is important:
 
 That guarantees parity.
 
-
 ---
-
-
 
 ### Why This Pattern Scales Across Projects
 
@@ -264,9 +274,9 @@ It creates a boring, repeatable, trustworthy baseline that every Spring Boot app
 
 Once infrastructure stops being a question, you can focus on:
 
- - Features
- - Tests
- - Performance
- - Deployment
+- Features
+- Tests
+- Performance
+- Deployment
 
 And that’s exactly what CI should enable.

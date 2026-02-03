@@ -16,7 +16,6 @@ tags: ["frontend", "drupal", "maps", "backend"]
 - [Site B – Artog.co](/projects/drupal-projects/artog-co/)
 - [Site C – Pinmento.com] pinmento
 
-
 ---
 
 <hr>
@@ -30,10 +29,10 @@ These custom modules are integrations of Google Maps settings and interactions:
 - [Pin Drop Locations ](https://github.com/cryshansen/pin_drop_location)
 - [Chatbot] tbd: named Orbie AI
 
-
 ## Project Image Gallery
-The below screenshots capture some of the modules and components built that visually help relate the modules and features designed and implemented within the site. 
-They represent some areas that are more exclusive the the Pinmento ecosystem. The list and images are non-exhaustive. 
+
+The below screenshots capture some of the modules and components built that visually help relate the modules and features designed and implemented within the site.
+They represent some areas that are more exclusive the the Pinmento ecosystem. The list and images are non-exhaustive.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">

@@ -7,7 +7,7 @@ permalink: /projects/drupal-projects/artog-co/
 importance: 3
 category: drupal
 related_publications: false
-tags: ["fullstack", "Drupal","tools"]
+tags: ["fullstack", "Drupal", "tools"]
 ---
 
 ### Drupal Websites Collection
@@ -36,16 +36,15 @@ These custom modules are reused across multiple projects:
 <br>
 <hr>
 <br>
-Unique to Artog 
+Unique to Artog
 
     -- chatbot integration of photography elements. It is a study of how to integrate new and interesting OpenAI and LLM model implementations.
-    -- User Profile sections from a user interface to track invoices and ticketts to the artog.co site modelled from the Adobe user site and an exploration in sales dashboards, faker library and user image gallery layouts and more. 
-
-
+    -- User Profile sections from a user interface to track invoices and ticketts to the artog.co site modelled from the Adobe user site and an exploration in sales dashboards, faker library and user image gallery layouts and more.
 
 ## Project Image Gallery
-The below screenshots capture some of the modules and components built that visually help relate the modules and features designed and implemented within the site. 
-They represent some areas that are exclusive the the Artog.co ecosystem. The list and images are non-exhaustive. 
+
+The below screenshots capture some of the modules and components built that visually help relate the modules and features designed and implemented within the site.
+They represent some areas that are exclusive the the Artog.co ecosystem. The list and images are non-exhaustive.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -103,4 +102,3 @@ The sales dashboard is a fun little addition to the user_profile_account. This r
 <div class="caption">
     The user dashboard features and configurations to engage in the artog ecosystem platform to get the most out of your experience, with hands on account information, orders and invoices layout.  
 </div>
-

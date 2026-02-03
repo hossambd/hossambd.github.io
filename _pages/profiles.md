@@ -26,5 +26,4 @@ profiles:
       <p>your office number</p>
       <p>250 Rue Gary-Carter</p>
       <p>Montreal, Quebec H2R 0B2</p>
-
 ---

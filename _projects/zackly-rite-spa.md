@@ -7,30 +7,31 @@ permalink: /projects/zackly-rite-spa/
 importance: 3
 category: work
 related_publications: false
-tags: ["frontend","react","backend", "PHP", "API"]
+tags: ["frontend", "react", "backend", "PHP", "API"]
 ---
-
 
 ### General Websites Collection
 
 ##### Angular Sites
+
 - [Site A – studio-booker](/projects/studio-booker/)
 - [Site B – flashcards](/projects/flashcards/)
 
 ##### Wordpress site
+
 - [Site C – crystalhansenartographic.ca](/projects/wp-artographic/)
 
 #### React SPA
+
 - [Site D - zackly-rite-spa] (/projects/zackly-rite-spa/)
 - [Site E – chartcom](/projects/chartcom/)
 
 ---
 
-
 ### Introduction
 
 Github Repo: (https://github.com/cryshansen/zackly-rite-spa/)
-This is a React-based single-page application (SPA) designed to allow users to book massage therapy appointments with Zackly-Rite. The app provides a calendar interface to select dates, displays real-time available time slots from the PHP-API repo as a backend, and includes a secure booking form with validation. As this site is rather simplistic, SPA is the best approach. 
+This is a React-based single-page application (SPA) designed to allow users to book massage therapy appointments with Zackly-Rite. The app provides a calendar interface to select dates, displays real-time available time slots from the PHP-API repo as a backend, and includes a secure booking form with validation. As this site is rather simplistic, SPA is the best approach.
 
 The front end utilizes clean Bootstrap styling while the back end is powered by a structured custom PHP API, which integrates with a Java-based Bookit system for seamless cross-platform coordination.
 
@@ -38,7 +39,7 @@ The booking system uses GET methods for simplicity, alongside front-end and back
 
 Additional tools include PHPMailer for transactional email handling and google-api-php-client for managing calendar synchronization. The system emphasizes clarity, reliability, and modularity—ideal for solo practitioners or small teams seeking a lightweight, custom booking solution. Please visit https://zackly-rite.ca
 
-Alternatively the system can be hooked up to the bookit java spring boot depending on the preference of deployment stack. AWS facilitates an spring backend/front end but requires DevOps experience. 
+Alternatively the system can be hooked up to the bookit java spring boot depending on the preference of deployment stack. AWS facilitates an spring backend/front end but requires DevOps experience.
 
 ---
 
@@ -59,9 +60,11 @@ Alternatively the system can be hooked up to the bookit java spring boot dependi
 - ⚙️ **Environment Config**: API URLs are set through `.env` for flexibility
 
 ---
+
 ## Project Image Gallery
-The below screenshots capture some of the modules and components built that visually help relate the modules and features designed and implemented within the site. 
-They represent some areas that are exclusive the the Artog.co ecosystem. The list and images are non-exhaustive. 
+
+The below screenshots capture some of the modules and components built that visually help relate the modules and features designed and implemented within the site.
+They represent some areas that are exclusive the the Artog.co ecosystem. The list and images are non-exhaustive.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -79,7 +82,8 @@ They represent some areas that are exclusive the the Artog.co ecosystem. The lis
   On the left we have the header and logo of the site, Middle image is the calendar display with first days available via greyout, todays date hightligted, Right image we have the day availability screen 
 </div>
 
-This site is a one page website that encompasess a booking interface for the bookit java spring boot implementation. 
+This site is a one page website that encompasess a booking interface for the bookit java spring boot implementation.
+
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
         {% include figure.liquid path="assets/img/zackly-rite/booking-details.png" title="Booking Details" class="img-fluid rounded z-depth-1" %}
@@ -122,3 +126,4 @@ This site is a one page website that encompasess a booking interface for the boo
 ```bash
 git clone https://github.com/cryshansenn/zackly-rite-spa.git
 cd zackly-rite-spa
+```

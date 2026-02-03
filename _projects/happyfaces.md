@@ -1,30 +1,29 @@
 ---
 layout: page
-title: Python HappyFaces 
+title: Python HappyFaces
 description: A local run/flask integration of the distilbert pretrained positive negative classification.
 img: assets/img/python/david-clode-oJlt2XBWuWs-unsplash.jpg
 permalink: /projects/python-projects/happyfaces/
 importance: 3
 category: python
 giscus_comments: false
-tags: ["Python","Flask"]
+tags: ["Python", "Flask"]
 ---
 
 ### Python Collection
 
 - [Site A – Happy Faces ] (/projects/python-projects/happyfaces/)
-- [Site B - Flask Sales Generator ](/projects/python-projects/flask-generate-sales) 
+- [Site B - Flask Sales Generator ](/projects/python-projects/flask-generate-sales)
 - [Site C – License Spring API](/projects/python-projects/license-spring-api)
 - [Site D – Scraper](/projects/python-projects/scraper-master/)
 
-
 ### Python Repository
+
 - [Happy Faces API](https://github.com/cryshansen/happyfaces)
 
-Exploration of the Python stack api application development in combination and to enhance happy2be api model with the Bert Sentiment distributed model using happyfaces ***huggingface/hub/models--distilbert-base-uncased-finetuned-sst-2-english***. While the happy2be model does not have the proper distilbert this app utilizes this feature. It is intended to be deployed in an AWS EC2 instance for access. 
+Exploration of the Python stack api application development in combination and to enhance happy2be api model with the Bert Sentiment distributed model using happyfaces **_huggingface/hub/models--distilbert-base-uncased-finetuned-sst-2-english_**. While the happy2be model does not have the proper distilbert this app utilizes this feature. It is intended to be deployed in an AWS EC2 instance for access.
 
-This repo explores the use of two different application packages for working with python apis. One file represents the ***FastAPI*** and the second uses ***Flask*** for the app build of for deployement to aws. This package is the python subset of the happy2be where it is intended to be called and information performed and sentiment sent in the back end to support the prompt / sentiment matching. of the happy2be.
-
+This repo explores the use of two different application packages for working with python apis. One file represents the **_FastAPI_** and the second uses **_Flask_** for the app build of for deployement to aws. This package is the python subset of the happy2be where it is intended to be called and information performed and sentiment sent in the back end to support the prompt / sentiment matching. of the happy2be.
 
 ✅ Here's what this project is doing:
 🧠 Function. Loads a sentiment classification model from Hugging Face (distilbert-base-uncased-finetuned-sst-2-english)
@@ -78,10 +77,6 @@ It runs continuously as a web service using FastAPI (e.g., via uvicorn or hyperc
     </div>
 </div>
 
-
-
-
-
 <div class="row my-5">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/happyfaces/user-flow.png" title="User Flow" class="img-fluid rounded z-depth-1" %}
@@ -104,7 +99,6 @@ It runs continuously as a web service using FastAPI (e.g., via uvicorn or hyperc
 <div class="caption">
     This image can also have a caption. It's like magic.
 </div>
-
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
@@ -141,16 +135,15 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001)
 
 ```
+
 {% endraw %}
 
 📝 Notes / Suggestions
 ✅ FastAPI vs Flask: You’re testing two server frameworks for the same model. You can unify into one later.
-✅ Model portability: Good idea with ***support/convertModel.py*** to find and optionally move model files.
+✅ Model portability: Good idea with **_support/convertModel.py_** to find and optionally move model files.
 ✅ Tokenizer and model loading are correctly structured in both web apps.
 ✅ Ideal next step: Add test cases + Dockerize for portability if deploying to the AWS Instance environment.
 
+Visit the python repo for more details:
 
-
-
-Visit the python repo for more details: 
 - [Happy Faces API](https://github.com/cryshansen/happyfaces)

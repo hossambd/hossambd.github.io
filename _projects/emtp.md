@@ -7,7 +7,7 @@ permalink: /projects/drupal-projects/emtp/
 importance: 2
 category: drupal
 related_publications: false
-tags: ["frontend","backend","fullstack","Drupal","PHP", "Mysql"]
+tags: ["frontend", "backend", "fullstack", "Drupal", "PHP", "Mysql"]
 ---
 
 ### Drupal Websites Collection
@@ -30,17 +30,15 @@ These custom modules are reused across multiple projects as a base for customize
 - [Conference Leads Module](https://github.com/cryshansen/conference_leads)
 - [User Profile Account ](https://github.com/cryshansen/user_profile_account)
 
-
 ## Customized Modules
 
 These modules are custom to EMTP with the removal of sensitive or private substance that may be discretionary.
 
-- emtp_migration -- migration of an external database of content, requires content types, setting up image and file fields to import correctly. It utilized the Migrate Module dependance built in to Drupal.  The code base ran against multiple tables in a secondary database to create the content types and its files storage to improve upon SEO.
+- emtp_migration -- migration of an external database of content, requires content types, setting up image and file fields to import correctly. It utilized the Migrate Module dependance built in to Drupal. The code base ran against multiple tables in a secondary database to create the content types and its files storage to improve upon SEO.
 - emtp_forms -- specialized forms specific to the EMTP Sales engagements. includes a data flow to Hubspot for handling workflows within sales / deals containers. see [Email Subscriber Module](https://github.com/cryshansen/email_subscriber) for a basic configuration page similar to this customized module.
 - emtp_api -- connects user and hubspot for account creations. Uses the built in HTTP Basic Authentication and RESTful Web Services to process User functionality.
-- emtp_email_subscriber -- uses email subscriber to extend into a customized module functionality. Includes a brevo api connection push to hubspot via a brevo workflow. See - [Email Subscriber Module](https://github.com/cryshansen/email_subscriber). The emtp site required emails to both internal sales and external to client to respond with an appropriate message and therefore these elements are also included in the configuration of emtp forms. 
+- emtp_email_subscriber -- uses email subscriber to extend into a customized module functionality. Includes a brevo api connection push to hubspot via a brevo workflow. See - [Email Subscriber Module](https://github.com/cryshansen/email_subscriber). The emtp site required emails to both internal sales and external to client to respond with an appropriate message and therefore these elements are also included in the configuration of emtp forms.
 - devices_read_folder -- this modules reads the content of the devices folder which correlates to the software devices components and their documentation. The need is to upload changing files dependent on the new software release that can be found or used by sales when supporting the software.
-
 
 ### Web Developer Role:
 
@@ -58,19 +56,18 @@ The emtp.com website I was the sole developer and manager of the web integration
 
 #### Customize the Webform remote_post_handler
 
-The code is simple. The Webform module to send data through to an api create a form then navigate to the handlers section choose "Remote Post" to create a new handler with uri / method and json payload tokens : 
+The code is simple. The Webform module to send data through to an api create a form then navigate to the handlers section choose "Remote Post" to create a new handler with uri / method and json payload tokens :
 
 {% raw %}
-```json
 
+```json
 {
   "name": "[webform_submission:values:name]",
   "email": "[webform_submission:values:email]",
   "message": "[webform_submission:values:message]"
 }
-
-
 ```
+
 {% endraw %}
 
 {% raw %}
@@ -95,27 +92,16 @@ use Drupal\webform\WebformSubmissionInterface;
 class ApiPostHandler extends WebformHandlerBase {
 
   public function submitForm(array &$form, FormStateInterface $form_state, WebformSubmissionInterface $webform_submission) {
-    $data = $webform_submission->getData();
-
-    $client = \Drupal::httpClient();
-    $response = $client->post('https://your.api/endpoint', [
-      'json' => $data,
-      'headers' => [
-        'Authorization' => 'Bearer YOUR_TOKEN',
-      ],
-    ]);
-
-    // Optionally check response, log, etc.
-  }
-}
-
+    $data = $webform_submission->getData(); $client = \Drupal::httpClient(); $response = $client->post('https://your.api/endpoint', [ 'json' => $data,
+'headers' => [ 'Authorization' => 'Bearer YOUR_TOKEN', ], ]); // Optionally check response, log, etc. } }
 ```
 
 {% endraw %}
 
 ## Project Image Gallery
-The below screenshots capture some of the modules and components built that visually help relate the modules and features designed and implemented within the site. Customized modules are not accessible to the general public however generalized modules are extended from the general repositories online. 
-They represent some areas that are more exclusive the EMTP & web ecosystem. The list and images are non-exhaustive. 
+
+The below screenshots capture some of the modules and components built that visually help relate the modules and features designed and implemented within the site. Customized modules are not accessible to the general public however generalized modules are extended from the general repositories online.
+They represent some areas that are more exclusive the EMTP & web ecosystem. The list and images are non-exhaustive.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -140,9 +126,7 @@ They represent some areas that are more exclusive the EMTP & web ecosystem. The 
     The above image is associated with a role based page configuration coupled with different code based on user access. This page module is a admin back end configuration page that appends the html to the the given authentication. Completely configurable. Once the user has the correct privileges, they can download the software using a derivative of the custom_download 
 </div>
 
-
 The below images are related to two form modules. One specific to emtp called `emtp_forms` what displays One Hour Call page block forms and the `webform module` example.
-
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">

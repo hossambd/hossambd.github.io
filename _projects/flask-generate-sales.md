@@ -7,24 +7,21 @@ permalink: /projects/python-projects/flask-generate-sales/
 importance: 2
 category: python
 giscus_comments: true
-tags: ["backend","tools"]
+tags: ["backend", "tools"]
 ---
-
 
 ### Python Collection
 
 - [Site A – Happy Faces ](/projects/python-projects/happyfaces/)
-- [Site B - Flask Sales Generator ] flask-generate-sales 
+- [Site B - Flask Sales Generator ] flask-generate-sales
 - [Site C – License Spring API](/projects/python-projects/license-spring-api)
 - [Site D – Scraper](/projects/python-projects/scraper-master/)
 
-
-
 ### Python Repository
+
 - [License Spring API](https://github.com/cryshansen/flask-generate-sales)
 
 This project generates realistic fake sales data for a photography business using Python and the Faker library. Originally designed as a lightweight API and CSV generator using Flask, it was later ported to a Drupal module for integration into a dynamic sales dashboard.
-
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -36,7 +33,6 @@ This project generates realistic fake sales data for a photography business usin
 </div>
 
 To create believable and varied weekly photography sales data, supporting analytics dashboards, portfolio projects, and visualizations without relying on sensitive or real client data.
-
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">

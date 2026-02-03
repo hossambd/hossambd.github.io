@@ -3,8 +3,8 @@ layout: post
 title: Using GitHub Like a Professional Branches, Tags, and Reintegrating Work into Main
 description: How to structure a GitHub repo for a blog series while following real-world, business-grade workflows.
 date: 2026-01-02
-tags: [ devops, git, github, workflow, best-practices, careers, actions ] 
-categories: [ github-posts, devops-posts ]
+tags: [devops, git, github, workflow, best-practices, careers, actions]
+categories: [github-posts, devops-posts]
 giscus_comments: false
 related_posts: true
 related_publications: false
@@ -13,15 +13,14 @@ mermaid:
   enabled: true
   zoomable: true
 code_diff: true
-
 ---
-
 
 ## Why This Matters
 
 When you write a blog series that builds a feature step by step, it’s easy to accidentally treat GitHub like a folder of examples instead of what it really is: **a system for managing change over time**.
 
 In professional environments, Git is not just about saving code — it’s about:
+
 - isolating work
 - reviewing changes
 - validating quality
@@ -29,6 +28,7 @@ In professional environments, Git is not just about saving code — it’s about
 - shipping reliable software
 
 This post explains how to structure a **single GitHub repository** so that:
+
 - each blog post maps to a clear point in history
 - the final version is fully tested and production-ready
 - the workflow mirrors what teams expect in real companies
@@ -51,9 +51,11 @@ Everything else builds on that idea.
 A **branch** represents code that is still evolving.
 
 When you create a branch, you are saying:
+
 > “I am actively working on this idea.”
 
 Branches:
+
 - move forward as you commit
 - can be merged into other branches
 - are temporary by nature
@@ -75,6 +77,7 @@ In a blog series, branches are ideal because each article usually builds on the 
 A tag is very different.
 
 A tag:
+
 - points to one exact commit
 - never changes
 - cannot be merged
@@ -85,14 +88,15 @@ Creating a tag says:
 “This is exactly what the code looked like at this moment.”
 
 Examples:
+
 ```text
 post-01-basic-login
 post-02-password-rules
 v1.0.0
 ```
 
-
 Tags are what businesses use for:
+
 - releases
 - audits
 - rollbacks
@@ -103,6 +107,7 @@ Tags are what businesses use for:
 #### How Businesses Actually Structure Work
 
 Most teams follow a variation of this structure:
+
 ```text
     main        → always production-ready
     feature/*   → active development
@@ -124,6 +129,7 @@ Instead:
 Let’s walk through the real workflow.
 
 ##### Step 1: Create a Branch from Main
+
 ```bash
 git checkout main
 git pull
@@ -167,6 +173,7 @@ Squash Merge (Most Common Choice)
 
 A squash merge takes all commits on a branch and combines them into one clean commit on main.
 Before merge:
+
 ```text
 feature/password-strength
 ├─ commit A
@@ -175,6 +182,7 @@ feature/password-strength
 ```
 
 After squash merge:
+
 ```text
 main
 └─ Add password strength meter
@@ -212,7 +220,7 @@ Used when:
 #### The Recommendation
 
 For blog series and most frontend features:
-    Use squash merge.
+Use squash merge.
 It’s what most modern companies expect.
 
 ---
@@ -221,7 +229,6 @@ It’s what most modern companies expect.
 
 Tags are added after code is merged into main.
 **This is critical.**
-
 
 Correct order:
 
@@ -235,6 +242,7 @@ git tag post-03-password-strength
 git push origin post-03-password-strength
 
 ```
+
 This ensures:
 
 - the tag represents production-quality code
@@ -269,6 +277,7 @@ gitGraph
 ```
 
 Each blog post:
+
 - starts as a branch
 - merges into main
 - is preserved forever as a tag
@@ -279,10 +288,8 @@ Each blog post:
 
 In your articles, you can link to tags, not branches:
 
-```text
 Code snapshot for this post:
 `post-03-password-strength`
-``
 
 Later readers always see:
 
@@ -300,7 +307,6 @@ Because all work merges into main, this is where your strictest testing belongs.
 A common setup:
 
 - blog branches: build + lint
-
 - main branch: build + lint + full test suite
 
 This mirrors real production pipelines and reinforces quality.
@@ -317,7 +323,7 @@ When someone reviews your GitHub repo, they’ll see:
 - CI-enforced quality
 - intentional history
 
-This proves out how to properly ship software. 
+This proves out how to properly ship software.
 
 ---
 
@@ -329,14 +335,17 @@ If you remember nothing else, remember this:
 - Tags help you teach.
 - Main is what you ship.
 
+Your Cheat Sheet of command cycle.
 
 ```bash
 
 git checkout main
 git pull
-git checkout -b post/01-something 
+git checkout -b post/01-something
 # build code
 git commit -m "Post 01: Something"
+git add .
+git status -- confirm all are commited
 git push -u origin post/01-something
 
 Ready to merge

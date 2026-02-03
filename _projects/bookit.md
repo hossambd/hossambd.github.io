@@ -1,15 +1,13 @@
 ---
 layout: page
 title: Bookit
-description: A simple booking system API with Java Spring Boot AWS cloud environment EC2 and RDS 
+description: A simple booking system API with Java Spring Boot AWS cloud environment EC2 and RDS
 img: assets/img/12.jpg
 permalink: /projects/java-projects/bookit/
 importance: 3
 category: java
-tags: ["fullstack", "backend", "java", "microservice", "springboot","maven","RDS","AWS"]
-
+tags: ["fullstack", "backend", "java", "microservice", "springboot", "maven", "RDS", "AWS"]
 ---
-
 
 ### Java Spring Boot Collection
 
@@ -19,10 +17,9 @@ tags: ["fullstack", "backend", "java", "microservice", "springboot","maven","RDS
 - [calendar](/projects/java-projects/calendar/)
 - [lazy-image-loader](/projects/java-projects/lazy-image-loader/)
 
-
 This project is the inspiration for future projects intended to grow in the booking ecosystem. This particular project focuses only on backend and a vanilla style html / javascript page to make building quicker and faster as version 1 evolves into React and Angular integrated packages.
 
-Visit the repo and kick start your project! 
+Visit the repo and kick start your project!
 
 - [Bookit Repository](https://github.com/cryshansen/bookit)
 
@@ -52,7 +49,6 @@ Visit the repo and kick start your project!
      Appointment day sequence diagram. Identifies the flow of the appointment calender display and its flow through the architecture of the application.
 </div>
 
-
 You can also put regular text between your rows of images.
 Say you wanted to write a little bit about your project before you posted the rest of the images.
 You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
@@ -76,9 +72,6 @@ You describe how you toiled, sweated, _bled_ for your project, and then... you r
         {% include  figure.liquid path="assets/img/bookit/mind-map.png" title="Bookit Mind Map" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-
-
-
 
 {% raw %}
 

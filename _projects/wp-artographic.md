@@ -1,59 +1,55 @@
 ---
 layout: page
 title: Artographic Wordpress Agency Project
-description: Wordpress driven website of crystalhansenartographic.ca as an agency for web development incorporating polling and brevo connections. 
+description: Wordpress driven website of crystalhansenartographic.ca as an agency for web development incorporating polling and brevo connections.
 img: assets/img/9.jpg
 permalink: /projects/wp-artographic/
 importance: 2
 category: work
 related_publications: false
-tags: ["frontend","backend","fullstack"]
+tags: ["frontend", "backend", "fullstack"]
 ---
-
-
 
 ### General Websites Collection
 
 ##### Angular Sites
+
 - [Site A – studio-booker](/projects/studio-booker/)
 - [Site B – flashcards](/projects/flashcards/)
 
 ##### Wordpress site
+
 - [Site C – crystalhansenartographic.ca] (/projects/wp-artographic/)
 
 #### React SPA
+
 - [Site D - zackly-rite-spa](/projects/zackly-rite-spa/)
 - [Site E – chartcom](/projects/chartcom/)
 
 ---
-
 
 I developed a WordPress-based test site to explore the capabilities of the Inspiro theme and its integration with Brevo (formerly Sendinblue) for email marketing automation. The project focuses on evaluating user experience design, theme customization, and plugin compatibility. Key plugins used include GoSMTP for secure email delivery, WPZOOM Forms for form creation and submissions, and Poll Maker alongside Poll for interactive user feedback. This setup provides a lightweight and modular environment to test workflows, design patterns, and marketing integrations in a real-world context. Visit: https://crystalhansenartographic.ca and brows around take a poll. https://crystalhansenartographic.ca/creative-strategy/#ays-poll-container-2
 
 <br>
 <hr>
 <br>
-Unique to crystalhansenartographic.ca 
+Unique to crystalhansenartographic.ca
 
     -- uses polling frameworks to questionaires about how people think about art, right brain and left brain thinking.
     -- Connections to brevo contacts on email signups using wordpress plugins style of development.
 
-Some of the Plugins: 
+Some of the Plugins:
 
--- Poll 2.4.9		
+-- Poll 2.4.9
 -- Poll Maker 5.8.5
--- WPForms Lite 1.9.6	
+-- WPForms Lite 1.9.6
 -- WPZOOM Forms 1.2.10
--- WPZOOM Instagram Widget  
-
-
-
-
-
+-- WPZOOM Instagram Widget
 
 ## Project Image Gallery
-The below screenshots capture some of the content and components built that visually help relate the plugins and features designed and implemented within the site. 
-They represent some areas that are exclusive the the crystalhansenartographic.ca ecosystem. The list and images are non-exhaustive. 
+
+The below screenshots capture some of the content and components built that visually help relate the plugins and features designed and implemented within the site.
+They represent some areas that are exclusive the the crystalhansenartographic.ca ecosystem. The list and images are non-exhaustive.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -70,8 +66,7 @@ They represent some areas that are exclusive the the crystalhansenartographic.ca
     
 </div>
 
-Most interesting development is with the polling of questions pertaining to art, right and left brain thinking 
-
+Most interesting development is with the polling of questions pertaining to art, right and left brain thinking
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
