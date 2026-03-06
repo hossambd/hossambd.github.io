@@ -1,0 +1,18 @@
+# Social links for Hossam Boudraa
+# Displayed in the order defined here.
+
+email: hossam.boudraa@univ-amu.fr
+github_username: hossambd
+linkedin_username: hossam-boudraa
+orcid_id: 0009-0005-3815-4480
+
+# Work / profile link (briefcase icon)
+work_url: https://sesstim.univ-amu.fr/fr/users/hossam-boudraa
+
+# Google Scholar: hidden until you have a confirmed Scholar profile ID.
+# scholar_userid: YOUR_SCHOLAR_ID
+
+custom_social:
+  logo: assets/img/me.svg
+  title: 
+  url: 

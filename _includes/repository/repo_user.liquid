@@ -1,0 +1,53 @@
+{% assign lang = site.lang | split: '-' | first %}
+
+{% case lang %}
+  {% when 'pt' %}
+    {% assign lang = site.lang %}
+
+  {% when 'zh' %}
+    {% assign lang_last = site.lang | split: '-' | last %}
+    {% case lang_last %}
+      {% when 'cn', 'sg', 'my', 'hans' %}
+        {% assign lang = 'cn' %}
+      {% when 'tw', 'hk', 'mo', 'hant' %}
+        {% assign lang = 'zh-tw' %}
+    {% endcase %}
+
+    {% comment %} Add a new language using when... if needed {% endcomment %}
+    {% comment %} If you still encounter language-display issues, check the available locale codes in github-readme-stats (different from ISO-639 standard used in your website) {% endcomment %}
+    {% comment %} https://github.com/anuraghazra/github-readme-stats?tab=readme-ov-file#available-locales {% endcomment %}
+{% endcase %}
+
+<div class="repo p-2 text-center">
+  <a href="https://github.com/{{ include.username }}">
+    <img
+      class="only-light w-100"
+      alt="{{ include.username }}"
+      src="https://github-readme-stats.vercel.app/api/?username={{ include.username }}&theme={{ site.repo_theme_light }}&locale={{ lang }}&show_icons=true"
+    >
+    <img
+      class="only-dark w-100"
+      alt="{{ include.username }}"
+      src="https://github-readme-stats.vercel.app/api/?username={{ include.username }}&theme={{ site.repo_theme_dark }}&locale={{ lang }}&show_icons=true"
+    >
+  </a>
+</div>
+<div class="repo p-2 text-center border border-1 rounded text-start" style="min-height:180px;">
+  <h6 class=" fw-bold">Hossam Boudraa's Language Stats</h6>
+  <a href="https://resume.github.io/?hossambd">
+    <ul class="nav">
+      <li class="nav-item">Java (22%), &nbsp;</li>
+      <li class="nav-item">Objective-C (19%), &nbsp;</li>
+      <li>C# (12%), &nbsp;</li>
+      <br>
+      <li class="nav-item">PHP (21%), &nbsp;</li>
+      <li class="nav-item">JavaScript (7%),&nbsp;</li>
+      <li class="nav-item">JSXML (6%),&nbsp;</li>
+      <li class="nav-item">TypeScript (6%),&nbsp;</li>
+      <li class="nav-item">HTML (7%), &nbsp;</li>
+      <li class="nav-item">CSS (3%),&nbsp;</li>
+      <li class="nav-item">PLpgSQL (3%), &nbsp;</li>
+      <li class="nav-item">Visual Basic, .NET (3%) &nbsp;</li>
+    </ul>
+  </a>
+</div>

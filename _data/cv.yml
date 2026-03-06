@@ -1,0 +1,135 @@
+- title: General Information
+  type: map
+  contents:
+    - name: Full Name
+      value: Hossam Boudraa
+    - name: Email
+      value: hossam.boudraa@univ-amu.fr
+    - name: LinkedIn
+      value: linkedin.com/in/hossam-boudraa
+    - name: ORCID
+      value: 0009-0005-3815-4480
+    - name: Focus
+      value: Multilingual NLP, representation learning, LLMs, information extraction
+    - name: Location
+      value: Marseille, France
+
+- title: Education
+  type: time_table
+  contents:
+    - title: Master's Degree — Data Science and Artificial Intelligence
+      institution: Galilée Institute, Sorbonne Paris Nord University (Paris, France)
+      year: 2021 – 2023
+    - title: Master's Degree — Web Intelligence and Data Science (WISD)
+      institution: Sidi Mohamed Ben Abdellah University (Fez, Morocco)
+      year: 2021 – 2023
+    - title: Bachelor's Degree — Mathematics and Computer Science (SMI)
+      institution: Ibn Zohr University (Agadir, Morocco)
+      year: 2018 – 2021
+    - title: Bachelor's Degree — French Studies
+      institution: Ibn Zohr University (Agadir, Morocco)
+      year: 2018 – 2021
+    - title: Advanced Technician Diploma — Software Development
+      institution: ISTA Agadir (Morocco)
+      year: 2016 – 2018
+    - title: Technician Diploma — Computer Maintenance and Networking
+      institution: ISTA Agadir (Morocco)
+      year: 2014 – 2016
+
+- title: Professional Experience
+  type: time_table
+  contents:
+    - title: Research Engineer
+      institution: SESSTIM, Aix‑Marseille University (Marseille, France)
+      year: Nov 2023 – Present
+      description:
+        - Process data from the French National Health Data System (SNDS) for public health projects.
+        - Build prediction algorithms and recommendation systems using AI techniques.
+        - Analyze online forums to identify user profiles from unstructured data.
+    - title: M2 Internship
+      institution: LIS Laboratory, Aix‑Marseille University (Marseille, France)
+      year: Mar 2023 – Sep 2023
+      description:
+        - Studied information transfer in French conversations.
+        - Evaluated pretrained language models (FlauBERT, CamemBERT).
+        - Generated automatic summaries from conversations.
+    - title: L3 Internship
+      institution: National School of Architecture of Agadir (Agadir, Morocco)
+      year: Jan 2021 – Jun 2021
+      description:
+        - Built a grade management web application (PHP / Laravel).
+    - title: Observation Internship
+      institution: Prefecture of Agadir (Agadir, Morocco)
+      year: Aug 2019 – Sep 2019
+      description:
+        - Built an application for managing rural associations (C#).
+    - title: Final‑Year Internship
+      institution: SoussNet Company (Agadir, Morocco)
+      year: Mar 2018 – May 2018
+      description:
+        - Built a stock management application (C++).
+
+- title: Projects
+  type: time_table
+  contents:
+    - title: EvalLLM2025 — Information Extraction Challenge
+      year: Jun 2025
+      description:
+        - Two model‑centric approaches: (1) generative model leveraging GPT‑4, (2) autoencoder‑based model using BERT.
+    - title: NER Shared Task 2023 — Nested NER in Arabic
+      year: Jul 2023
+      description:
+        - Built an Arabic NER system using MARBERT and AraBERT on the WOJOOD dataset.
+    - title: SemEval 2023 — Multilingual Tweet Hostility Analysis
+      year: Jan 2023
+      description:
+        - Built a multilingual model to predict hostility in tweets; evaluated with Pearson’s r.
+    - title: iSarcasmEval — Sarcasm Detection in Arabic
+      year: Dec 2022
+      description:
+        - Fine‑tuned MARBERT with focal loss for intentional sarcasm detection.
+
+- title: Skills
+  type: list
+  contents:
+    - Python, R, SQL, C++, JavaScript, Bash
+    - PyTorch, TensorFlow, HuggingFace Transformers, spaCy, NLTK, OpenCV
+    - Transformers (BERT, RoBERTa), encoder‑decoder, Seq2Seq, attention mechanisms
+    - Representation learning, zero‑shot/few‑shot learning, prompt tuning, transfer learning
+    - Flask, FastAPI, Streamlit, Django, REST APIs, Linux scripting
+    - Docker, Git, Linux
+    - MongoDB, MySQL, PostgreSQL, SQLite
+
+- title: Teaching
+  type: time_table
+  contents:
+    - title: Teaching Fellow (part‑time) — Advanced Databases
+      institution: Aix‑Marseille University
+      year: Sep 2025 – Dec 2025
+    - title: Teaching Fellow (part‑time) — Post‑Relational Databases
+      institution: Aix‑Marseille University
+      year: Sep 2024 – Dec 2024
+    - title: Teaching Fellow (part‑time) — Relational Database Systems
+      institution: Polytech Marseille
+      year: Sep 2024 – Dec 2024
+
+- title: Languages
+  type: map
+  contents:
+    - name: French
+      value: Fluent
+    - name: English
+      value: Professional proficiency
+    - name: Spanish
+      value: Conversational
+    - name: German
+      value: Basics
+
+- title: Certifications
+  type: list
+  contents:
+    - Deep Learning Specialization (Coursera)
+    - Advanced SQL (HackerRank)
+    - Data Engineering (IBM)
+    - Retrieval‑Augmented Generation with Embeddings & Vectors (Coursera)
+
