@@ -8,5 +8,6 @@ category: research
 ---
 
 A set of **model-centric** approaches for information extraction tasks, combining:
+
 - a **generative** strategy (prompting / structured generation)
 - an **encoder-based** strategy (BERT-style representations)

@@ -1,5 +1,5 @@
 <div class="news">
-  {% assign news_docs = nil %}
+  {% assign news_docs = null %}
 
   {% if site.collections and site.collections.news %}
     {% assign news_docs = site.collections.news.docs %}
@@ -9,7 +9,7 @@
 
   {% if news_docs and news_docs != empty %}
     {% assign news_size = news_docs | size %}
-    {% assign news = news_docs | sort: "date" | reverse %}
+    {% assign news = news_docs | sort: 'date' | reverse %}
 
     <div
       class="table-responsive"
@@ -28,8 +28,9 @@
           <tr>
             <th scope="row" style="width: 20%">{{ item.date | date: '%b %d, %Y' }}</th>
             <td>
-              {% if item.title and item.title != "" and item.title != ":" %}
-                <strong>{{ item.title }}</strong>{% if item.content %} — {% endif %}
+              {% if item.title and item.title != '' and item.title != ':' %}
+                <strong>{{ item.title }}</strong>
+                {%- if item.content %} — {% endif %}
               {% endif %}
               {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
             </td>
