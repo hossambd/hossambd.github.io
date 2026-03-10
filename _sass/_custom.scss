@@ -1,0 +1,162 @@
+// ── About page ────────────────────────────────────────────────────────────────
+
+.post-header {
+  display: none; // title handled inside content
+}
+
+// Profile card (photo + meta)
+.profile {
+  max-width: 220px;
+  margin-left: 2rem;
+  margin-bottom: 1.5rem;
+
+  img {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .more-info {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--global-text-color-light);
+
+    strong {
+      font-size: 0.95rem;
+      color: var(--global-text-color);
+    }
+  }
+}
+
+// Hero / intro block
+.about-hero {
+  margin-bottom: 1.5rem;
+
+  .about-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--global-theme-color);
+    margin-bottom: 0.4rem;
+  }
+
+  h1.about-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--global-text-color);
+  }
+
+  .about-lead {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--global-text-color);
+    margin-bottom: 0.75rem;
+  }
+
+  .about-sub {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--global-text-color-light);
+  }
+}
+
+// Focus cards row
+.focus-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+
+  .focus-card {
+    background: var(--global-card-bg-color, rgba(128, 128, 128, 0.07));
+    border: 1px solid var(--global-divider-color);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+
+    h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--global-theme-color);
+      margin-bottom: 0.35rem;
+    }
+
+    p {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--global-text-color-light);
+      margin: 0;
+    }
+  }
+}
+
+// Research interest tags
+.interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.75rem 0 1.5rem;
+
+  span {
+    display: inline-block;
+    padding: 0.28rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: var(--global-theme-color);
+    color: #fff;
+    opacity: 0.88;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Section headings on about page
+.post article h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--global-theme-color);
+  display: inline-block;
+}
+
+// Social icons strip
+.social {
+  margin-top: 1.5rem;
+
+  .contact-icons {
+    font-size: 1.5rem;
+
+    a {
+      margin-right: 0.6rem;
+      color: var(--global-text-color-light);
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--global-theme-color);
+      }
+    }
+  }
+}
+
+// Responsive: stack on mobile
+@media (max-width: 576px) {
+  .profile {
+    float: none !important;
+    margin: 0 auto 1.5rem;
+    max-width: 160px;
+  }
+
+  .focus-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}

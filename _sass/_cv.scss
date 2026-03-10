@@ -1,6 +1,12 @@
 /*****************************
  * CV shared styles
  *****************************/
+.cv-entry .entry-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
 div.container-link-button {
   margin-right: 0.5rem;
@@ -81,7 +87,9 @@ div.container-links {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
-
+.period {
+  margin-right: 14px;
+}
 /*****************************
  * CV MAP styles
  *****************************/

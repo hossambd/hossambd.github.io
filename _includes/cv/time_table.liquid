@@ -1,22 +1,26 @@
 <ul class="card-text font-weight-light list-group list-group-flush">
   {% for content in entry.contents %}
     <li class="list-group-item">
-      <div class="row">
+      <div class="row align-items-start">
         {% if content.year %}
-          <div class="col-xs-2 cl-sm-2 col-md-2 text-center" style="width: 75px">
+          <div class="col-auto text-center pr-md-4 mb-2 mb-md-0" style="min-width: 100px;">
             <table class="table-cv">
               <tbody>
                 <tr>
                   <td>
-                    <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px">
+                    <span
+                      class="badge font-weight-bold danger-color-dark text-uppercase align-middle"
+                      style="min-width: 80px; white-space: nowrap;"
+                    >
                       {{- content.year -}}
                     </span>
                   </td>
                 </tr>
+
                 {% if content.location %}
                   <tr>
                     <td>
-                      <p class="location">
+                      <p class="location mb-0 mt-2">
                         <i class="fa-solid fa-location-dot iconlocation"></i>
                         {{ content.location }}
                       </p>
@@ -27,24 +31,29 @@
             </table>
           </div>
         {% endif %}
-        <div class="col-xs-10 cl-sm-10 col-md-10 mt-2 mt-md-0">
+
+        <div class="col mt-1 mt-md-0">
           {% if content.title %}
-            <h6 class="title font-weight-bold ml-1 ml-md-4">{{ content.title }}</h6>
+            <h6 class="title font-weight-bold mb-2" style="margin-left: 0.5rem;">
+              {{ content.title }}
+            </h6>
           {% endif %}
+
           {% if content.department or content.institution %}
-            <table class="table-cv ml-1 ml-md-4 institution">
+            <table class="table-cv institution" style="margin-left: 0.5rem;">
               <tbody>
                 {% if content.institution %}
                   <tr>
-                    <td style="vertical-align: top; text-align: center" class="institution">
+                    <td style="vertical-align: top; text-align: center" class="institution pr-2">
                       <i class="fa-solid fa-building-columns iconinstitution"></i>
                     </td>
                     <td class="institution">{{ content.institution }}</td>
                   </tr>
                 {% endif %}
+
                 {% if content.department %}
                   <tr>
-                    <td style="vertical-align: top; text-align: center" class="department">
+                    <td style="vertical-align: top; text-align: center" class="department pr-2">
                       <i class="fa-regular fa-circle-dot icondepartment"></i>
                     </td>
                     <td class="department">{{ content.department }}</td>
@@ -53,9 +62,11 @@
               </tbody>
             </table>
           {% endif %}
+
           {% if content.maindescription %}
-            <div class="ml-1 ml-md-4">{{ content.maindescription }}</div>
+            <div style="margin-left: 0.5rem;">{{ content.maindescription }}</div>
           {% endif %}
+
           {% if content.description %}
             <ul class="items">
               {% for item in content.description %}
@@ -76,6 +87,7 @@
               {% endfor %}
             </ul>
           {% endif %}
+
           {% if content.items %}
             <ul class="items">
               {% for item in content.items %}
@@ -96,8 +108,9 @@
               {% endfor %}
             </ul>
           {% endif %}
+
           {% if content.linkitems %}
-            <div class="container-links ml-1 ml-md-4">
+            <div class="container-links" style="margin-left: 0.5rem;">
               {% for item in content.linkitems %}
                 {% if item.link %}
                   <div class="container-link-button">

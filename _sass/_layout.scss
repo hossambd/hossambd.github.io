@@ -39,7 +39,81 @@ body.sticky-bottom-footer {
 }
 
 // TODO: redefine content layout.
+.home-hero {
+  margin-top: 1rem;
+}
 
+.hero-eyebrow {
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+}
+
+.hero-lead {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+
+.hero-text {
+  line-height: 1.8;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.hero-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.hero-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.hero-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.hero-card p {
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
+.profile-meta {
+  margin-top: 0.75rem;
+  line-height: 1.6;
+}
+
+.interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.interest-tags span {
+  display: inline-block;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .hero-cards {
+    grid-template-columns: 1fr;
+  }
+}
 /******************************************************************************
  * Publications
  ******************************************************************************/

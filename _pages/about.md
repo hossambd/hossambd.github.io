@@ -2,58 +2,62 @@
 layout: about
 title: About
 permalink: /
-subtitle: >
-  Multilingual NLP researcher-engineer — representation learning & LLMs
-  for information extraction (social + biomedical text).
-
+subtitle:
 profile:
   align: right
   image: me.JPG
-  image_circular: true
-  more_info: >
-    <p><strong>Hossam Boudraa</strong></p>
-    <p>Research Engineer</p>
-    <p>Tampere, Finland</p>
-
+  image_circular: false
+  more_info: |
+    <div class="profile-meta">
+      <strong>At WOAH, as part of ACL 2025  </strong><br>
+      Vienna, Austria</div>
 selected_papers: true
 social: true
-
 announcements:
   enabled: true
   scrollable: true
   limit: 5
-
 latest_posts:
   enabled: false
 nav: false
-#nav_order: 1
 ---
 
-I work on **multilingual NLP** and **information extraction**, with an emphasis on
-**representation learning** and **large language models** applied to social and biomedical text.
-My work spans both fundamental model-centric research (prompting, few-shot/zero-shot methods,
-evaluation) and applied NLP tasks including harmful content detection, clinical text mining,
-and conversational understanding.
+<div class="about-hero"> 
+  <p class="about-eyebrow"></p>
 
-### Research interests
+  <p class="about-lead">
+    I am a researcher in <strong>multilingual natural language processing</strong> and
+    <strong>information extraction</strong>, interested in how language technologies can
+    better model, represent, and understand complex text across domains and languages.
+    My work focuses particularly on representation learning and large language models,
+    with applications to socially grounded and biomedical language data.
+  </p>
 
-- Information extraction (sequence labeling, span detection, structured prediction)
-- Model-centric methods (prompting, few-shot/zero-shot learning, evaluation)
-- Social NLP & harmful content detection (hate speech, implicit targets, offensive language)
-- Biomedical / clinical text mining
-- Conversational NLP & common-ground modeling
+  <p class="about-sub">
+    More broadly, I study how modern NLP systems can be adapted, evaluated, and deployed
+    for challenging real-world tasks. This includes developing methods for low-resource
+    and cross-domain settings, improving robustness through prompting and efficient
+    learning paradigms, and designing models for structured prediction and text understanding.
+    I am especially interested in problems at the intersection of language, knowledge,
+    and society, including harmful content analysis, clinical and biomedical text mining,
+    and conversational language understanding.
+  </p>
+</div>
 
-### Academic service & outreach
+## Research Interests
 
-- **Program Committee** — [DHOW Workshop @ ACM MM 2025](https://dhow-workshop.github.io/2025/), Dublin, Ireland — Workshop on Diffusion of Harmful Content on Online Web (co-located with ACM Multimedia 2025).
-- **Supervisor** — _Les Cigales_ 2024 & 2025, CIRM / Aix-Marseille University — 5-day residential mathematics school at Luminy campus promoting gender parity in STEM among high-school girls.
-
-### Affiliations
-
-- **SESSTIM / Aix‑Marseille University** (Research Engineer): [Profile](https://sesstim.univ-amu.fr/fr/users/hossam-boudraa)
-- **Tampere University** (Project Researcher, Faculty of Engineering and Natural Sciences): [Profile](https://www.tuni.fi/en/people/hossam-boudraa)
-
-### Profiles
-
-- ORCID: [0009-0005-3815-4480](https://orcid.org/0009-0005-3815-4480)
-- LinkedIn: [hossam-boudraa](https://fr.linkedin.com/in/hossam-boudraa)
+<div class="interest-tags">
+  <span>Information Extraction</span>
+  <span>Sequence Labeling</span>
+  <span>Span Detection</span>
+  <span>Structured Prediction</span>
+  <span>Prompting</span>
+  <span>Few-shot Learning</span>
+  <span>Zero-shot Learning</span>
+  <span>Model Evaluation</span>
+  <span>Harmful Content Detection</span>
+  <span>Biomedical NLP</span>
+  <span>Clinical Text Mining</span>
+  <span>Conversational NLP</span>
+  <span>Common-ground Modeling</span>
+</div>

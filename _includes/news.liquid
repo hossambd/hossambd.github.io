@@ -1,11 +1,5 @@
 <div class="news">
-  {% assign news_docs = null %}
-
-  {% if site.collections and site.collections.news %}
-    {% assign news_docs = site.collections.news.docs %}
-  {% elsif site.news != blank %}
-    {% assign news_docs = site.news %}
-  {% endif %}
+  {% assign news_docs = site.news %}
 
   {% if news_docs and news_docs != empty %}
     {% assign news_size = news_docs | size %}

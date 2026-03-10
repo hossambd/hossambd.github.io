@@ -1,16 +1,16 @@
 # Social links for Hossam Boudraa
 # Displayed in the order defined here.
 
-email: hossam.boudraa@univ-amu.fr
+email: hossam.boudraa@tuni.fi
 github_username: hossambd
 linkedin_username: hossam-boudraa
 orcid_id: 0009-0005-3815-4480
 
 # Work / profile link (briefcase icon)
-work_url: https://sesstim.univ-amu.fr/fr/users/hossam-boudraa
+work_url: https://www.tuni.fi/en/people/hossam-boudraa
 
 # Google Scholar: hidden until you have a confirmed Scholar profile ID.
-# scholar_userid: YOUR_SCHOLAR_ID
+scholar_userid: iTz746oAAAAJ
 
 custom_social:
   logo: assets/img/me.svg

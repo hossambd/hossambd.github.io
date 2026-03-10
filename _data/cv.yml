@@ -4,15 +4,13 @@
     - name: Full Name
       value: Hossam Boudraa
     - name: Email
-      value: hossam.boudraa@univ-amu.fr
+      value: hossam.boudraa@tuni.fi
     - name: LinkedIn
       value: linkedin.com/in/hossam-boudraa
     - name: ORCID
       value: 0009-0005-3815-4480
     - name: Focus
       value: Multilingual NLP, representation learning, LLMs, information extraction
-    - name: Location
-      value: Marseille, France
 
 - title: Education
   type: time_table
@@ -40,8 +38,14 @@
   type: time_table
   contents:
     - title: Research Engineer
+      institution: ATME, Tampere University (Finland)
+      year: December 2025 – Present
+      description:
+        - Conduct research on causal ordering and structural equation modeling for interpretable AI systems.
+        - Design pipelines for constrained equation–variable matching, dependency analysis, and feedback-loop detection in complex systems.
+    - title: Research Engineer
       institution: SESSTIM, Aix‑Marseille University (Marseille, France)
-      year: Nov 2023 – Present
+      year: Nov 2023 – January 2026
       description:
         - Process data from the French National Health Data System (SNDS) for public health projects.
         - Build prediction algorithms and recommendation systems using AI techniques.
@@ -103,13 +107,13 @@
 - title: Teaching
   type: time_table
   contents:
-    - title: Teaching Fellow (part‑time) — Advanced Databases
+    - title: Teaching Fellow — Advanced Databases
       institution: Aix‑Marseille University
       year: Sep 2025 – Dec 2025
-    - title: Teaching Fellow (part‑time) — Post‑Relational Databases
+    - title: Teaching Fellow — Post‑Relational Databases
       institution: Aix‑Marseille University
       year: Sep 2024 – Dec 2024
-    - title: Teaching Fellow (part‑time) — Relational Database Systems
+    - title: Teaching Fellow — Relational Database Systems
       institution: Polytech Marseille
       year: Sep 2024 – Dec 2024
 
@@ -123,6 +127,8 @@
     - name: Spanish
       value: Conversational
     - name: German
+      value: Basics
+    - name: Finnish
       value: Basics
 
 - title: Certifications
