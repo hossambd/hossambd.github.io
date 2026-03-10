@@ -30,9 +30,16 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
+        },{id: "nav-teaching",
+          title: "Teaching",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/teaching/";
+          },
         },{id: "nav-cv",
           title: "CV",
-          description: "My Currilic vitae",
+          description: "My Curriculum Vitaee",
           section: "Navigation",
           handler: () => {
             window.location.href = "/cv/";
@@ -42,6 +49,9 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "news-paper-at-lrec-coling-2024-torino-did-you-get-it-a-zero-shot-approach-to-locate-information-transfers-in-conversations-pdf",
           title: '📄 Paper at LREC‑COLING 2024 (Torino): Did You Get It? A Zero‑Shot Approach...',
+          description: "",
+          section: "News",},{id: "news-member-of-the-coria-taln-2025-organizing-committee-at-marseille-france",
+          title: 'Member of the CORIA-TALN 2025 organizing committee at Marseille, France.',
           description: "",
           section: "News",},{id: "news-supervisor-at-les-cigales-2025-cirm-aix-marseille-university-residential-stem-school-promoting-gender-parity-among-high-school-girls-luminy-campus-marseille",
           title: '🎓 Supervisor at Les Cigales 2025, CIRM / Aix‑Marseille University — residential STEM...',
@@ -75,12 +85,32 @@ ninja.data = [{
           description: "Zero-shot approach to locate information transfers in natural conversations (LREC‑COLING 2024).",
           section: "Projects",handler: () => {
               window.location.href = "/projects/info-transfer/";
+            },},{id: "teaching-post-relational-databases",
+          title: 'Post-Relational Databases',
+          description: "",
+          section: "Teaching",handler: () => {
+              window.location.href = "/teaching/2024-09-01-post-relational-databases/";
+            },},{id: "teaching-relational-database-systems",
+          title: 'Relational Database Systems',
+          description: "",
+          section: "Teaching",handler: () => {
+              window.location.href = "/teaching/2024-09-01-relational-database-systems/";
+            },},{id: "teaching-advanced-databases",
+          title: 'Advanced Databases',
+          description: "",
+          section: "Teaching",handler: () => {
+              window.location.href = "/teaching/2025-09-01-advanced-databases/";
+            },},{id: "teaching-relational-database-systems",
+          title: 'Relational Database Systems',
+          description: "",
+          section: "Teaching",handler: () => {
+              window.location.href = "/teaching/2025-09-01-relational-database-systems/";
             },},{
         id: 'social-email',
         title: 'email',
         section: 'Socials',
         handler: () => {
-          window.open("mailto:%68%6F%73%73%61%6D.%62%6F%75%64%72%61%61@%75%6E%69%76-%61%6D%75.%66%72", "_blank");
+          window.open("mailto:%68%6F%73%73%61%6D.%62%6F%75%64%72%61%61@%74%75%6E%69.%66%69", "_blank");
         },
       },{
         id: 'social-github',
@@ -108,7 +138,14 @@ ninja.data = [{
         title: 'Work',
         section: 'Socials',
         handler: () => {
-          window.open("https://sesstim.univ-amu.fr/fr/users/hossam-boudraa", "_blank");
+          window.open("https://www.tuni.fi/en/people/hossam-boudraa", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=iTz746oAAAAJ", "_blank");
         },
       },{
         id: 'social-custom_social',
